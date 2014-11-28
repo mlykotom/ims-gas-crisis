@@ -1,1 +1,9 @@
 * text=auto !eol
+gasCrisis/gasCrisis.opensdf -text
+gasCrisis/gasCrisis.sdf -text
+gasCrisis/gasCrisis.sln -text
+gasCrisis/gasCrisis.v12.suo -text
+gasCrisis/gasCrisis.vcxproj -text
+gasCrisis/gasCrisis.vcxproj.filters -text
+gasCrisis/main.cpp -text
+materialy/nahrej_tu_uplne_Vsechno.txt -text
