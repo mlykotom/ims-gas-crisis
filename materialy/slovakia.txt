@@ -1,0 +1,70 @@
+/** Ministerstvo hospodarstva SR *************************************/
+
+odberatelov plynu:
+	1.5 miliona 
+
+zasoba na uzemi SR:
+	3.02 mld. m^3 
+
+	maximalny denny vytlacny vykon zo zasobnikov na SR:
+		39 mil m^3 / den 
+
+	maximalny denny vtlacny vykon:
+		31 mil m^3 / den 
+
+zasobnik Dolni Bojanovice na uzemi CR:
+	0.57 mld m^3
+
+	tazobny vykon:
+		8.8 mil m^3 / denne
+
+nudzove prepojenie s madarskom:
+	12 mil m^3 / denne
+
+nudzove prepojenie s ceskom:
+	36 mil m^3 / denne
+
+nudzove prepojenie s rakuskom
+	17 mil m^3 / denne
+
+2012
+	spotreba: 
+		5.2 mld m^3 
+	domaca tazba:
+		93 mil. m^3
+
+
+/*******************************************************************************/
+
+/** PROTIMONOPOLNÝ ÚRAD SLOVENSKEJ REPUBLIKY ***********************************/
+plynovod cez slovensko: 
+	90 mld m^3 / rok
+/********************************************************************************/
+
+/** Gas Imfrastructure Europe: http://www.gie.eu.com/index.php/maps-data ********/
+2013:
+	spotreba:
+		55.061 GWh
+	apr-sep:
+		15.990 GWh
+	oct-mar:
+		32,726 GWh
+
+2012:
+	spotreba:
+		56,970 GWh
+	apr-sep:
+		16.556 GWh
+	oct-mar:
+		42.225 GWh
+
+
+2012:
+	spotreba:
+		56,317 GWh
+	apr-sep:
+		16.575 GWh
+	oct-mar:
+		38.709 GWh
+
+/**********************************************************************************/
