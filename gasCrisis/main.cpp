@@ -1,7 +1,7 @@
 #include <iostream>
 
 int main(){
-	std::cout << "smrdi to strasne" << std::endl;
+	std::cout << "vlado je gay" << std::endl;
 
 	return 0;
 }
