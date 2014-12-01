@@ -1,0 +1,130 @@
+//---------------------------------------------------------------------------
+
+class State
+
+name // CZ
+
+summer // true/false
+
+consS // priemerna spotreba za hodinu v lete
+consW // priemerna spotreba za zimu
+
+capacity // storage kapacita
+maxCapW // maximalny vycuc kapacity
+maxCapI // maximalny vcuc do kapacity
+
+production // pridukcia krajiny
+
+vector<pipeline> out // vector vsetkych pipeline zo statu
+vector<pipeline> in // vector vsetkych pipeline do statu
+
+func addPipeIn // pridanie pipe do statu
+func addPipeOut // pridanie pipe zo statu
+
+func withdrawPipes // ziskanie vsetkeho plynu z trubiek 
+func pushToPipes // poslanie plynu na vsetky pipi
+
+func behavior // zavolane kazdu hodinu
+	// ziskat plyn
+	// poslat plyn
+	// spracovat plyn
+	// ulozit / vytiahnut zo zasob
+	// log
+
+func getName
+func setName
+func getConsS
+func setConsS
+func getCons
+func setSummer // zmeni aj pipes
+func setWinter // zmeni aj pipes
+func getSeason
+func setConsS
+func getConsS
+func setConsW
+func getConsW
+func setCapacity
+func getCapacity
+func setMaxCapW
+func getMaxCapI
+func setProduction
+func getProduction
+
+//---------------------------------------------------------------------------
+
+class Pipe
+
+id // identifikator
+
+summer // true/false
+
+source // zdrojovy stat
+destin // cielovy stat
+
+lenght // v hodinach
+
+streamS // kolko plynu za hodinu v lete
+streamW // kolko plynu za hodinu v zime
+
+vector<streams> // postupne prelievanie plynu v casovych usekoch
+
+func getGas // ziskanie plynu z trubky
+func putGas // nahodenie plynu na trubku (poisonovo rozlozenie), vrati kolko sa nahodilo
+
+func refresh // posun v pipe
+
+func setId
+func getId
+func setSummer
+func setWinter
+func getSeason
+func setSource
+func getSource
+func setDestin
+func getDestin
+func setLenght
+func getLenght
+func setStreamS
+func getStreamS
+func setStreamW
+func getStreamW
+
+//---------------------------------------------------------------------------
+
+class Timer
+
+vector<state> // vsetky staty
+
+startTime // zaciatocny cas
+endTime // konecny cas
+actualTime // atualny cas
+
+func isWinter // zisti ci dany cas je v zimnom obdobi
+
+func start // zacne refreshovat vsetky staty kazdu hodinu
+
+func addSate // prida stat
+func setStartTime
+func getStartTime
+func setEndTime
+func getEndTime
+func getActualTime
+
+//---------------------------------------------------------------------------
+
+class Logger
+
+file // pre std::out => null
+
+vector<stateNames>
+
+func createFlowLog(type(Income/Outcome), kto, komu/odkoho, kolko)
+func createStatLog(type, kto, co)
+
+func showFlowLogs(true/false)
+func showStatLogs(true/fale)
+
+func showFlowType(type, true/false)
+func showStatType(type, true/false)
+
+func showState(state, true/false) 
