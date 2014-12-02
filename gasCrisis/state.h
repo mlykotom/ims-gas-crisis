@@ -13,13 +13,24 @@
 #include "pipe.h"
 #include "logger.h"
 
+class cFakeState;
+
 /* trieda spracuvava argumenty programu */
 class cState
 {
 public:
-	cState(void);
-	cState(const std::string name, double consumSummer, double consumWinter, double storageCapacity, double maxStorageWithdraw, double maxStorageInject, double production);
-	~cState(void);
+	cState(const std::string name, cLogger &logger, double consumSummer, double consumWinter, double storageCapacity, double maxStorWith, double maxStorStore, double production):
+		mName(name), 
+		mLogger(logger),
+		mConsumSummer(consumSummer), 
+		mConsumWinter(consumWinter), 
+		mStorageCapacity(storageCapacity), 
+		mStorageMaxWithdraw(maxStorWith), 
+		mStorageMaxStore(maxStorStore),
+		mProduction(production)
+	{}
+
+	virtual ~cState(void){}
 
 private:
 	std::string mName;
@@ -33,8 +44,8 @@ private:
 	double mConsumWinter;
 
 	double mStorageCapacity;
-	double mMaxStorageWithdraw;
-	double mMaxStorageInject;
+	double mStorageMaxWithdraw;
+	double mStorageMaxStore;
 
 	double mProduction;
 
@@ -46,20 +57,38 @@ public:
 
 	void behaviour(void);
 
-	std::string getName(void);
+	std::string getName(void){ return mName; }
+	double getConsumSummer(void) { return mConsumSummer; }
+	double getConsumWinter(void) { return mConsumWinter; }
+	
+	double getStorageCapacity(void) { return mStorageCapacity; }
+	double getStorageMaxWithdraw(void) { return mStorageMaxWithdraw; }
+	double getStorageMaxStore(void) { return mStorageMaxStore; }
+	double getProduction(void) { return mProduction; }
 
 	void setLogger(const cLogger logger);
-	void setName(const std::string& Name);
-	void setConsumSummer(double consumption);
-	void setConsumWinter(double consumption);
-	void setStorageCapacity(double capacity);
-	void setMaxStorageWithDraw(double withdraw);
-	void setMaxStorageInject(double inject);
-	void setProduction(double production);
-	void setSummer(void);
-	void setWinter(void);
+
+	virtual bool isFake(void){ return false; }
+
+	void printInfo(){
+		std::cout << this->getName() << std::endl;
+		std::cout << this->getConsumSummer() << "|" << this->getConsumWinter() << std::endl;
+		std::cout << this->getStorageCapacity() << "|" << this->getStorageMaxWithdraw() << "|" << this->getStorageMaxStore() << std::endl;
+		std::cout << this->getProduction() << std::endl;
+		std::cout << "----------" << std::endl;
+	}
 
 private:
 	double getGasFromPipes(void);
 	double pushGasIntoPipes(void);
+};
+
+
+class cFakeState : public cState{
+public:
+	cFakeState(const std::string name, cLogger &logger, double cSumm, double cWint, double storCap, double maxStorWith, double maxStorStore, double production) : cState(name, logger, cSumm, cWint, storCap, maxStorWith, maxStorStore, production){}
+
+	~cFakeState(){}
+
+	bool isFake(void){ return true; }
 };

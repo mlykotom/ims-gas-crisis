@@ -16,42 +16,49 @@
 	"Countries" : [
 		{
 			"name" : "CZ",
-			"consumptSumm": 150,
-			"consumptWint": 200,
+            "production":  500.12,
+			"consumptSumm": 150.23,
+			"consumptWint": 200.15,
 			"storageCapacity": 200,
-			"maxCapacityUp": 100,
-			"maxCapacityDown": 200
+			"storageMaxWithdraw": 100,
+            "storageMaxStore": 200
 		},
         {
             "name": "SK",
+            "production":  750,
             "consumptSumm": 2850,
             "consumptWint": 2000,
 			"storageCapacity": 200,
-			"maxCapacityUp": 100,
-			"maxCapacityDown": 200            
+			"storageMaxWithdraw": 100,
+            "storageMaxStore": 200
         },
         {
             "name": "UA",
+            "production":  120,
             "consumptSumm": 28500,
             "consumptWint": 20000,
 			"storageCapacity": 200,
-			"maxCapacityUp": 100,
-			"maxCapacityDown": 200            
+			"storageMaxWithdraw": 100,
+            "storageMaxStore": 200
         },
 		{
-			"name" : "TEST",
+            "name": "TEST",
+            "production":  0,
+            "fake":  true,
 			"consumptSumm": 28500,
 			"consumptWint": 20000,
 			"storageCapacity": 200,
-			"maxCapacityUp": 100,
-			"maxCapacityDown": 200			
+			"storageMaxWithdraw": 100,
+            "storageMaxStore": 200
 		}	        	
 	],
 
 	"Pipes": [
-	 	{
- 			"from": "CZ",
- 			"to": "SK"
-	 	}
+        {
+            "from": "CZ",
+            "to": "SK",
+            "flowSummer":  150
+        }
+
 	]
 }

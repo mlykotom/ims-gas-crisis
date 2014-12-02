@@ -11,8 +11,8 @@
 class cLogger
 {
 public:
-	cLogger(void);
-	~cLogger(void);
+	//cLogger(void);
+	//~cLogger(void);
 
 private:
 	std::string mFile;

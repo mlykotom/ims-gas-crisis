@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="gasCrisis\gas.cpp" />
     <ClCompile Include="gasCrisis\json.cpp" />
+    <ClCompile Include="gasCrisis\pipe.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gasCrisis\consts.h" />

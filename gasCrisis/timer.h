@@ -6,6 +6,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include "consts.h"
 #include "date_time.h"
 #include "state.h"
@@ -21,12 +22,14 @@ public:
 
 	~cTimer(void)
 	{
-		for (int i = 0; i < mStates.size(); ++i)
-			delete mStates[i];
+		for (auto st : mStates){
+			delete st.second;
+		}
+		mStates.clear();
 	}
 
 private:
-	std::vector<cState *> mStates;
+	std::map<std::string, cState *> mStates;
 
 	bool mSummer;
 
@@ -37,8 +40,12 @@ private:
 public:
 	void start(void);
 
-	void addState(cState *state)
-	{
-		this->mStates.push_back(state);
+	void addState(cState *state){
+		if (this->mStates.find(state->getName()) != this->mStates.end()) throw PrgException(consts::E_CFG_DUPLICATE_STATES);
+		this->mStates[state->getName()] = state;
+	}
+
+	std::map<std::string, cState *> getStates(){
+		return this->mStates;
 	}
 };
