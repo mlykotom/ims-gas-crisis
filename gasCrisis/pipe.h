@@ -5,7 +5,7 @@
 #pragma once
 
 #include <string>
-#include <vector>
+#include <deque>
 #include <random>
 
 class cPipe
@@ -30,7 +30,7 @@ private:
 	double mFlowSummer;
 	double mFlowWinter;
 
-	std::vector<double> mFlows;
+	std::deque<double> mFlows;
 
 public:
 	double getGas(void);
@@ -38,12 +38,6 @@ public:
 
 	unsigned getId(void);
 
-	void setId(unsigned id);
-	void setSource(const std::string& source);
-	void setDestination(const std::string& destination);
-	void setLenght(unsigned lenght);
-	void setFlowSummer(double flow);
-	void setFlowWinter(double flow);
 	void setSummer(void);
 	void setWinter(void);
 };
