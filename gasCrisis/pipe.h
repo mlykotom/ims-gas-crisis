@@ -6,16 +6,19 @@
 
 #include <string>
 #include <vector>
+#include <random>
 
 class cPipe
 {
 public:
-	cPipe(void);
 	cPipe(unsigned id, const std::string& source, const std::string& destination, unsigned lenght, double flowSummer, double flowWinter);
 	~cPipe(void);
 
 private:
 	unsigned mId;
+
+	std::default_random_engine* mGenerator;
+	std::poisson_distribution<double>* mDistribution;
 
 	bool mSummer;
 

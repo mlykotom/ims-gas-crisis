@@ -26,8 +26,11 @@ public:
 	unsigned getDay() { return this->mDay; }
 	unsigned getHour(){ return this->mHour; }
 
-
 	void addHour();
 
+	bool equal(cDateTime& date);
+	bool isSummer(void);
 
+private:
+	unsigned getMonthLenght(void);
 };
