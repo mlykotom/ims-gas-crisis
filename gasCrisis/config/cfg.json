@@ -57,9 +57,17 @@
         {
             "from": "CZ",
             "to": "SK",
-            "length":  5,
+            "length": 5,
             "flowSummer": 15.0,
             "flowWinter": 20.3
+        },
+
+        {
+            "from": "SK",
+            "to": "CZ",
+            "length":  100,
+            "flowSummer": 11.3,
+            "flowWinter": 19.3
         }
 
 	]

@@ -64,7 +64,10 @@ public:
 
 	virtual bool isFake(void){ return false; }
 
-	void printInfo();	
+	void printInfo();
+
+	std::vector<cPipe *> getAllPipesIn(){ return this->mPipesIn; }
+	std::vector<cPipe *> getAllPipesOut(){ return this->mPipesOut; }
 
 private:
 	double getGasFromPipes(void);

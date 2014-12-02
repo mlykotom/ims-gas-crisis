@@ -40,4 +40,8 @@ public:
 
 	void setSummer(void);
 	void setWinter(void);
+
+	unsigned getLength()		 { return mLenght; }
+	unsigned getFlowSummer() { return mFlowSummer; }
+	unsigned getFlowWinter() { return mFlowWinter; }
 };
