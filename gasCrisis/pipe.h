@@ -18,12 +18,12 @@ private:
 	unsigned mId;
 
 	std::default_random_engine* mGenerator;
-	std::poisson_distribution<double>* mDistribution;
+	//std::poisson_distribution<double>* mDistribution;
 
 	bool mSummer;
 
 	std::string mSource;
-	std::string mDestionation;
+	std::string mDestination;
 
 	unsigned mLenght;
 

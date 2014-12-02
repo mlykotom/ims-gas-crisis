@@ -40,28 +40,45 @@ cTimer * ParseConfig(std::string fileName, cLogger &logger){
 	// vytvoreni + alokovani timeru
 	cTimer *timer = new cTimer(dateStart["year"].ToInt(), dateStart["month"].ToInt(), dateStart["day"].ToInt(), dateEnd["year"].ToInt(), dateEnd["month"].ToInt(), dateEnd["day"].ToInt());
 
+	// -------------------------------------------------------
 	// --------------------------- nacteni statu
-	json::Array states = objMain["Countries"].ToArray();
+	// -------------------------------------------------------
+	json::Array states = objMain["Countries"].ToArray(); // TODO nejake osetreni pole?
 	// TODO - nemely by v configu byt alespon nejake staty?
-	for (auto par : states){
-		if (par.HasKeys(consts::cfgStateParams) != -1) throw PrgException(consts::E_CFG_STATE_MISSING_PARAM);
+	for (auto st : states){
+		if (st.HasKeys(consts::cfgStateParams) != -1) throw PrgException(consts::E_CFG_STATE_MISSING_PARAM);
 		cState *country;
 
 		// vytvoreni fake statu pokud je nastaven parametr
-		if (par["fake"].GetType() == json::BoolVal && par["fake"].ToBool() == true){
-			country = new cFakeState(par["name"].ToString(), logger, par["consumptSumm"].ToDouble(), par["consumptWint"].ToDouble(), par["storageCapacity"].ToDouble(), par["storageMaxWithdraw"].ToDouble(), par["storageMaxStore"].ToDouble(), par["production"].ToDouble());
+		if (st["fake"].GetType() == json::BoolVal && st["fake"].ToBool() == true){
+			country = new cFakeState(st["name"].ToString(), logger, st["consumptSumm"].ToDouble(), st["consumptWint"].ToDouble(), st["storageCapacity"].ToDouble(), st["storageMaxWithdraw"].ToDouble(), st["storageMaxStore"].ToDouble(), st["production"].ToDouble());
 		}
 		// jinak vytvori normalni stat
 		else{
-			country = new cState(par["name"].ToString(), logger, par["consumptSumm"].ToDouble(), par["consumptWint"].ToDouble(), par["storageCapacity"].ToDouble(), par["storageMaxWithdraw"].ToDouble(), par["storageMaxStore"].ToDouble(), par["production"].ToDouble());
+			country = new cState(st["name"].ToString(), logger, st["consumptSumm"].ToDouble(), st["consumptWint"].ToDouble(), st["storageCapacity"].ToDouble(), st["storageMaxWithdraw"].ToDouble(), st["storageMaxStore"].ToDouble(), st["production"].ToDouble());
 		}
 		
 		// prida stat do timeru
 		timer->addState(country);
 	}
 
+	// -------------------------------------------------------
 	// --------------------------- nacteni potrubi
+	// -------------------------------------------------------
+	json::Array pipes = objMain["Pipes"].ToArray(); // TODO nejake osetreni pole?
+	for (auto p : pipes){
+		if (p.HasKeys(consts::cfgPipeParams) != -1) throw PrgException(consts::E_CFG_PIPE_MISSING_PARAM);
 
+		cState *stateFrom = timer->getState(p["from"].ToString());
+		cState *stateTo = timer->getState(p["to"].ToString());
+		
+		// kontrola zda oba staty existuji
+		if (stateFrom == nullptr || stateTo == nullptr) throw PrgException(consts::E_CFG_PIPE_MISSING_STATE);
+
+		cPipe *pipe = new cPipe(5, stateFrom->getName(), stateTo->getName(), (unsigned)p["length"].ToInt(), p["flowSummer"].ToDouble(), p["flowWinter"].ToDouble());
+		stateFrom->addPipelineOut(pipe);
+		stateTo->addPipelineIn(pipe);
+	}
 
 	return timer;
 }
@@ -86,7 +103,7 @@ int main(int argc, char * argv[]) {
 		// ------------ overeni + parsovani configu
 		cTimer *timer = ParseConfig(fileName, logger);
 
-		for (auto par : timer->getStates()){
+		for (auto par : timer->getAllStates()){
 			par.second->printInfo();
 		}
 

@@ -45,7 +45,17 @@ public:
 		this->mStates[state->getName()] = state;
 	}
 
-	std::map<std::string, cState *> getStates(){
+
+	std::map<std::string, cState *> getAllStates(){
 		return this->mStates;
 	}
+
+	cState *getState(const std::string name) try{
+		return this->getAllStates().at(name);
+	}
+	catch (std::out_of_range){
+		return nullptr;
+	}
+
+
 };

@@ -1,14 +1,8 @@
-﻿/*
-**	ISA - Síťové aplikace a správa sítí
-**	Projekt: XMPP/Jabber klient
-**	Autor: Jakub Tutko, xtutko00@stud.fit.vutbr.cz
-**	Rok: 2014/2015
-**/
-
-#pragma once
+﻿#pragma once
 
 #include <string>
 #include <vector>
+#include <iostream> // pro printInfo
 
 #include "pipe.h"
 #include "logger.h"
@@ -52,31 +46,25 @@ private:
 	bool mSummer;
 
 public:
-	void addPipelineIn(const cPipe& pipe);
-	void addPipelineOut(const cPipe& pipe);
+	void addPipelineIn(cPipe* pipe);
+	void addPipelineOut(cPipe* pipe);
 
 	void behaviour(void);
 
-	std::string getName(void){ return mName; }
-	double getConsumSummer(void) { return mConsumSummer; }
-	double getConsumWinter(void) { return mConsumWinter; }
+	std::string getName(void)				{ return mName; }
+	double getConsumSummer(void)			{ return mConsumSummer; }
+	double getConsumWinter(void)			{ return mConsumWinter; }
 	
-	double getStorageCapacity(void) { return mStorageCapacity; }
-	double getStorageMaxWithdraw(void) { return mStorageMaxWithdraw; }
-	double getStorageMaxStore(void) { return mStorageMaxStore; }
-	double getProduction(void) { return mProduction; }
+	double getStorageCapacity(void)		{ return mStorageCapacity; }
+	double getStorageMaxWithdraw(void)	{ return mStorageMaxWithdraw; }
+	double getStorageMaxStore(void)		{ return mStorageMaxStore; }
+	double getProduction(void)				{ return mProduction; }
 
 	void setLogger(const cLogger logger);
 
 	virtual bool isFake(void){ return false; }
 
-	void printInfo(){
-		std::cout << this->getName() << std::endl;
-		std::cout << this->getConsumSummer() << "|" << this->getConsumWinter() << std::endl;
-		std::cout << this->getStorageCapacity() << "|" << this->getStorageMaxWithdraw() << "|" << this->getStorageMaxStore() << std::endl;
-		std::cout << this->getProduction() << std::endl;
-		std::cout << "----------" << std::endl;
-	}
+	void printInfo();	
 
 private:
 	double getGasFromPipes(void);
@@ -86,7 +74,8 @@ private:
 
 class cFakeState : public cState{
 public:
-	cFakeState(const std::string name, cLogger &logger, double cSumm, double cWint, double storCap, double maxStorWith, double maxStorStore, double production) : cState(name, logger, cSumm, cWint, storCap, maxStorWith, maxStorStore, production){}
+	cFakeState(const std::string name, cLogger &logger, double cSumm, double cWint, double storCap, double maxStorWith, double maxStorStore, double production) : 
+		cState(name, logger, cSumm, cWint, storCap, maxStorWith, maxStorStore, production){}
 
 	~cFakeState(){}
 

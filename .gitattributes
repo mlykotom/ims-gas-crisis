@@ -15,6 +15,7 @@ gasCrisis/json.h -text
 gasCrisis/logger.h -text
 gasCrisis/pipe.cpp -text
 gasCrisis/pipe.h -text
+gasCrisis/state.cpp -text
 gasCrisis/state.h -text
 gasCrisis/timer.cpp -text
 gasCrisis/timer.h -text

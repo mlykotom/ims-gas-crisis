@@ -14,6 +14,7 @@
     <ClCompile Include="gasCrisis\gas.cpp" />
     <ClCompile Include="gasCrisis\json.cpp" />
     <ClCompile Include="gasCrisis\pipe.cpp" />
+    <ClCompile Include="gasCrisis\state.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gasCrisis\consts.h" />
