@@ -1,8 +1,5 @@
 #pragma once
 
-#include "consts.h"
-
-
 class cDateTime{
 public:
 	cDateTime() :mYear(0), mMonth(0), mDay(0), mHour(0){}

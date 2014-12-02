@@ -25,6 +25,7 @@ namespace consts{
 
 		E_CFG_TIMER_MISSING_PARAM,
 		E_CFG_STATE_MISSING_PARAM,
+		E_CFG_STORAGE_MISMATCH,
 
 		E_CFG_DUPLICATE_STATES,
 		E_CFG_PIPE_MISSING_PARAM,
@@ -36,7 +37,7 @@ namespace consts{
 	// povinne parametry v timeru (dateStart / dateEnd)
 	const std::vector<std::string> cfgDateParams = { "year", "month", "day" };
 	// povinne parametry statu
-	const std::vector<std::string> cfgStateParams = { "name", "production", "consumptSumm", "consumptWint", "storageCapacity", "storageMaxWithdraw", "storageMaxStore" };
+	const std::vector<std::string> cfgStateParams = { "name", "production", "consumptSumm", "consumptWint", "storageDefaultValue", "storageCapacity", "storageMaxWithdraw", "storageMaxStore" };
 	// povinne parametry potrubi
 	const std::vector<std::string> cfgPipeParams = { "from", "to", "length", "flowSummer", "flowWinter" };
 
@@ -46,14 +47,16 @@ namespace consts{
 		{ E_UNKNOWN_EXCEPTION, 			"Vyskytl se neznamy problem" },
 
 		{ E_PRG_PARAMS, 					"Program prijima max 1 parametr" },
-		{ E_CFG_FILE_OPEN, 				"Nelze otevrit konfiguracni soubor" },
-		{ E_CFG_FILE_FORMAT, 			"Konfiguracni soubor je ve spatnem JSON formatu" },
-		{ E_CFG_SECTION, 					"Chybi pozadovana sekce konfiguracniho souboru" },
+		{ E_CFG_FILE_OPEN, 				"Nelze otevrit CONFIG" },
+		{ E_CFG_FILE_FORMAT, 			"CONFIG je ve spatnem JSON formatu" },
+		{ E_CFG_SECTION, 					"Chybi pozadovana sekce CONFIGU" },
 
 		{ E_CFG_TIMER_MISSING_PARAM,	"Chybejici parametr v sekci Timer" },
 		{ E_CFG_STATE_MISSING_PARAM,	"Chybejici parametr v sekci daneho statu" },
 
-		{ E_CFG_DUPLICATE_STATES,		"V konfiguracnim souboru je vice statu se stejnym nazvem" },
+		{ E_CFG_DUPLICATE_STATES,		"V CONFIGU je vice statu se stejnym nazvem" },
+
+		{ E_CFG_STORAGE_MISMATCH,		"V CONFIGU je u statu mensi kapacita skladu nez vychozi hodnota" },
 
 		{ E_CFG_PIPE_MISSING_PARAM,	"Chybejici parametr u potrubi" },
 		{ E_CFG_PIPE_MISSING_STATE,	"Chybi stat, pro ktery je vytvoreno potrubi" },

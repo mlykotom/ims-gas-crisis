@@ -18,9 +18,8 @@ all: $(PROG)
 #$(PROG): json.o	$(PROG).$(SUFF) $(PROG).$(SUFF)
 #	$(CPP) $(CPPFLAGS) -o $@ $(PROG).$(SUFF)
 
-$(PROG): gas.o pipe.o state.o json.o
-	$(CPP) $(CPPFLAGS) gas.o pipe.o state.o json.o -o $@
-
+$(PROG): gas.o date_time.o timer.o pipe.o state.o json.o
+	$(CPP) $(CPPFLAGS) gas.o date_time.o timer.o pipe.o state.o json.o -o $@
 
 gas.o: gas.cpp
 	$(CPP) $(CPPFLAGS) -c gas.cpp -o $@
@@ -34,10 +33,15 @@ pipe.o: pipe.cpp pipe.h
 json.o: json.cpp json.h
 	$(CPP) $(CPPFLAGS) -c json.cpp -o $@
 
+timer.o: timer.cpp timer.h
+	$(CPP) $(CPPFLAGS) -c timer.cpp -o $@
+	
+date_time.o: date_time.cpp date_time.h
+	$(CPP) $(CPPFLAGS) -c date_time.cpp -o $@
 
 rebuild: clean all
 
-
+run: ./$(PROG)$(PROGSUFF)
 
 clean:
 	$(RMPR) *.o *.out $(PROG)$(PROGSUFF)

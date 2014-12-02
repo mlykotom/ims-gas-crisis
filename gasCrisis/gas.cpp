@@ -49,13 +49,15 @@ cTimer * ParseConfig(std::string fileName, cLogger &logger){
 		if (st.HasKeys(consts::cfgStateParams) != -1) throw PrgException(consts::E_CFG_STATE_MISSING_PARAM);
 		cState *country;
 
+		if (st["storageDefaultValue"].ToDouble() > st["storageCapacity"].ToDouble()) throw PrgException(consts::E_CFG_STORAGE_MISMATCH);
+
 		// vytvoreni fake statu pokud je nastaven parametr
 		if (st["fake"].GetType() == json::BoolVal && st["fake"].ToBool() == true){
-			country = new cFakeState(st["name"].ToString(), logger, st["consumptSumm"].ToDouble(), st["consumptWint"].ToDouble(), st["storageCapacity"].ToDouble(), st["storageMaxWithdraw"].ToDouble(), st["storageMaxStore"].ToDouble(), st["production"].ToDouble());
+			country = new cFakeState(st["name"].ToString(), logger, st["consumptSumm"].ToDouble(), st["consumptWint"].ToDouble(), st["storageDefaultValue"].ToDouble(), st["storageCapacity"].ToDouble(), st["storageMaxWithdraw"].ToDouble(), st["storageMaxStore"].ToDouble(), st["production"].ToDouble());
 		}
 		// jinak vytvori normalni stat
 		else{
-			country = new cState(st["name"].ToString(), logger, st["consumptSumm"].ToDouble(), st["consumptWint"].ToDouble(), st["storageCapacity"].ToDouble(), st["storageMaxWithdraw"].ToDouble(), st["storageMaxStore"].ToDouble(), st["production"].ToDouble());
+			country = new cState(st["name"].ToString(), logger, st["consumptSumm"].ToDouble(), st["consumptWint"].ToDouble(), st["storageDefaultValue"].ToDouble(), st["storageCapacity"].ToDouble(), st["storageMaxWithdraw"].ToDouble(), st["storageMaxStore"].ToDouble(), st["production"].ToDouble());
 		}
 		
 		// prida stat do timeru

@@ -13,7 +13,7 @@ class cFakeState;
 class cState
 {
 public:
-	cState(const std::string name, cLogger &logger, double consumSummer, double consumWinter, double storageCapacity, double maxStorWith, double maxStorStore, double production);
+	cState(const std::string name, cLogger &logger, double consumSummer, double consumWinter, double storageDefaultValue, double storageCapacity, double maxStorWith, double maxStorStore, double production);
 	virtual ~cState(void);
 
 private:
@@ -74,7 +74,7 @@ protected:
 
 class cFakeState : public cState{
 public:
-	cFakeState(const std::string name, cLogger &logger, double cSumm, double cWint, double storCap, double maxStorWith, double maxStorStore, double production);
+	cFakeState(const std::string name, cLogger &logger, double cSumm, double cWint, double storDefVal, double storCap, double maxStorWith, double maxStorStore, double production);
 	~cFakeState();
 
 	void behaviour(void);

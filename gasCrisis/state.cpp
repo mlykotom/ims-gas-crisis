@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------------------
 // class cState
 //----------------------------------------------------------------------------------------
-cState::cState(const std::string name, cLogger &logger, double consumSummer, double consumWinter, double storageCapacity, double maxStorWith, double maxStorStore, double production) :
+cState::cState(const std::string name, cLogger &logger, double consumSummer, double consumWinter, double storageDefaultValue, double storageCapacity, double maxStorWith, double maxStorStore, double production):
 mName(name),
 mLogger(logger),
 mConsumSummer(consumSummer),
@@ -11,6 +11,7 @@ mConsumWinter(consumWinter),
 mStorageCapacity(storageCapacity),
 mStorageMaxWithdraw(maxStorWith),
 mStorageMaxStore(maxStorStore),
+mStorageStat(storageDefaultValue),
 mProduction(production)
 {
 	if (mProduction > 0)
@@ -105,13 +106,11 @@ void cState::behaviour(void)
 		// celkovy zisk statu
 		overflow += amount;
 
-		std::cout << " overflow: " << overflow << std::endl;
+		std::cout << " overflow: " << overflow;
 	}
 	else if (amount < 0)
 	{
 		double deficit = 0;
-
-		amount *= -1;
 
 		// orezanie kolko sa maximalne da ziskat za hodinu zo zasobniku
 		if (amount > mStorageMaxWithdraw)
@@ -136,9 +135,10 @@ void cState::behaviour(void)
 		// celkovy deficit zo dna
 		deficit += amount;
 
-		std::cout << " deficit: " << deficit << std::endl;
+		std::cout << " deficit: " << deficit;
 	}
 
+	std::cout << " storage: " << mStorageStat << std::endl;
 }
 //----------------------------------------------------------------------------------------
 double cState::getGasFromPipes(void)
@@ -235,8 +235,8 @@ void cState::setWinter(void)
 //----------------------------------------------------------------------------------------
 // class cFakeState
 //----------------------------------------------------------------------------------------
-cFakeState::cFakeState(const std::string name, cLogger &logger, double cSumm, double cWint, double storCap, double maxStorWith, double maxStorStore, double production) :
-cState(name, logger, cSumm, cWint, storCap, maxStorWith, maxStorStore, production)
+cFakeState::cFakeState(const std::string name, cLogger &logger, double cSumm, double cWint, double storDefVal, double storCap, double maxStorWith, double maxStorStore, double production):
+cState(name, logger, cSumm, cWint, storDefVal, storCap, maxStorWith, maxStorStore, production)
 {
 	// EMPTY
 }

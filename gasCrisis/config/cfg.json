@@ -1,9 +1,9 @@
 {
     "Timer": {
         "dateStart": {
-            "year": 2010,
+            "year": 2014,
             "month": 12,
-            "day": 31
+            "day": 30
         },
 
         "dateEnd": {
@@ -19,7 +19,8 @@
             "production":  500.12,
 			"consumptSumm": 150.23,
 			"consumptWint": 200.15,
-			"storageCapacity": 200,
+			"storageDefaultValue":  999,
+            "storageCapacity": 400000000,
 			"storageMaxWithdraw": 100,
             "storageMaxStore": 200
 		},
@@ -28,7 +29,8 @@
             "production":  750,
             "consumptSumm": 2850,
             "consumptWint": 2000,
-			"storageCapacity": 200,
+			"storageDefaultValue":  999,
+			"storageCapacity": 31500000,
 			"storageMaxWithdraw": 100,
             "storageMaxStore": 200
         },
@@ -37,7 +39,8 @@
             "production":  120,
             "consumptSumm": 28500,
             "consumptWint": 20000,
-			"storageCapacity": 200,
+			"storageDefaultValue":  999,
+			"storageCapacity": 800000000,
 			"storageMaxWithdraw": 100,
             "storageMaxStore": 200
         },
@@ -46,8 +49,9 @@
             "production":  0,
             "fake":  true,
 			"consumptSumm": 28500,
-			"consumptWint": 20000,
-			"storageCapacity": 200,
+            "consumptWint": 20000,
+			"storageDefaultValue":  999,
+			"storageCapacity": 999999999,
 			"storageMaxWithdraw": 100,
             "storageMaxStore": 200
 		}	        	
