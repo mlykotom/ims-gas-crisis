@@ -22,6 +22,7 @@ namespace consts{
 		E_CFG_FILE_FORMAT,
 		E_CFG_SECTION,
 		E_CFG_MISSING_PARAM,
+		E_CFG_WRONG_PARAM,
 	};
 
 	// chybove hlasky programu
@@ -34,6 +35,7 @@ namespace consts{
 		{ E_CFG_FILE_FORMAT, 			"Konfiguracni soubor je ve spatnem JSON formatu" },
 		{ E_CFG_SECTION, 					"Chybejici pozadovana sekce konfiguracniho souboru" },
 		{ E_CFG_MISSING_PARAM,			"Chybejici parametr v dane sekci" },
+		{ E_CFG_WRONG_PARAM,				"Ocekavan jiny parametr v dane sekci" },
 	};
 }
 

@@ -8,6 +8,7 @@
 #include "consts.h"
 #include "errors.h"
 #include "inout.h"
+#include "date_time.h"
 #include "timer.h"
 
 
@@ -37,12 +38,18 @@ int main(int argc, char * argv[]) {
 		json::Value valTimer = objMain["Timer"];
 		if (valTimer.GetType() != json::ObjectVal) throw PrgException(consts::E_CFG_SECTION);
 
-		if (valTimer["dateTimeStart"].GetType() == json::NULLVal || valTimer["dateTimeEnd"].GetType() == json::NULLVal) throw PrgException(consts::E_CFG_MISSING_PARAM);
 
-		// inicializace timeru
-		cTimer timer((unsigned) valTimer["dateTimeStart"].ToInt(), (unsigned) valTimer["dateTimeEnd"].ToInt());
+		json::Value dateStart = valTimer["dateStart"];
+		json::Value dateEnd = valTimer["dateEnd"];
 
+		// overeni zda je dateTimeStart/End objekt
+		if (dateStart.GetType() != json::ObjectVal || dateEnd.GetType() != json::ObjectVal) throw PrgException(consts::E_CFG_MISSING_PARAM);
 		
+		cTimer timer(dateStart["year"].ToInt(), dateStart["month"].ToInt(), dateStart["day"].ToInt(), dateEnd["year"].ToInt(), dateEnd["month"].ToInt(), dateEnd["day"].ToInt());
+
+		std::cout << timer.getActualTime().getYear() << std::endl;
+
+				
 		json::Array staty = objMain["Countries"].ToArray();
 
 		for (auto par : staty){

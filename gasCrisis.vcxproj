@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gasCrisis\consts.h" />
+    <ClInclude Include="gasCrisis\date_time.h" />
     <ClInclude Include="gasCrisis\errors.h" />
     <ClInclude Include="gasCrisis\inout.h" />
     <ClInclude Include="gasCrisis\json.h" />

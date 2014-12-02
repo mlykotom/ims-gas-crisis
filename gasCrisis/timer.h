@@ -6,19 +6,23 @@
 
 #include <string>
 #include <vector>
+#include "consts.h"
+#include "date_time.h"
 #include "state.h"
 
 class cTimer
 {
 public:
-	cTimer(unsigned startTime, unsigned endTime) : mStartTime(startTime), mEndTime(endTime) {}
+	cTimer(int startY, int startM, int startD, int endY, int endM, int endD):
+		mStartTime(startY, startM, startD), mEndTime(endY, endM, endD)
+	{}
 
 private:
 	std::vector<cState *> mStates;
 
-	unsigned mStartTime;
-	unsigned mEndTime;
-	unsigned mActualTime;
+	cDateTime mStartTime;
+	cDateTime mEndTime;
+	cDateTime mActualTime;
 
 public:
 	void start(void);
@@ -28,5 +32,6 @@ public:
 	void setStartTime(unsigned time);
 	void setEndTime(unsigned time);
 
-	unsigned getActualTime(void);
+	// TODO zmenit na actualTime
+	cDateTime getActualTime(void){ return mStartTime; }
 };
