@@ -107,6 +107,8 @@ int main(int argc, char * argv[]) {
 			par.second->printInfo();
 		}
 
+		timer->start();
+
 	}
 	catch (std::runtime_error &rExc){
 		// todo nejak lepe osefovat hlasky z json parseru?

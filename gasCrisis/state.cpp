@@ -194,7 +194,7 @@ void cState::setSummer(void)
 	if (mConsumSummer > 0)
 	{
 		std::poisson_distribution<int> tmpCons(mConsumSummer);
-		mDistributionProduction = tmpCons;
+		mDistributionConsumption = tmpCons;
 	}
 
 	for (unsigned i = 0; i < mPipesIn.size(); i++)
@@ -215,7 +215,7 @@ void cState::setWinter(void)
 	if (mConsumWinter > 0)
 	{
 		std::poisson_distribution<int> tmpCons(mConsumWinter);
-		mDistributionProduction = tmpCons;
+		mDistributionConsumption = tmpCons;
 	}
 
 	for (unsigned i = 0; i < mPipesIn.size(); i++)
