@@ -16,6 +16,12 @@
   <ItemGroup>
     <None Include="gasCrisis\cfg.json" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="gasCrisis\logger.h" />
+    <ClInclude Include="gasCrisis\pipe.h" />
+    <ClInclude Include="gasCrisis\state.h" />
+    <ClInclude Include="gasCrisis\timer.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4A7DA5D6-08AA-4A98-B48B-028799538310}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

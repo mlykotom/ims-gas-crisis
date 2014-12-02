@@ -7,6 +7,10 @@
 gasCrisis/Makefile -text
 gasCrisis/cfg.json -text
 gasCrisis/gas.cpp -text
+gasCrisis/logger.h -text
+gasCrisis/pipe.h -text
+gasCrisis/state.h -text
+gasCrisis/timer.h -text
 materialy/classes.txt -text
 materialy/data_entsog/au_hu.xlsx -text
 materialy/data_entsog/by_pl_1.xlsx -text
