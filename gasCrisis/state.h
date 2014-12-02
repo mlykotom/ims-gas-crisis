@@ -24,6 +24,8 @@ private:
 
 	cLogger mLogger;
 
+	bool mSummer;
+
 	std::default_random_engine mGenerator;
 	std::poisson_distribution<int> mDistributionProduction;
 	std::poisson_distribution<int> mDistributionConsumption;

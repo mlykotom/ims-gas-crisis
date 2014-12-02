@@ -13,8 +13,11 @@ mStorageMaxWithdraw(maxStorWith),
 mStorageMaxStore(maxStorStore),
 mProduction(production)
 {
-	std::poisson_distribution<int> tmpPro(mProduction);
-	mDistributionProduction = tmpPro;
+	if (mProduction > 0)
+	{
+		std::poisson_distribution<int> tmpPro(mProduction);
+		mDistributionProduction = tmpPro;
+	}
 }
 //----------------------------------------------------------------------------------------
 cState::~cState(void)
@@ -162,24 +165,48 @@ double cState::pushGasIntoPipes(void)
 //----------------------------------------------------------------------------------------
 double cState::product(void)
 {
-	return mDistributionProduction(mGenerator);
+	if (mProduction > 0)
+	{
+		return mDistributionProduction(mGenerator);
+	}
+	else
+	{
+		return 0;
+	}
 }
 //----------------------------------------------------------------------------------------
 double cState::consum(void)
 {
-	return mDistributionConsumption(mGenerator);
+	if ((mSummer && (mConsumSummer > 0)) || (!mSummer && (mConsumWinter > 0)))
+	{
+		return mDistributionConsumption(mGenerator);
+	}
+	else
+	{
+		return 0;
+	}
 }
 //----------------------------------------------------------------------------------------
 void cState::setSummer(void)
 {
-	std::poisson_distribution<int> tmpCons(mConsumSummer);
-	mDistributionProduction = tmpCons;
+	mSummer = true;
+
+	if (mConsumSummer > 0)
+	{
+		std::poisson_distribution<int> tmpCons(mConsumSummer);
+		mDistributionProduction = tmpCons;
+	}
 }
 //----------------------------------------------------------------------------------------
 void cState::setWinter(void)
 {
-	std::poisson_distribution<int> tmpCons(mConsumWinter);
-	mDistributionProduction = tmpCons;
+	mSummer = false;
+	
+	if (mConsumWinter > 0)
+	{
+		std::poisson_distribution<int> tmpCons(mConsumWinter);
+		mDistributionProduction = tmpCons;
+	}
 }
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
