@@ -12,15 +12,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gasCrisis\gas.cpp" />
+    <ClCompile Include="gasCrisis\json.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="gasCrisis\cfg.json" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="gasCrisis\consts.h" />
+    <ClInclude Include="gasCrisis\errors.h" />
+    <ClInclude Include="gasCrisis\json.h" />
     <ClInclude Include="gasCrisis\logger.h" />
     <ClInclude Include="gasCrisis\pipe.h" />
     <ClInclude Include="gasCrisis\state.h" />
     <ClInclude Include="gasCrisis\timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="gasCrisis\config\cfg.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4A7DA5D6-08AA-4A98-B48B-028799538310}</ProjectGuid>

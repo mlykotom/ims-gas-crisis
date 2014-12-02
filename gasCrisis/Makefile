@@ -1,16 +1,36 @@
+ifeq ($(OS),Windows_NT)
+	RMPR = del
+	PROGSUFF = .exe
+else
+	RMPR = rm -f
+	PROGSUFF =
+endif
+
 PROG = gas
 SUFF = cpp
 CPP  = g++
 
-# chybi -pedantic
-CPPFLAGS = -Wall --std=c++11
+# chybi 
+CPPFLAGS = -Wall -pedantic --std=c++11
 
 all: $(PROG)
 
-$(PROG):	$(PROG).$(SUFF) $(PROG).$(SUFF)
-	$(CPP) $(CPPFLAGS) -o $@ $(PROG).$(SUFF)
+#$(PROG): json.o	$(PROG).$(SUFF) $(PROG).$(SUFF)
+#	$(CPP) $(CPPFLAGS) -o $@ $(PROG).$(SUFF)
+
+$(PROG): gas.o json.o
+	$(CPP) $(CPPFLAGS) gas.o json.o -o $@
+
+
+gas.o: gas.cpp
+	$(CPP) $(CPPFLAGS) -c gas.cpp -o $@
+
+json.o: json.cpp json.h
+	$(CPP) $(CPPFLAGS) -c json.cpp -o $@
 
 rebuild: clean all
 
+
+
 clean:
-	rm -f *.o *.out $(PROG)
+	$(RMPR) *.o *.out $(PROG)$(PROGSUFF)

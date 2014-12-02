@@ -1,12 +1,14 @@
 * text=auto !eol
 /gasCrisis.opensdf -text
-/gasCrisis.sdf -text
 /gasCrisis.sln -text
 /gasCrisis.vcxproj -text
-/gasCrisis.vcxproj.filters -text
 gasCrisis/Makefile -text
-gasCrisis/cfg.json -text
+gasCrisis/config/cfg.json -text
+gasCrisis/consts.h -text
+gasCrisis/errors.h -text
 gasCrisis/gas.cpp -text
+gasCrisis/json.cpp -text
+gasCrisis/json.h -text
 gasCrisis/logger.h -text
 gasCrisis/pipe.h -text
 gasCrisis/state.h -text

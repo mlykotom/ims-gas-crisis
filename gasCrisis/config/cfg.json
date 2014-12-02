@@ -1,0 +1,48 @@
+{
+	"Timer": {
+		"dateTimeStart": 120000,
+		"dateTimeEnd": 200
+	},
+
+	"Countries" : [
+		{
+			"name" : "CZ",
+			"consumptSumm": 150,
+			"consumptWint": 200,
+			"storageCapacity": 200,
+			"maxCapacityUp": 100,
+			"maxCapacityDown": 200
+		},
+        {
+            "name": "SK",
+            "consumptSumm": 2850,
+            "consumptWint": 2000,
+			"storageCapacity": 200,
+			"maxCapacityUp": 100,
+			"maxCapacityDown": 200            
+        },
+        {
+            "name": "UA",
+            "consumptSumm": 28500,
+            "consumptWint": 20000,
+			"storageCapacity": 200,
+			"maxCapacityUp": 100,
+			"maxCapacityDown": 200            
+        },
+		{
+			"name" : "TEST",
+			"consumptSumm": 28500,
+			"consumptWint": 20000,
+			"storageCapacity": 200,
+			"maxCapacityUp": 100,
+			"maxCapacityDown": 200			
+		}	        	
+	],
+
+	"Pipes": [
+	 	{
+ 			"from": "CZ",
+ 			"to": "SK"
+	 	}
+	]
+}

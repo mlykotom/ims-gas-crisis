@@ -11,9 +11,7 @@
 class cTimer
 {
 public:
-	cTimer(void);
-	cTimer(unsigned startTime, unsigned endTime);
-	~cTimer(void);
+	cTimer(unsigned startTime, unsigned endTime) : mStartTime(startTime), mEndTime(endTime) {}
 
 private:
 	std::vector<cState *> mStates;
