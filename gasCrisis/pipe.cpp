@@ -37,7 +37,14 @@ double cPipe::putGas(void)
 {
 	double value;
 
-	value = mDistribution(mGenerator);
+	if ((mSummer && (mFlowSummer > 0)) || (!mSummer && (mFlowWinter > 0)))
+	{
+		value = mDistribution(mGenerator);
+	}
+	else
+	{
+		value = 0;
+	}
 
 	mFlows.push_front(value);
 
@@ -46,14 +53,24 @@ double cPipe::putGas(void)
 //----------------------------------------------------------------------------------------
 void cPipe::setSummer(void)
 {
-	std::poisson_distribution<int> tmp(mFlowSummer);
-	mDistribution = tmp;
+	mSummer = true;
+
+	if (mFlowSummer > 0)
+	{
+		std::poisson_distribution<int> tmp(mFlowSummer);
+		mDistribution = tmp;
+	}
 }
 //----------------------------------------------------------------------------------------
 void cPipe::setWinter(void)
 {
-	std::poisson_distribution<int> tmp(mFlowWinter);
-	mDistribution = tmp;
+	mSummer = false;
+	
+	if (mFlowWinter > 0)
+	{
+		std::poisson_distribution<int> tmp(mFlowWinter);
+		mDistribution = tmp;
+	}
 }
 //----------------------------------------------------------------------------------------
 unsigned cPipe::getId(void)

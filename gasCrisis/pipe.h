@@ -28,6 +28,8 @@ private:
 	double mFlowSummer;
 	double mFlowWinter;
 
+	bool mSummer;
+
 	std::deque<double> mFlows;
 
 public:

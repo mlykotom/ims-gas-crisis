@@ -196,6 +196,16 @@ void cState::setSummer(void)
 		std::poisson_distribution<int> tmpCons(mConsumSummer);
 		mDistributionProduction = tmpCons;
 	}
+
+	for (unsigned i = 0; i < mPipesIn.size(); i++)
+	{
+		mPipesIn[i]->setSummer();
+	}
+
+	for (unsigned i = 0; i < mPipesOut.size(); i++)
+	{
+		mPipesOut[i]->setSummer();
+	}
 }
 //----------------------------------------------------------------------------------------
 void cState::setWinter(void)
@@ -206,6 +216,16 @@ void cState::setWinter(void)
 	{
 		std::poisson_distribution<int> tmpCons(mConsumWinter);
 		mDistributionProduction = tmpCons;
+	}
+
+	for (unsigned i = 0; i < mPipesIn.size(); i++)
+	{
+		mPipesIn[i]->setWinter();
+	}
+
+	for (unsigned i = 0; i < mPipesOut.size(); i++)
+	{
+		mPipesOut[i]->setWinter();
 	}
 }
 //----------------------------------------------------------------------------------------
