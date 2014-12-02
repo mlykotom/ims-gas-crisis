@@ -1,0 +1,19 @@
+{
+	"Timer": {
+		"dateTimeStart": 120,
+		"dateTimeEnd": 200,
+	},
+
+	"Countries" : [
+		{
+			"name" : "CZ",
+			"consumptSumm": 150,
+			"consumptWint": 200
+		},
+		{
+			"name" : "SK",
+			"consumptSumm": 2850,
+			"consumptWint": 2000
+		}		
+	]
+}
