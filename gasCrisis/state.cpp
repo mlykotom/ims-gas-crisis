@@ -111,6 +111,8 @@ void cState::behaviour(void)
 	{
 		double deficit = 0;
 
+		amount *= -1;
+
 		// orezanie kolko sa maximalne da ziskat za hodinu zo zasobniku
 		if (amount > mStorageMaxWithdraw)
 		{
