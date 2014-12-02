@@ -7,15 +7,15 @@ void cTimer::start(void)
 	mSummer = mActualTime.isSummer();
 
 	// nastavenie vsetkym statom leto/zima
-	for (int i = 0; i < mStates.size(); i++)
+	for (auto state : mStates)
 	{
 		if (mSummer == true)
 		{
-			mStates[i]->setSummer();
+			state.second->setSummer();
 		}
 		else
 		{
-			mStates[i]->setWinter();
+			state.second->setWinter();
 		}
 	}
 	
@@ -23,9 +23,9 @@ void cTimer::start(void)
 	while (mActualTime.equal(mEndTime) != true)
 	{
 		// kazdy stat spracuje svoje stavy za jednu hodinu
-		for (int i = 0; i < mStates.size(); i++)
+		for (auto state : mStates)
 		{
-			mStates[i]->behaviour();
+			state.second->behaviour();
 		}
 
 		// inkrementovanie casu
@@ -38,15 +38,15 @@ void cTimer::start(void)
 			mSummer = mActualTime.isSummer();
 
 			// ohlasenie vsetkym statom o zmene obdobia
-			for (int i = 0; i < mStates.size(); i++)
+			for (auto state : mStates)
 			{
 				if (mSummer == true)
 				{
-					mStates[i]->setSummer();
+					state.second->setSummer();
 				}
 				else
 				{
-					mStates[i]->setWinter();
+					state.second->setWinter();
 				}
 			}
 		}

@@ -13,18 +13,8 @@ class cFakeState;
 class cState
 {
 public:
-	cState(const std::string name, cLogger &logger, double consumSummer, double consumWinter, double storageCapacity, double maxStorWith, double maxStorStore, double production):
-		mName(name), 
-		mLogger(logger),
-		mConsumSummer(consumSummer), 
-		mConsumWinter(consumWinter), 
-		mStorageCapacity(storageCapacity), 
-		mStorageMaxWithdraw(maxStorWith), 
-		mStorageMaxStore(maxStorStore),
-		mProduction(production)
-	{}
-
-	virtual ~cState(void){}
+	cState(const std::string name, cLogger &logger, double consumSummer, double consumWinter, double storageCapacity, double maxStorWith, double maxStorStore, double production);
+	virtual ~cState(void);
 
 private:
 	std::string mName;
@@ -34,53 +24,56 @@ private:
 
 	cLogger mLogger;
 
+	std::default_random_engine mGenerator;
+	std::poisson_distribution<int> mDistributionProduction;
+	std::poisson_distribution<int> mDistributionConsumption;
+
 	double mConsumSummer;
 	double mConsumWinter;
 
 	double mStorageCapacity;
 	double mStorageMaxWithdraw;
 	double mStorageMaxStore;
+	double mStorageStat;
 
 	double mProduction;
-
-	bool mSummer;
 
 public:
 	void addPipelineIn(cPipe* pipe);
 	void addPipelineOut(cPipe* pipe);
 
-	void behaviour(void);
+	virtual void behaviour(void);
 
-	std::string getName(void)				{ return mName; }
-	double getConsumSummer(void)			{ return mConsumSummer; }
-	double getConsumWinter(void)			{ return mConsumWinter; }
-	
+	std::string getName(void)			{ return mName; }
+	double getConsumSummer(void)		{ return mConsumSummer; }
+	double getConsumWinter(void)		{ return mConsumWinter; }
 	double getStorageCapacity(void)		{ return mStorageCapacity; }
 	double getStorageMaxWithdraw(void)	{ return mStorageMaxWithdraw; }
 	double getStorageMaxStore(void)		{ return mStorageMaxStore; }
-	double getProduction(void)				{ return mProduction; }
+	double getStorageStat(void)			{ return mStorageStat; }
+	double getProduction(void)			{ return mProduction; }
 
 	void setLogger(const cLogger logger);
-
-	virtual bool isFake(void){ return false; }
+	void setSummer(void);
+	void setWinter(void);
 
 	void printInfo();
 
-	std::vector<cPipe *> getAllPipesIn(){ return this->mPipesIn; }
-	std::vector<cPipe *> getAllPipesOut(){ return this->mPipesOut; }
+	std::vector<cPipe *> getAllPipesIn()	{ return this->mPipesIn; }
+	std::vector<cPipe *> getAllPipesOut()	{ return this->mPipesOut; }
 
-private:
+protected:
 	double getGasFromPipes(void);
 	double pushGasIntoPipes(void);
+	double product(void);
+	double consum(void);
 };
 
 
 class cFakeState : public cState{
 public:
-	cFakeState(const std::string name, cLogger &logger, double cSumm, double cWint, double storCap, double maxStorWith, double maxStorStore, double production) : 
-		cState(name, logger, cSumm, cWint, storCap, maxStorWith, maxStorStore, production){}
+	cFakeState(const std::string name, cLogger &logger, double cSumm, double cWint, double storCap, double maxStorWith, double maxStorStore, double production);
+	~cFakeState();
 
-	~cFakeState(){}
-
-	bool isFake(void){ return true; }
+	void behaviour(void);
 };

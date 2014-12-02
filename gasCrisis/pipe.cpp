@@ -3,7 +3,6 @@
 //----------------------------------------------------------------------------------------
 cPipe::cPipe(unsigned id, const std::string& source, const std::string& destination, unsigned lenght, double flowSummer, double flowWinter):
 	mId(id),
-	mGenerator(new std::default_random_engine()),
 	mSource(source),
 	mDestination(destination),
 	mLenght(lenght),
@@ -19,8 +18,7 @@ cPipe::cPipe(unsigned id, const std::string& source, const std::string& destinat
 //----------------------------------------------------------------------------------------
 cPipe::~cPipe(void)
 {
-	delete mGenerator;
-	//delete mDistribution;
+	// EMPTY
 }
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
@@ -39,7 +37,7 @@ double cPipe::putGas(void)
 {
 	double value;
 
-	//value = (*mDistribution)(mGenerator);
+	value = mDistribution(mGenerator);
 
 	mFlows.push_front(value);
 
@@ -48,14 +46,14 @@ double cPipe::putGas(void)
 //----------------------------------------------------------------------------------------
 void cPipe::setSummer(void)
 {
-	//delete mDistribution;
-	//mDistribution = new std::poisson_distribution<double>(mFlowSummer);
+	std::poisson_distribution<int> tmp(mFlowSummer);
+	mDistribution = tmp;
 }
 //----------------------------------------------------------------------------------------
 void cPipe::setWinter(void)
 {
-	//delete mDistribution;
-	//mDistribution = new std::poisson_distribution<double>(mFlowWinter);
+	std::poisson_distribution<int> tmp(mFlowWinter);
+	mDistribution = tmp;
 }
 //----------------------------------------------------------------------------------------
 unsigned cPipe::getId(void)

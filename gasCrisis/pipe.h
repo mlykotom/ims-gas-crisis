@@ -17,10 +17,8 @@ public:
 private:
 	unsigned mId;
 
-	std::default_random_engine* mGenerator;
-	//std::poisson_distribution<double>* mDistribution;
-
-	bool mSummer;
+	std::default_random_engine mGenerator;
+	std::poisson_distribution<int> mDistribution;
 
 	std::string mSource;
 	std::string mDestination;
@@ -41,7 +39,7 @@ public:
 	void setSummer(void);
 	void setWinter(void);
 
-	unsigned getLength()		 { return mLenght; }
-	unsigned getFlowSummer() { return mFlowSummer; }
-	unsigned getFlowWinter() { return mFlowWinter; }
+	unsigned getLength()	{ return mLenght; }
+	double getFlowSummer()	{ return mFlowSummer; }
+	double getFlowWinter()	{ return mFlowWinter; }
 };

@@ -10,6 +10,7 @@
 #include "consts.h"
 #include "date_time.h"
 #include "state.h"
+#include "errors.h"
 
 class cTimer
 {
