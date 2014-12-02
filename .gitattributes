@@ -7,6 +7,7 @@ gasCrisis/config/cfg.json -text
 gasCrisis/consts.h -text
 gasCrisis/errors.h -text
 gasCrisis/gas.cpp -text
+gasCrisis/inout.h -text
 gasCrisis/json.cpp -text
 gasCrisis/json.h -text
 gasCrisis/logger.h -text
