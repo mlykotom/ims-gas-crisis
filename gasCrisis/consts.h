@@ -9,6 +9,9 @@
 
 #define DEBUG false
 
+// zmena na casovy  generator misto std::random_device
+#define TIME_RANDOM_GENERATOR false
+
 namespace consts{
 	// vychozi delka ------- ve vypisech
 	const unsigned int defaultSizeOfPrint = 50;

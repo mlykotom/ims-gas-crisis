@@ -1,5 +1,12 @@
 //----------------------------------------------------------------------------------------
 #include "state.h"
+
+#if TIME_RANDOM_GENERATOR
+	#define RANDOM_GENERATOR  std::default_random_engine tmpGen(time(NULL));
+#else
+	#define RANDOM_GENERATOR 	std::random_device rd; std::default_random_engine tmpGen(rd());
+#endif
+
 //----------------------------------------------------------------------------------------
 // class cState
 //----------------------------------------------------------------------------------------
@@ -22,8 +29,7 @@ mProduction(production)
 	}
 
 	// vygenerovanie noveho seedu pre generator
-	std::random_device rd;
-	std::default_random_engine tmpGen(rd());
+	RANDOM_GENERATOR
 	mGenerator = tmpGen;
 
 	// trieda pre zachytavanie statistik

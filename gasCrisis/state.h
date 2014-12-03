@@ -5,6 +5,7 @@
 #include <iostream> // pro printInfo
 #include <chrono>
 
+#include "consts.h"
 #include "pipe.h"
 #include "logger.h"
 #include "stateStats.h"
