@@ -50,25 +50,6 @@ cState::~cState(void)
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
-void cState::printInfo()
-{
-	std::cout << this->getName() << std::endl;
-	std::cout << this->getConsumSummer() << "|" << this->getConsumWinter() << std::endl;
-	std::cout << this->getStorageCapacity() << "|" << this->getStorageMaxWithdraw() << "|" << this->getStorageMaxStore() << std::endl;
-	std::cout << this->getProduction() << std::endl;
-	std::cout << "--- IN ---" << std::endl;
-	for (cPipe *pipe : this->getAllPipesIn()){
-		std::cout << pipe->getLength() << "|" << pipe->getFlowSummer() << '|' << pipe->getFlowWinter() << std::endl;
-	}
-	std::cout << "--- OUT ---" << std::endl;
-	for (cPipe *pipe : this->getAllPipesOut()){
-		std::cout << pipe->getLength() << "|" << pipe->getFlowSummer() << '|' << pipe->getFlowWinter() << std::endl;
-	}
-
-	std::cout << "------------------------------" << std::endl;
-	std::cout << "------------------------------" << std::endl;
-}
-//----------------------------------------------------------------------------------------
 // metoda prida ku statu potrubie ktore do neho smeruje
 // @pipe dane potrubie
 void cState::addPipelineIn(cPipe* pipe)

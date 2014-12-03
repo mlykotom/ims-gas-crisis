@@ -135,11 +135,6 @@ int main(int argc, char * argv[]) {
 		// ------------ overeni + parsovani configu
 		cTimer *timer = ParseConfig(fileName, logger);
 
-		// vypis vsech statu
-		for (auto par : timer->getAllStates()){
-			par.second->printInfo();
-		}
-
 		// zacatek simulace
 		timer->start();
 	}

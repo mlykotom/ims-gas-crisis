@@ -63,8 +63,6 @@ public:
 	void setSummer(void);
 	void setWinter(void);
 
-	void printInfo();
-
 	std::vector<cPipe *> getAllPipesIn()	{ return this->mPipesIn; }
 	std::vector<cPipe *> getAllPipesOut()	{ return this->mPipesOut; }
 
