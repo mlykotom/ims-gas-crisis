@@ -5,6 +5,7 @@
 #pragma once
 
 #include <string>
+#include <sstream>
 #include <map>
 
 typedef struct

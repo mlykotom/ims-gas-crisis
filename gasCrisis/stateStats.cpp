@@ -369,314 +369,312 @@ void cStateStats::incEntrie(bool summer)
 //----------------------------------------------------------------------------------------
 std::string cStateStats::getStats(bool total, bool summer, bool winter, bool consumption, bool production, bool storage, bool overflow, bool deficit, bool incomeFlows, bool outcomeFlows)
 {
-	std::string output("");
-	output += std::string(100, '-') + '\n';
-	output += std::string(100, '-') + '\n';
-	output += std::string(100, '-') + '\n';
-	output += "state: " + mName;
+	std::ostringstream out;
+	const unsigned maxOnLine = 100;
+	
+	out << std::string(maxOnLine, '-') << '\n';
+	out << "state: " << mName << std::endl;
+	out << std::string(maxOnLine, '-') << '\n';
 
 	if (total == true)
 	{
-		output += "\t" + std::string(100, '-') + '\n';
-		output += "\ttotal:\n";
+		out << "\ttotal:\n";
 
 		if (consumption == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\tconsumption:\n";
-			output += "\t\t\ttot: " + std::to_string(mTotalConsumption.total);
-			output += " | ";
-			output += "min: " + std::to_string(mTotalConsumption.min);
-			output += " | ";
-			output += "max: " + std::to_string(mTotalConsumption.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mTotalConsumption.total / mTotalEntries) + '\n';
+			out << "\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\tconsumption:\n";
+			out << "\t\t\ttot: " <<  mTotalConsumption.total;
+			out << " | ";
+			out << "min: " <<  mTotalConsumption.min;
+			out << " | ";
+			out << "max: " <<  mTotalConsumption.max;
+			out << " | ";
+			out << "avg: " <<  mTotalConsumption.total / mTotalEntries << '\n';
 		}
 
 		if (production == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\tproduction:\n";
-			output += "\t\t\ttot: " + std::to_string(mTotalProduction.total);
-			output += " | ";
-			output += "min: " + std::to_string(mTotalProduction.min);
-			output += " | ";
-			output += "max: " + std::to_string(mTotalProduction.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mTotalProduction.total / mTotalEntries) + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\tproduction:\n";
+			out << "\t\t\ttot: " <<  mTotalProduction.total;
+			out << " | ";
+			out << "min: " <<  mTotalProduction.min;
+			out << " | ";
+			out << "max: " <<  mTotalProduction.max;
+			out << " | ";
+			out << "avg: " <<  mTotalProduction.total / mTotalEntries << '\n';
 		}
 
 		if (storage == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\tstorage:\n";
-			output += "\t\t\ttot: " + std::to_string(mTotalStorage.total);
-			output += " | ";
-			output += "min: " + std::to_string(mTotalStorage.min);
-			output += " | ";
-			output += "max: " + std::to_string(mTotalStorage.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mTotalStorage.total / mTotalEntries) + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\tstorage:\n";
+			out << "\t\t\ttot: " <<  mTotalStorage.total;
+			out << " | ";
+			out << "min: " <<  mTotalStorage.min;
+			out << " | ";
+			out << "max: " <<  mTotalStorage.max;
+			out << " | ";
+			out << "avg: " <<  mTotalStorage.total / mTotalEntries << '\n';
 		}
 
 		if (overflow == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\toverflow:\n";
-			output += "\t\t\ttot: " + std::to_string(mTotalOverflow.total);
-			output += " | ";
-			output += "min: " + std::to_string(mTotalOverflow.min);
-			output += " | ";
-			output += "max: " + std::to_string(mTotalOverflow.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mTotalOverflow.total / mTotalEntries) + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\toverflow:\n";
+			out << "\t\t\ttot: " <<  mTotalOverflow.total;
+			out << " | ";
+			out << "min: " <<  mTotalOverflow.min;
+			out << " | ";
+			out << "max: " <<  mTotalOverflow.max;
+			out << " | ";
+			out << "avg: " <<  mTotalOverflow.total / mTotalEntries << '\n';
 		}
 
 		if (deficit == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\tdeficit:\n";
-			output += "\t\t\ttot: " + std::to_string(mTotalDeficit.total);
-			output += " | ";
-			output += "min: " + std::to_string(mTotalDeficit.min);
-			output += " | ";
-			output += "max: " + std::to_string(mTotalDeficit.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mTotalDeficit.total / mTotalEntries) + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\tdeficit:\n";
+			out << "\t\t\ttot: " <<  mTotalDeficit.total;
+			out << " | ";
+			out << "min: " <<  mTotalDeficit.min;
+			out << " | ";
+			out << "max: " <<  mTotalDeficit.max;
+			out << " | ";
+			out << "avg: " <<  mTotalDeficit.total / mTotalEntries << '\n';
 		}
 
 		for (auto state : mTotalStatesIncome)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\twith: " + state.first + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\twith: " << state.first << '\n';
 			if (incomeFlows == true)
 			{
-				output += "\t\t\tincome:\n";
-				output += "\t\t\t\ttot: " + std::to_string(state.second.total);
-				output += " | ";
-				output += "min: " + std::to_string(state.second.min);
-				output += " | ";
-				output += "max: " + std::to_string(state.second.max);
-				output += " | ";
-				output += "avg: " + std::to_string(state.second.total / mTotalEntries) + "\n\n";
+				out << "\t\t\tincome:\n";
+				out << "\t\t\t\ttot: " <<  state.second.total;
+				out << " | ";
+				out << "min: " <<  state.second.min;
+				out << " | ";
+				out << "max: " <<  state.second.max;
+				out << " | ";
+				out << "avg: " <<  state.second.total / mTotalEntries << "\n\n";
 			}
 
 			if (outcomeFlows == true)
 			{
-				output += "\t\t\toutcome:\n";
-				output += "\t\t\t\ttot: " + std::to_string(mTotalStatesOutcome[state.first].total);
-				output += " | ";
-				output += "min: " + std::to_string(mTotalStatesOutcome[state.first].min);
-				output += " | ";
-				output += "max: " + std::to_string(mTotalStatesOutcome[state.first].max);
-				output += " | ";
-				output += "avg: " + std::to_string(mTotalStatesOutcome[state.first].total / mTotalEntries) + "\n\n";
+				out << "\t\t\toutcome:\n";
+				out << "\t\t\t\ttot: " <<  mTotalStatesOutcome[state.first].total;
+				out << " | ";
+				out << "min: " <<  mTotalStatesOutcome[state.first].min;
+				out << " | ";
+				out << "max: " <<  mTotalStatesOutcome[state.first].max;
+				out << " | ";
+				out << "avg: " <<  mTotalStatesOutcome[state.first].total / mTotalEntries << "\n\n";
 			}
 		}
 	}
 
 	if (summer == true)
 	{
-		output += "\t" + std::string(100, '-') + '\n';
-		output += "\tsummer:\n";
+		out << "\t" << std::string(maxOnLine, '-') << '\n';
+		out << "\tsummer:\n";
 
 		if (consumption == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\tconsumption:\n";
-			output += "\t\t\ttot: " + std::to_string(mSummerConsumption.total);
-			output += " | ";
-			output += "min: " + std::to_string(mSummerConsumption.min);
-			output += " | ";
-			output += "max: " + std::to_string(mSummerConsumption.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mSummerConsumption.total / mSummerEntries) + '\n';
+			out << "\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\tconsumption:\n";
+			out << "\t\t\ttot: " <<  mSummerConsumption.total;
+			out << " | ";
+			out << "min: " <<  mSummerConsumption.min;
+			out << " | ";
+			out << "max: " <<  mSummerConsumption.max;
+			out << " | ";
+			out << "avg: " <<  mSummerConsumption.total / mSummerEntries << '\n';
 		}
 
 		if (production == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\tproduction:\n";
-			output += "\t\t\ttot: " + std::to_string(mSummerProduction.total);
-			output += " | ";
-			output += "min: " + std::to_string(mSummerProduction.min);
-			output += " | ";
-			output += "max: " + std::to_string(mSummerProduction.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mSummerProduction.total / mSummerEntries) + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\tproduction:\n";
+			out << "\t\t\ttot: " <<  mSummerProduction.total;
+			out << " | ";
+			out << "min: " <<  mSummerProduction.min;
+			out << " | ";
+			out << "max: " <<  mSummerProduction.max;
+			out << " | ";
+			out << "avg: " <<  mSummerProduction.total / mSummerEntries << '\n';
 		}
 
 		if (storage == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\tstorage:\n";
-			output += "\t\t\ttot: " + std::to_string(mSummerStorage.total);
-			output += " | ";
-			output += "min: " + std::to_string(mSummerStorage.min);
-			output += " | ";
-			output += "max: " + std::to_string(mSummerStorage.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mSummerStorage.total / mSummerEntries) + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\tstorage:\n";
+			out << "\t\t\ttot: " <<  mSummerStorage.total;
+			out << " | ";
+			out << "min: " <<  mSummerStorage.min;
+			out << " | ";
+			out << "max: " <<  mSummerStorage.max;
+			out << " | ";
+			out << "avg: " <<  mSummerStorage.total / mSummerEntries << '\n';
 		}
 
 		if (overflow == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\toverflow:\n";
-			output += "\t\t\ttot: " + std::to_string(mSummerOverflow.total);
-			output += " | ";
-			output += "min: " + std::to_string(mSummerOverflow.min);
-			output += " | ";
-			output += "max: " + std::to_string(mSummerOverflow.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mSummerOverflow.total / mSummerEntries) + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\toverflow:\n";
+			out << "\t\t\ttot: " <<  mSummerOverflow.total;
+			out << " | ";
+			out << "min: " <<  mSummerOverflow.min;
+			out << " | ";
+			out << "max: " <<  mSummerOverflow.max;
+			out << " | ";
+			out << "avg: " <<  mSummerOverflow.total / mSummerEntries << '\n';
 		}
 
 		if (deficit == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\tdeficit:\n";
-			output += "\t\t\ttot: " + std::to_string(mSummerDeficit.total);
-			output += " | ";
-			output += "min: " + std::to_string(mSummerDeficit.min);
-			output += " | ";
-			output += "max: " + std::to_string(mSummerDeficit.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mSummerDeficit.total / mSummerEntries) + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\tdeficit:\n";
+			out << "\t\t\ttot: " <<  mSummerDeficit.total;
+			out << " | ";
+			out << "min: " <<  mSummerDeficit.min;
+			out << " | ";
+			out << "max: " <<  mSummerDeficit.max;
+			out << " | ";
+			out << "avg: " <<  mSummerDeficit.total / mSummerEntries << '\n';
 		}
 
 		for (auto state : mSummerStatesIncome)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\twith: " + state.first + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\twith: " << state.first << '\n';
 			if (incomeFlows == true)
 			{
-				output += "\t\t\tincome:\n";
-				output += "\t\t\t\ttot: " + std::to_string(state.second.total);
-				output += " | ";
-				output += "min: " + std::to_string(state.second.min);
-				output += " | ";
-				output += "max: " + std::to_string(state.second.max);
-				output += " | ";
-				output += "avg: " + std::to_string(state.second.total / mSummerEntries) + "\n\n";
+				out << "\t\t\tincome:\n";
+				out << "\t\t\t\ttot: " <<  state.second.total;
+				out << " | ";
+				out << "min: " <<  state.second.min;
+				out << " | ";
+				out << "max: " <<  state.second.max;
+				out << " | ";
+				out << "avg: " <<  state.second.total / mSummerEntries << "\n\n";
 			}
 
 			if (outcomeFlows == true)
 			{
-				output += "\t\t\toutcome:\n";
-				output += "\t\t\t\ttot: " + std::to_string(mSummerStatesOutcome[state.first].total);
-				output += " | ";
-				output += "min: " + std::to_string(mSummerStatesOutcome[state.first].min);
-				output += " | ";
-				output += "max: " + std::to_string(mSummerStatesOutcome[state.first].max);
-				output += " | ";
-				output += "avg: " + std::to_string(mSummerStatesOutcome[state.first].total / mSummerEntries) + "\n\n";
+				out << "\t\t\toutcome:\n";
+				out << "\t\t\t\ttot: " <<  mSummerStatesOutcome[state.first].total;
+				out << " | ";
+				out << "min: " <<  mSummerStatesOutcome[state.first].min;
+				out << " | ";
+				out << "max: " <<  mSummerStatesOutcome[state.first].max;
+				out << " | ";
+				out << "avg: " <<  mSummerStatesOutcome[state.first].total / mSummerEntries << "\n\n";
 			}
 		}
 	}
 
 	if (winter == true)
 	{
-		output += "\t" + std::string(100, '-') + '\n';
-		output += "\twinter:\n";
+		out << "\t" << std::string(maxOnLine, '-') << '\n';
+		out << "\twinter:\n";
 
 		if (consumption == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\tconsumption:\n";
-			output += "\t\t\ttot: " + std::to_string(mWinterConsumption.total);
-			output += " | ";
-			output += "min: " + std::to_string(mWinterConsumption.min);
-			output += " | ";
-			output += "max: " + std::to_string(mWinterConsumption.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mWinterConsumption.total / mWinterEntries) + '\n';
+			out << "\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\tconsumption:\n";
+			out << "\t\t\ttot: " <<  mWinterConsumption.total;
+			out << " | ";
+			out << "min: " <<  mWinterConsumption.min;
+			out << " | ";
+			out << "max: " <<  mWinterConsumption.max;
+			out << " | ";
+			out << "avg: " <<  mWinterConsumption.total / mWinterEntries << '\n';
 		}
 
 		if (production == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\tproduction:\n";
-			output += "\t\t\ttot: " + std::to_string(mWinterProduction.total);
-			output += " | ";
-			output += "min: " + std::to_string(mWinterProduction.min);
-			output += " | ";
-			output += "max: " + std::to_string(mWinterProduction.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mWinterProduction.total / mWinterEntries) + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\tproduction:\n";
+			out << "\t\t\ttot: " <<  mWinterProduction.total;
+			out << " | ";
+			out << "min: " <<  mWinterProduction.min;
+			out << " | ";
+			out << "max: " <<  mWinterProduction.max;
+			out << " | ";
+			out << "avg: " <<  mWinterProduction.total / mWinterEntries << '\n';
 		}
 
 		if (storage == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\tstorage:\n";
-			output += "\t\t\ttot: " + std::to_string(mWinterStorage.total);
-			output += " | ";
-			output += "min: " + std::to_string(mWinterStorage.min);
-			output += " | ";
-			output += "max: " + std::to_string(mWinterStorage.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mWinterStorage.total / mWinterEntries) + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\tstorage:\n";
+			out << "\t\t\ttot: " <<  mWinterStorage.total;
+			out << " | ";
+			out << "min: " <<  mWinterStorage.min;
+			out << " | ";
+			out << "max: " <<  mWinterStorage.max;
+			out << " | ";
+			out << "avg: " <<  mWinterStorage.total / mWinterEntries << '\n';
 		}
 
 		if (overflow == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\toverflow:\n";
-			output += "\t\t\ttot: " + std::to_string(mWinterOverflow.total);
-			output += " | ";
-			output += "min: " + std::to_string(mWinterOverflow.min);
-			output += " | ";
-			output += "max: " + std::to_string(mWinterOverflow.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mWinterOverflow.total / mWinterEntries) + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\toverflow:\n";
+			out << "\t\t\ttot: " <<  mWinterOverflow.total;
+			out << " | ";
+			out << "min: " <<  mWinterOverflow.min;
+			out << " | ";
+			out << "max: " <<  mWinterOverflow.max;
+			out << " | ";
+			out << "avg: " <<  mWinterOverflow.total / mWinterEntries << '\n';
 		}
 
 		if (deficit == true)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\tdeficit:\n";
-			output += "\t\t\ttot: " + std::to_string(mWinterDeficit.total);
-			output += " | ";
-			output += "min: " + std::to_string(mWinterDeficit.min);
-			output += " | ";
-			output += "max: " + std::to_string(mWinterDeficit.max);
-			output += " | ";
-			output += "avg: " + std::to_string(mWinterDeficit.total / mWinterEntries) + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\tdeficit:\n";
+			out << "\t\t\ttot: " <<  mWinterDeficit.total;
+			out << " | ";
+			out << "min: " <<  mWinterDeficit.min;
+			out << " | ";
+			out << "max: " <<  mWinterDeficit.max;
+			out << " | ";
+			out << "avg: " <<  mWinterDeficit.total / mWinterEntries << '\n';
 		}
 
 		for (auto state : mWinterStatesIncome)
 		{
-			output += "\t\t" + std::string(100, '-') + '\n';
-			output += "\t\twith: " + state.first + '\n';
+			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\twith: " << state.first << '\n';
 			if (incomeFlows == true)
 			{
-				output += "\t\t\tincome:\n";
-				output += "\t\t\t\ttot: " + std::to_string(state.second.total);
-				output += " | ";
-				output += "min: " + std::to_string(state.second.min);
-				output += " | ";
-				output += "max: " + std::to_string(state.second.max);
-				output += " | ";
-				output += "avg: " + std::to_string(state.second.total / mWinterEntries) + "\n\n";
+				out << "\t\t\tincome:\n";
+				out << "\t\t\t\ttot: " <<  state.second.total;
+				out << " | ";
+				out << "min: " <<  state.second.min;
+				out << " | ";
+				out << "max: " <<  state.second.max;
+				out << " | ";
+				out << "avg: " <<  state.second.total / mWinterEntries << "\n\n";
 			}
 
 			if (outcomeFlows == true)
 			{
-				output += "\t\t\toutcome:\n";
-				output += "\t\t\t\ttot: " + std::to_string(mWinterStatesOutcome[state.first].total);
-				output += " | ";
-				output += "min: " + std::to_string(mWinterStatesOutcome[state.first].min);
-				output += " | ";
-				output += "max: " + std::to_string(mWinterStatesOutcome[state.first].max);
-				output += " | ";
-				output += "avg: " + std::to_string(mWinterStatesOutcome[state.first].total / mWinterEntries) + "\n\n";
+				out << "\t\t\toutcome:\n";
+				out << "\t\t\t\ttot: " <<  mWinterStatesOutcome[state.first].total;
+				out << " | ";
+				out << "min: " <<  mWinterStatesOutcome[state.first].min;
+				out << " | ";
+				out << "max: " <<  mWinterStatesOutcome[state.first].max;
+				out << " | ";
+				out << "avg: " <<  mWinterStatesOutcome[state.first].total / mWinterEntries << "\n\n";
 			}
 		}
 	}
 
-	output += std::string(100, '-') + '\n';
-
-	return output;
+	return out.str();
 }
 //----------------------------------------------------------------------------------------

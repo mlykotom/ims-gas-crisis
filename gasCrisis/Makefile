@@ -15,11 +15,8 @@ CPPFLAGS = -Wall -pedantic --std=c++11
 
 all: $(PROG)
 
-#$(PROG): json.o	$(PROG).$(SUFF) $(PROG).$(SUFF)
-#	$(CPP) $(CPPFLAGS) -o $@ $(PROG).$(SUFF)
-
-$(PROG): gas.o date_time.o timer.o pipe.o state.o json.o
-	$(CPP) $(CPPFLAGS) gas.o date_time.o timer.o pipe.o state.o json.o -o $@
+$(PROG): $(PROG).o stateStats.o date_time.o timer.o pipe.o state.o json.o
+	$(CPP) $(CPPFLAGS) $(PROG).o stateStats.o date_time.o timer.o pipe.o state.o json.o -o $@
 
 gas.o: gas.cpp
 	$(CPP) $(CPPFLAGS) -c gas.cpp -o $@
@@ -38,6 +35,10 @@ timer.o: timer.cpp timer.h
 	
 date_time.o: date_time.cpp date_time.h
 	$(CPP) $(CPPFLAGS) -c date_time.cpp -o $@
+
+stateStats.o: stateStats.cpp stateStats.h
+	$(CPP) $(CPPFLAGS) -c stateStats.cpp -o $@
+
 
 rebuild: clean all
 
