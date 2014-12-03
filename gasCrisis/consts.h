@@ -22,12 +22,16 @@ namespace consts{
 		E_CFG_FILE_OPEN,
 		E_CFG_FILE_FORMAT,
 		E_CFG_SECTION,
-
+		E_CFG_TIMER_MISMATCH,
+		E_CFG_PARAM_LOW,
+		E_CFG_STATE_SECTION_PARAM,
+		E_CFG_STATE_NONE,
 		E_CFG_TIMER_MISSING_PARAM,
 		E_CFG_STATE_MISSING_PARAM,
 		E_CFG_STORAGE_MISMATCH,
 
 		E_CFG_DUPLICATE_STATES,
+		E_CFG_PIPE_SECTION_PARAM,
 		E_CFG_PIPE_MISSING_PARAM,
 		E_CFG_PIPE_MISSING_STATE,
 	};
@@ -47,19 +51,26 @@ namespace consts{
 		{ E_UNKNOWN_EXCEPTION, 			"Vyskytl se neznamy problem" },
 
 		{ E_PRG_PARAMS, 					"Program prijima max 1 parametr" },
-		{ E_CFG_FILE_OPEN, 				"Nelze otevrit CONFIG" },
-		{ E_CFG_FILE_FORMAT, 			"CONFIG je ve spatnem JSON formatu" },
-		{ E_CFG_SECTION, 					"Chybi pozadovana sekce CONFIGU" },
+		{ E_CFG_FILE_OPEN, 				"[CONFIG] Nelze otevrit soubor" },
+		{ E_CFG_FILE_FORMAT, 			"[CONFIG] spatny format JSON" },
+		{ E_CFG_SECTION, 					"[CONFIG] Chybi pozadovana sekce" },
+		{ E_CFG_STATE_SECTION_PARAM,	"[CONFIG][COUNTRIES] Hodnota musi byt pole" },
+		{ E_CFG_PIPE_SECTION_PARAM,	"[CONFIG][PIPES] Hodnota musi byt pole" },
 
-		{ E_CFG_TIMER_MISSING_PARAM,	"Chybejici parametr v sekci Timer" },
-		{ E_CFG_STATE_MISSING_PARAM,	"Chybejici parametr v sekci daneho statu" },
 
-		{ E_CFG_DUPLICATE_STATES,		"V CONFIGU je vice statu se stejnym nazvem" },
+		{ E_CFG_PARAM_LOW,				"[CONFIG] Hodnota parametru musi byt >= 0" },
 
-		{ E_CFG_STORAGE_MISMATCH,		"V CONFIGU je u statu mensi kapacita skladu nez vychozi hodnota" },
+		{ E_CFG_TIMER_MISSING_PARAM,	"[CONFIG][TIMER] Chybejici parametr" },
+		{ E_CFG_TIMER_MISMATCH,			"[CONFIG][TIMER] Datum konce musi byt pozdeji nez startu" },
+		{ E_CFG_STATE_MISSING_PARAM, "[CONFIG][COUNTRY] Chybejici parametr" },
 
-		{ E_CFG_PIPE_MISSING_PARAM,	"Chybejici parametr u potrubi" },
-		{ E_CFG_PIPE_MISSING_STATE,	"Chybi stat, pro ktery je vytvoreno potrubi" },
+		{ E_CFG_STATE_NONE,				"[CONFIG][COUNTRIES] Neni definovan zadny stat" },
+		{ E_CFG_DUPLICATE_STATES,		"[CONFIG][COUNTRIES] Vice statu se stejnym nazvem" },
+
+		{ E_CFG_STORAGE_MISMATCH,		"[CONFIG][COUNTRY] Mensi kapacita skladu nez hodnota" },
+
+		{ E_CFG_PIPE_MISSING_PARAM,	"[CONFIG][PIPES] Chybejici parametr" },
+		{ E_CFG_PIPE_MISSING_STATE,	"[CONFIG][PIPES] Chybi stat, pro ktery je vytvoreno" },
 		
 	};
 }

@@ -14,6 +14,12 @@
 #include "state.h"
 #include "timer.h"
 
+/**
+ * Nacteni souboru ze slozky ./config/
+ * @param std::string fileName 
+ * @param cLogger &logger
+ * @return cTimer *
+ */
 cTimer * ParseConfig(std::string fileName, cLogger &logger){
 	// --------------------------- deserializace konfigurace
 	json::Value cfg_data = json::Deserialize(inout::ReadWholeFile(fileName));
@@ -37,20 +43,36 @@ cTimer * ParseConfig(std::string fileName, cLogger &logger){
 	// overeni zda dateStart + dateEnd ma potrebne parametry
 	if (dateStart.HasKeys(consts::cfgDateParams) != -1 || dateStart.HasKeys(consts::cfgDateParams) != -1) throw PrgException(consts::E_CFG_TIMER_MISSING_PARAM);
 
+	// overeni datum_start < datum_end
+	if ((dateStart["year"].ToInt() + dateStart["month"].ToInt() + dateStart["day"].ToInt()) > (dateEnd["year"].ToInt() + dateEnd["month"].ToInt() + dateEnd["day"].ToInt())) throw PrgException(consts::E_CFG_TIMER_MISMATCH);
+
 	// vytvoreni + alokovani timeru
 	cTimer *timer = new cTimer(dateStart["year"].ToInt(), dateStart["month"].ToInt(), dateStart["day"].ToInt(), dateEnd["year"].ToInt(), dateEnd["month"].ToInt(), dateEnd["day"].ToInt());
 
 	// -------------------------------------------------------
 	// --------------------------- nacteni statu
 	// -------------------------------------------------------
-	json::Array states = objMain["Countries"].ToArray(); // TODO nejake osetreni pole?
-	// TODO - nemely by v configu byt alespon nejake staty?
+	if (objMain["Countries"].GetType() != json::ArrayVal) throw PrgException(consts::E_CFG_STATE_SECTION_PARAM);
+	json::Array states = objMain["Countries"].ToArray();
+	unsigned stateCount = 0;
 	for (auto st : states){
+		// jestli jsou vsechny povinne parametry
 		if (st.HasKeys(consts::cfgStateParams) != -1) throw PrgException(consts::E_CFG_STATE_MISSING_PARAM);
+		
+		// overeni, aby vsechny hodnoty byly >= 0
+		for (auto constPar : consts::cfgStateParams){
+			if (constPar == "name") continue;
+			// kazdy parametr statu musi byt >= 0
+			if (st[constPar].ToDouble() < 0.0) throw PrgException(consts::E_CFG_PARAM_LOW);
+		}
+
+		// overeni, aby vychozi hodnota nebyla vetsi nez max kapacita zasobniku
+		if (st["storageDefaultValue"].ToDouble() > st["storageCapacity"].ToDouble()) throw PrgException(consts::E_CFG_TIMER_MISMATCH);
+
+		// overeni, ze ukladani / tezeni je mensi nez kapacita
+		if (st["storageMaxWithdraw"].ToDouble() > st["storageCapacity"].ToDouble() || st["storageMaxStore"].ToDouble() > st["storageCapacity"].ToDouble()) throw PrgException(consts::E_CFG_STORAGE_MISMATCH);
+
 		cState *country;
-
-		if (st["storageDefaultValue"].ToDouble() > st["storageCapacity"].ToDouble()) throw PrgException(consts::E_CFG_STORAGE_MISMATCH);
-
 		// vytvoreni fake statu pokud je nastaven parametr
 		if (st["fake"].GetType() == json::BoolVal && st["fake"].ToBool() == true){
 			country = new cFakeState(st["name"].ToString(), logger, st["consumptSumm"].ToDouble(), st["consumptWint"].ToDouble(), st["storageDefaultValue"].ToDouble(), st["storageCapacity"].ToDouble(), st["storageMaxWithdraw"].ToDouble(), st["storageMaxStore"].ToDouble(), st["production"].ToDouble());
@@ -62,14 +84,22 @@ cTimer * ParseConfig(std::string fileName, cLogger &logger){
 		
 		// prida stat do timeru
 		timer->addState(country);
+		stateCount++;
 	}
+
+	// overeni poctu statu
+	if (stateCount == 0) throw PrgException(consts::E_CFG_STATE_NONE);
 
 	// -------------------------------------------------------
 	// --------------------------- nacteni potrubi
 	// -------------------------------------------------------
+	if (objMain["Pipes"].GetType() != json::ArrayVal) throw PrgException(consts::E_CFG_PIPE_SECTION_PARAM);
 	json::Array pipes = objMain["Pipes"].ToArray(); // TODO nejake osetreni pole?
 	for (auto p : pipes){
 		if (p.HasKeys(consts::cfgPipeParams) != -1) throw PrgException(consts::E_CFG_PIPE_MISSING_PARAM);
+
+		// parametry musi byt >= 0
+		if (p["length"].ToInt() < 0 || p["flowSummer"].ToDouble() < 0 || p["flowWinter"].ToDouble() < 0) throw PrgException(consts::E_CFG_PARAM_LOW);
 
 		cState *stateFrom = timer->getState(p["from"].ToString());
 		cState *stateTo = timer->getState(p["to"].ToString());
@@ -105,12 +135,13 @@ int main(int argc, char * argv[]) {
 		// ------------ overeni + parsovani configu
 		cTimer *timer = ParseConfig(fileName, logger);
 
+		// vypis vsech statu
 		for (auto par : timer->getAllStates()){
 			par.second->printInfo();
 		}
 
+		// zacatek simulace
 		timer->start();
-
 	}
 	catch (std::runtime_error &rExc){
 		// todo nejak lepe osefovat hlasky z json parseru?
@@ -123,5 +154,7 @@ int main(int argc, char * argv[]) {
 		std::cerr << exc.what() << std::endl;
 	}
 	
+	// TODO delete timer
+
 	return 0;
 }

@@ -41,6 +41,9 @@ public:
 	void setSummer(void);
 	void setWinter(void);
 
+	std::string getSource(){ return mSource; }
+	std::string getDestination(){ return mDestination; }
+
 	unsigned getLength()	{ return mLenght; }
 	double getFlowSummer()	{ return mFlowSummer; }
 	double getFlowWinter()	{ return mFlowWinter; }

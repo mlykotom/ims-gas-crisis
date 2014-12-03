@@ -13,51 +13,51 @@
         }
     },
 
-	"Countries" : [
-		{
-			"name" : "CZ",
-            "production":  500.12,
-			"consumptSumm": 150.23,
-			"consumptWint": 200.15,
-			"storageDefaultValue":  999,
+    "Countries": [        
+        {
+            "name": "CZ",
+            "production": 500.12,
+            "consumptSumm": 150.23,
+            "consumptWint": 200.15,
+            "storageDefaultValue": 999,
             "storageCapacity": 400000000,
-			"storageMaxWithdraw": 100,
+            "storageMaxWithdraw": 100,
             "storageMaxStore": 200
-		},
+        },
         {
             "name": "SK",
-            "production":  750,
+            "production": 750,
             "consumptSumm": 2850,
             "consumptWint": 2000,
-			"storageDefaultValue":  999,
-			"storageCapacity": 31500000,
-			"storageMaxWithdraw": 100,
+            "storageDefaultValue": 999,
+            "storageCapacity": 31500000,
+            "storageMaxWithdraw": 100,
             "storageMaxStore": 200
         },
         {
             "name": "UA",
-            "production":  120,
+            "production": 120,
             "consumptSumm": 28500,
             "consumptWint": 20000,
-			"storageDefaultValue":  999,
-			"storageCapacity": 800000000,
-			"storageMaxWithdraw": 100,
+            "storageDefaultValue": 999,
+            "storageCapacity": 800000000,
+            "storageMaxWithdraw": 100,
             "storageMaxStore": 200
         },
-		{
+        {
             "name": "TEST",
-            "production":  0,
-            "fake":  true,
-			"consumptSumm": 28500,
+            "production": 0,
+            "fake": true,
+            "consumptSumm": 28500,
             "consumptWint": 20000,
-			"storageDefaultValue":  999,
-			"storageCapacity": 999999999,
-			"storageMaxWithdraw": 100,
+            "storageDefaultValue": 999,
+            "storageCapacity": 999999999,
+            "storageMaxWithdraw": 100,
             "storageMaxStore": 200
-		}	        	
-	],
+        }
+    ],
 
-	"Pipes": [
+    "Pipes": [
         {
             "from": "CZ",
             "to": "SK",
@@ -69,10 +69,18 @@
         {
             "from": "SK",
             "to": "CZ",
-            "length":  100,
+            "length": 100,
+            "flowSummer": 11.3,
+            "flowWinter": 19.3
+        },
+
+        {
+            "from": "SK",
+            "to": "CZ",
+            "length": 100,
             "flowSummer": 11.3,
             "flowWinter": 19.3
         }
 
-	]
+    ]
 }
