@@ -13,7 +13,9 @@ CPP  = g++
 # chybi 
 CPPFLAGS = -Wall -pedantic --std=c++11
 
-all: $(PROG)
+all: $(CRTFOLDERS) $(PROG)
+
+$(CRTFOLDERS): mkdir output
 
 $(PROG): $(PROG).o stateStats.o date_time.o timer.o pipe.o state.o json.o
 	$(CPP) $(CPPFLAGS) $(PROG).o stateStats.o date_time.o timer.o pipe.o state.o json.o -o $@

@@ -19,6 +19,8 @@ namespace consts{
 	const std::string outputFolder = "./output/";
 	// vychozi delka ------- ve vypisech
 	const unsigned int defaultSizeOfPrint = 60;
+	// oddelovac pro csv soubory
+	const char csvDelimiter = ',';
 
 	// chybove kody
 	enum error_code{
@@ -49,8 +51,9 @@ namespace consts{
 		double consumption;
 		double overflow;
 		double deficit;
-		sDayStat() : production(0), consumption(0), overflow(0), deficit(0){}
-		void reset(){ production = 0; consumption = 0; overflow = 0; deficit = 0; }
+		double storageStat;
+		sDayStat() : production(0), consumption(0), overflow(0), deficit(0), storageStat(0) {}
+		void reset(){ production = 0; consumption = 0; overflow = 0; deficit = 0; storageStat = 0; }
 	};
 
 	// povinne parametry configu

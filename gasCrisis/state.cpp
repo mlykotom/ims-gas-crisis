@@ -88,8 +88,6 @@ void cState::behaviour(cDateTime * actDateTime)
 	consumption = consum();
 
 	// ulozenie statistik
-	mDayStat.consumption += consumption;
-	mDayStat.production += production;
 	mStats->addConsumption(consumption, mSummer);
 	mStats->addProduction(production, mSummer);
 
@@ -159,9 +157,15 @@ void cState::behaviour(cDateTime * actDateTime)
 		mStats->addDeficit(deficit, mSummer);
 	}
 
+	// pripocteni denni statistiky
+	mDayStat.consumption += consumption;
+	mDayStat.production += production;
+	mDayStat.storageStat += mStorageStat;
+
 	if (actDateTime->getDay() != mLastKnownTime.getDay()){
 		mLastKnownTime = *actDateTime;
 		dayConstumptStats[mLastKnownTime.render()] = mDayStat;
+		// resetovani pro dalsi den
 		mDayStat.reset();
 	}
 
@@ -291,15 +295,19 @@ std::string cState::getStats(bool total, bool summer, bool winter, bool consumpt
 
 	std::ofstream out(consts::outputFolder + this->getName() + ".csv");
 	// TODO osetrit jestli je otevreny soubor
-	out << "Day;Production;Consumption;Overflow;Deficit;" << std::endl;
+
+	std::vector<std::string> header = { "Day", "Production", "Consumption", "Overflow", "Deficit", "StorageStat" };
+
+	for (auto h : header) out << h << consts::csvDelimiter;
+	out << std::endl;
 
 	for (auto st : dayConstumptStats){
-		out << st.first << ";";
-		out << st.second.production << ";";
-		out << st.second.consumption << ";";
-		out << st.second.overflow << ";";
-		out << st.second.deficit << ";";
-		
+		out << st.first << consts::csvDelimiter;
+		out << st.second.production << consts::csvDelimiter;
+		out << st.second.consumption << consts::csvDelimiter;
+		out << st.second.overflow << consts::csvDelimiter;
+		out << st.second.deficit << consts::csvDelimiter;
+		out << st.second.storageStat << consts::csvDelimiter;
 		out << std::endl;
 	}
 
