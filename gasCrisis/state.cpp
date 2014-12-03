@@ -299,3 +299,8 @@ void cFakeState::behaviour(void)
 	pushGasIntoPipes();
 }
 //----------------------------------------------------------------------------------------
+std::string getStats(bool total, bool summer, bool winter, bool consumption, bool production, bool storage, bool overflow, bool deficit, bool incomeFlows, bool outcomeFlows)
+{
+	return "";
+}
+//----------------------------------------------------------------------------------------

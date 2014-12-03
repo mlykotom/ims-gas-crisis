@@ -68,7 +68,7 @@ public:
 	std::vector<cPipe *> getAllPipesIn()	{ return this->mPipesIn; }
 	std::vector<cPipe *> getAllPipesOut()	{ return this->mPipesOut; }
 
-	std::string getStats(bool total, bool summer, bool winter, bool consumption, bool production, bool storage, bool overflow, bool deficit, bool incomeFlows, bool outcomeFlows);
+	virtual std::string getStats(bool total, bool summer, bool winter, bool consumption, bool production, bool storage, bool overflow, bool deficit, bool incomeFlows, bool outcomeFlows);
 
 protected:
 	double getGasFromPipes(void);
@@ -84,4 +84,6 @@ public:
 	~cFakeState();
 
 	void behaviour(void);
+
+	std::string getStats(bool total, bool summer, bool winter, bool consumption, bool production, bool storage, bool overflow, bool deficit, bool incomeFlows, bool outcomeFlows);
 };
