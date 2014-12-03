@@ -14,6 +14,11 @@ cPipe::cPipe(unsigned id, const std::string& source, const std::string& destinat
 	{
 		mFlows.push_front(0);
 	}
+
+	// vygenerovanie seedu pre generator
+	std::random_device rd;
+	std::default_random_engine tmpGen(rd());
+	mGenerator = tmpGen;
 }
 //----------------------------------------------------------------------------------------
 cPipe::~cPipe(void)

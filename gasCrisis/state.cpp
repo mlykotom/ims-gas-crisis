@@ -14,19 +14,37 @@ mStorageMaxStore(maxStorStore),
 mStorageStat(storageDefaultValue),
 mProduction(production)
 {
+	// vygenerovanie noveho distributoru pre produkciu
 	if (mProduction > 0)
 	{
 		std::poisson_distribution<int> tmpPro(mProduction);
 		mDistributionProduction = tmpPro;
 	}
 
+	// vygenerovanie noveho seedu pre generator
+	std::random_device rd;
+	std::default_random_engine tmpGen(rd());
+	mGenerator = tmpGen;
+
+	// trieda pre zachytavanie statistik
 	mStats = new cStateStats(mName);
 }
 //----------------------------------------------------------------------------------------
 cState::~cState(void)
 {
-	// EMPTY
-	// TODO odalokovat pipy
+	// zrusenie potrubi
+	for (unsigned i = 0; i < mPipesIn.size(); i++)
+	{
+		delete mPipesIn[i];
+	}
+
+	// zrusenie potrubi
+	for (unsigned i = 0; i < mPipesOut.size(); i++)
+	{
+		delete mPipesOut[i];
+	}
+
+	// zrusenie statistik
 	delete mStats;
 }
 //----------------------------------------------------------------------------------------
@@ -51,11 +69,15 @@ void cState::printInfo()
 	std::cout << "------------------------------" << std::endl;
 }
 //----------------------------------------------------------------------------------------
+// metoda prida ku statu potrubie ktore do neho smeruje
+// @pipe dane potrubie
 void cState::addPipelineIn(cPipe* pipe)
 {
 	this->mPipesIn.push_back(pipe);
 }
 //----------------------------------------------------------------------------------------
+// metoda prida do statu potrubie ktore z neho smeruje
+// @pipe dane potrubie
 void cState::addPipelineOut(cPipe* pipe)
 {
 	this->mPipesOut.push_back(pipe);
@@ -76,14 +98,12 @@ void cState::behaviour(void)
 	production = product();
 	consumption = consum();
 
-	//std::cout << mName << " income: " << income << " outcome: " << outcome << " product: " << production << " consum: " << consumption << std::endl;
+	// ulozenie statistik
 	mStats->addConsumption(consumption, mSummer);
 	mStats->addProduction(production, mSummer);
 
 	// ziskanie dlhu / prebitku
 	amount = (income + production) - (outcome + consumption);
-
-	//std::cout << mName << " amount: " << amount;
 
 	if (amount > 0)
 	{
@@ -112,7 +132,7 @@ void cState::behaviour(void)
 		// celkovy zisk statu
 		overflow += amount;
 
-		//std::cout << " overflow: " << overflow;
+		// ulozenie statistik
 		mStats->addOverflow(overflow, mSummer);
 	}
 	else if (amount < 0)
@@ -142,11 +162,11 @@ void cState::behaviour(void)
 		// celkovy deficit zo dna
 		deficit += amount;
 
-		//std::cout << " deficit: " << deficit;
+		// ulozenie statistik
 		mStats->addDeficit(deficit, mSummer);
 	}
 
-	//std::cout << " storage: " << mStorageStat << std::endl;
+	// ulozenie statistik
 	mStats->addStorage(mStorageStat, mSummer);
 	mStats->incEntrie(mSummer);
 }

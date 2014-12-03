@@ -17,8 +17,12 @@ cStateStats::~cStateStats(void)
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
+// prida jednu hodnotu do statistik o Consumption
+// @value	aktualna hodnota ktora sa ma zapisat
+// @summer	indikator ci je leto/zima
 void cStateStats::addConsumption(double value, bool summer)
 {
+	// ak sa jedna o prvy hodnotu
 	if (mTotalEntries == 1)
 	{
 		mTotalConsumption.total = value;
@@ -26,12 +30,14 @@ void cStateStats::addConsumption(double value, bool summer)
 		mTotalConsumption.min = value;
 	}
 
+	// ak sa jedna o prvy letnu hodnotu
 	if (mSummerEntries == 1 && summer == true)
 	{
 		mSummerConsumption.total = value;
 		mSummerConsumption.max = value;
 		mSummerConsumption.min = value;
 	}
+	// ak sa jedna o prvu zimnu hodnotu
 	else if (mWinterEntries == 1 && summer == false)
 	{
 		mWinterConsumption.total = value;
@@ -40,12 +46,14 @@ void cStateStats::addConsumption(double value, bool summer)
 	}
 	else
 	{
+		// ulozenie celkovych statistik
 		mTotalConsumption.total += value;
 		if (value > mTotalConsumption.max)
 			mTotalConsumption.max = value;
 		if (value < mTotalConsumption.min)
 			mTotalConsumption.min = value;
 
+		// ulozenie letnych statistik
 		if (summer == true)
 		{
 			mSummerConsumption.total += value;
@@ -54,6 +62,7 @@ void cStateStats::addConsumption(double value, bool summer)
 			if (value < mSummerConsumption.min)
 				mSummerConsumption.min = value;
 		}
+		// ulozenie zimnych statistik
 		else
 		{
 			mWinterConsumption.total += value;
@@ -65,8 +74,12 @@ void cStateStats::addConsumption(double value, bool summer)
 	}
 }
 //----------------------------------------------------------------------------------------
+// prida jednu hodnotu do statistik o Production
+// @value	aktualna hodnota ktora sa ma zapisat
+// @summer	indikator ci je leto/zima
 void cStateStats::addProduction(double value, bool summer)
 {
+	// ak sa jedna o prvy hodnotu
 	if (mTotalEntries == 1)
 	{
 		mTotalProduction.total = value;
@@ -74,12 +87,14 @@ void cStateStats::addProduction(double value, bool summer)
 		mTotalProduction.min = value;
 	}
 
+	// ak sa jedna o prvy letnu hodnotu
 	if (mSummerEntries == 1 && summer == true)
 	{
 		mSummerProduction.total = value;
 		mSummerProduction.max = value;
 		mSummerProduction.min = value;
 	}
+	// ak sa jedna o prvu zimnu hodnotu
 	else if (mWinterEntries == 1 && summer == false)
 	{
 		mWinterProduction.total = value;
@@ -88,12 +103,14 @@ void cStateStats::addProduction(double value, bool summer)
 	}
 	else
 	{
+		// ulozenie celkovych statistik
 		mTotalProduction.total += value;
 		if (value > mTotalProduction.max)
 			mTotalProduction.max = value;
 		if (value < mTotalProduction.min)
 			mTotalProduction.min = value;
 
+		// ulozenie letnych statistik
 		if (summer == true)
 		{
 			mSummerProduction.total += value;
@@ -102,6 +119,7 @@ void cStateStats::addProduction(double value, bool summer)
 			if (value < mSummerProduction.min)
 				mSummerProduction.min = value;
 		}
+		// ulozenie zimnych statistik
 		else
 		{
 			mWinterProduction.total += value;
@@ -113,8 +131,12 @@ void cStateStats::addProduction(double value, bool summer)
 	}
 }
 //----------------------------------------------------------------------------------------
+// prida jednu hodnotu do statistik o Storage
+// @value	aktualna hodnota ktora sa ma zapisat
+// @summer	indikator ci je leto/zima
 void cStateStats::addStorage(double value, bool summer)
 {
+	// ak sa jedna o prvy hodnotu
 	if (mTotalEntries == 1)
 	{
 		mTotalStorage.total = value;
@@ -122,12 +144,14 @@ void cStateStats::addStorage(double value, bool summer)
 		mTotalStorage.min = value;
 	}
 
+	// ak sa jedna o prvy letnu hodnotu
 	if (mSummerEntries == 1 && summer == true)
 	{
 		mSummerStorage.total = value;
 		mSummerStorage.max = value;
 		mSummerStorage.min = value;
 	}
+	// ak sa jedna o prvu zimnu hodnotu
 	else if (mWinterEntries == 1 && summer == false)
 	{
 		mWinterStorage.total = value;
@@ -136,12 +160,14 @@ void cStateStats::addStorage(double value, bool summer)
 	}
 	else
 	{
+		// ulozenie celkovych statistik
 		mTotalStorage.total += value;
 		if (value > mTotalStorage.max)
 			mTotalStorage.max = value;
 		if (value < mTotalStorage.min)
 			mTotalStorage.min = value;
 
+		// ulozenie letnych statistik
 		if (summer == true)
 		{
 			mSummerStorage.total += value;
@@ -150,6 +176,7 @@ void cStateStats::addStorage(double value, bool summer)
 			if (value < mSummerStorage.min)
 				mSummerStorage.min = value;
 		}
+		// ulozenie zimnych statistik
 		else
 		{
 			mWinterStorage.total += value;
@@ -161,8 +188,12 @@ void cStateStats::addStorage(double value, bool summer)
 	}
 }
 //----------------------------------------------------------------------------------------
+// prida jednu hodnotu do statistik o prebytku plynu
+// @value	aktualna hodnota ktora sa ma zapisat
+// @summer	indikator ci je leto/zima
 void cStateStats::addOverflow(double value, bool summer)
 {
+	// ak sa jedna o prvy hodnotu
 	if (mTotalEntries == 1)
 	{
 		mTotalOverflow.total = value;
@@ -170,12 +201,14 @@ void cStateStats::addOverflow(double value, bool summer)
 		mTotalOverflow.min = value;
 	}
 
+	// ak sa jedna o prvy letnu hodnotu
 	if (mSummerEntries == 1 && summer == true)
 	{
 		mSummerOverflow.total = value;
 		mSummerOverflow.max = value;
 		mSummerOverflow.min = value;
 	}
+	// ak sa jedna o prvu zimnu hodnotu
 	else if (mWinterEntries == 1 && summer == false)
 	{
 		mWinterOverflow.total = value;
@@ -184,12 +217,14 @@ void cStateStats::addOverflow(double value, bool summer)
 	}
 	else
 	{
+		// ulozenie celkovych statistik
 		mTotalOverflow.total += value;
 		if (value > mTotalOverflow.max)
 			mTotalOverflow.max = value;
 		if (value < mTotalOverflow.min)
 			mTotalOverflow.min = value;
 
+		// ulozenie letnych statistik
 		if (summer == true)
 		{
 			mSummerOverflow.total += value;
@@ -198,6 +233,7 @@ void cStateStats::addOverflow(double value, bool summer)
 			if (value < mSummerOverflow.min)
 				mSummerOverflow.min = value;
 		}
+		// ulozenie zimnych statistik
 		else
 		{
 			mWinterOverflow.total += value;
@@ -209,8 +245,12 @@ void cStateStats::addOverflow(double value, bool summer)
 	}
 }
 //----------------------------------------------------------------------------------------
+// prida jednu hodnotu do statistik o nedostatku plynu
+// @value	aktualna hodnota ktora sa ma zapisat
+// @summer	indikator ci je leto/zima
 void cStateStats::addDeficit(double value, bool summer)
 {
+	// ak sa jedna o prvy hodnotu
 	if (mTotalEntries == 1)
 	{
 		mTotalDeficit.total = value;
@@ -218,12 +258,14 @@ void cStateStats::addDeficit(double value, bool summer)
 		mTotalDeficit.min = value;
 	}
 
+	// ak sa jedna o prvy letnu hodnotu
 	if (mSummerEntries == 1 && summer == true)
 	{
 		mSummerDeficit.total = value;
 		mSummerDeficit.max = value;
 		mSummerDeficit.min = value;
 	}
+	// ak sa jedna o prvu zimnu hodnotu
 	else if (mWinterEntries == 1 && summer == false)
 	{
 		mWinterDeficit.total = value;
@@ -232,12 +274,14 @@ void cStateStats::addDeficit(double value, bool summer)
 	}
 	else
 	{
+		// ulozenie celkovych statistik
 		mTotalDeficit.total += value;
 		if (value > mTotalDeficit.max)
 			mTotalDeficit.max = value;
 		if (value < mTotalDeficit.min)
 			mTotalDeficit.min = value;
 
+		// ulozenie letnych statistik
 		if (summer == true)
 		{
 			mSummerDeficit.total += value;
@@ -246,6 +290,7 @@ void cStateStats::addDeficit(double value, bool summer)
 			if (value < mSummerDeficit.min)
 				mSummerDeficit.min = value;
 		}
+		// ulozenie zimnych statistik
 		else
 		{
 			mWinterDeficit.total += value;
@@ -257,8 +302,13 @@ void cStateStats::addDeficit(double value, bool summer)
 	}
 }
 //----------------------------------------------------------------------------------------
+// prida jednu hodnotu do statistik o vstupnom toku
+// @name	meno statu kam ide tok
+// @value	aktualna hodnota ktora sa ma zapisat
+// @summer	indikator ci je leto/zima
 void cStateStats::addIncomeFlow(const std::string& name, double value, bool summer)
 {
+	// ak sa jedna o prvy hodnotu
 	if (mTotalEntries == 1)
 	{
 		mTotalStatesIncome[name].total = value;
@@ -266,12 +316,14 @@ void cStateStats::addIncomeFlow(const std::string& name, double value, bool summ
 		mTotalStatesIncome[name].min = value;
 	}
 
+	// ak sa jedna o prvy letnu hodnotu
 	if (mSummerEntries == 1 && summer == true)
 	{
 		mSummerStatesIncome[name].total = value;
 		mSummerStatesIncome[name].max = value;
 		mSummerStatesIncome[name].min = value;
 	}
+	// ak sa jedna o prvu zimnu hodnotu
 	else if (mWinterEntries == 1 && summer == false)
 	{
 		mWinterStatesIncome[name].total = value;
@@ -280,12 +332,14 @@ void cStateStats::addIncomeFlow(const std::string& name, double value, bool summ
 	}
 	else
 	{
+		// ulozenie celkovych statistik
 		mTotalStatesIncome[name].total += value;
 		if (value > mTotalStatesIncome[name].max)
 			mTotalStatesIncome[name].max = value;
 		if (value < mTotalStatesIncome[name].min)
 			mTotalStatesIncome[name].min = value;
 
+		// ulozenie letnych statistik
 		if (summer == true)
 		{
 			mSummerStatesIncome[name].total += value;
@@ -294,6 +348,7 @@ void cStateStats::addIncomeFlow(const std::string& name, double value, bool summ
 			if (value < mSummerStatesIncome[name].min)
 				mSummerStatesIncome[name].min = value;
 		}
+		// ulozenie zimnych statistik
 		else
 		{
 			mWinterStatesIncome[name].total += value;
@@ -305,8 +360,13 @@ void cStateStats::addIncomeFlow(const std::string& name, double value, bool summ
 	}
 }
 //----------------------------------------------------------------------------------------
+// prida jednu hodnotu do statistik o vystupnom toku
+// @name	meno statu odkial prisiel tok
+// @value	aktualna hodnota ktora sa ma zapisat
+// @summer	indikator ci je leto/zima
 void cStateStats::addOutcomeFlow(const std::string& name, double value, bool summer)
 {
+	// ak sa jedna o prvy hodnotu
 	if (mTotalEntries == 1)
 	{
 		mTotalStatesOutcome[name].total = value;
@@ -314,12 +374,14 @@ void cStateStats::addOutcomeFlow(const std::string& name, double value, bool sum
 		mTotalStatesOutcome[name].min = value;
 	}
 
+	// ak sa jedna o prvy letnu hodnotu
 	if (mSummerEntries == 1 && summer == true)
 	{
 		mSummerStatesOutcome[name].total = value;
 		mSummerStatesOutcome[name].max = value;
 		mSummerStatesOutcome[name].min = value;
 	}
+	// ak sa jedna o prvu zimnu hodnotu
 	else if (mWinterEntries == 1 && summer == false)
 	{
 		mWinterStatesOutcome[name].total = value;
@@ -328,12 +390,14 @@ void cStateStats::addOutcomeFlow(const std::string& name, double value, bool sum
 	}
 	else
 	{
+		// ulozenie celkovych statistik
 		mTotalStatesOutcome[name].total += value;
 		if (value > mTotalStatesOutcome[name].max)
 			mTotalStatesOutcome[name].max = value;
 		if (value < mTotalStatesOutcome[name].min)
 			mTotalStatesOutcome[name].min = value;
 
+		// ulozenie letnych statistik
 		if (summer == true)
 		{
 			mSummerStatesOutcome[name].total += value;
@@ -342,6 +406,7 @@ void cStateStats::addOutcomeFlow(const std::string& name, double value, bool sum
 			if (value < mSummerStatesOutcome[name].min)
 				mSummerStatesOutcome[name].min = value;
 		}
+		// ulozenie zimnych statistik
 		else
 		{
 			mWinterStatesOutcome[name].total += value;
@@ -353,6 +418,8 @@ void cStateStats::addOutcomeFlow(const std::string& name, double value, bool sum
 	}
 }
 //----------------------------------------------------------------------------------------
+// incrementovanie pocitadiel vstupov
+// @summer	indikator ci sa jedna o leto alebo zimu
 void cStateStats::incEntrie(bool summer)
 {
 	mTotalEntries++;
@@ -367,10 +434,21 @@ void cStateStats::incEntrie(bool summer)
 	}
 }
 //----------------------------------------------------------------------------------------
+// vytlacenie celkovych statistik a vratenie ich ako string
+// @total			indikator ci sa maju vypisovat totalne statisktiky
+// @summer			indikator ci sa maju vypisovat statisktiky o lete
+// @winter			indikator ci sa maju vypisovat statisktiky o zime
+// @consumption		indikator ci sa maju vypisovat statisktiky o spotrebe plynu
+// @production		indikator ci sa maju vypisovat statisktiky o vyprodukovanom plyne
+// @storage			indikator ci sa maju vypisovat statisktiky o zasobnikoch
+// @overflow		indikator ci sa maju vypisovat statisktiky o prebytkoch plynu
+// @deficit			indikator ci sa maju vypisovat statisktiky o nedostatkoch plynu
+// @incomeFlows		indikator ci sa maju vypisovat statisktiky o pritokoch
+// @outcomeFlows	indikator ci sa maju vypisovat statisktiky o odtokoch
 std::string cStateStats::getStats(bool total, bool summer, bool winter, bool consumption, bool production, bool storage, bool overflow, bool deficit, bool incomeFlows, bool outcomeFlows)
 {
 	std::ostringstream out;
-	const unsigned maxOnLine = 100;
+	const unsigned maxOnLine = 60;
 	
 	out << std::string(maxOnLine, '-') << '\n';
 	out << "state: " << mName << std::endl;
@@ -410,9 +488,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 		{
 			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
 			out << "\t\tstorage:\n";
-			out << "\t\t\ttot: " <<  mTotalStorage.total;
-			out << " | ";
-			out << "min: " <<  mTotalStorage.min;
+			out << "\t\t\tmin: " <<  mTotalStorage.min;
 			out << " | ";
 			out << "max: " <<  mTotalStorage.max;
 			out << " | ";
@@ -510,9 +586,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 		{
 			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
 			out << "\t\tstorage:\n";
-			out << "\t\t\ttot: " <<  mSummerStorage.total;
-			out << " | ";
-			out << "min: " <<  mSummerStorage.min;
+			out << "\t\t\tmin: " <<  mSummerStorage.min;
 			out << " | ";
 			out << "max: " <<  mSummerStorage.max;
 			out << " | ";
@@ -610,9 +684,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 		{
 			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
 			out << "\t\tstorage:\n";
-			out << "\t\t\ttot: " <<  mWinterStorage.total;
-			out << " | ";
-			out << "min: " <<  mWinterStorage.min;
+			out << "\t\t\tmin: " <<  mWinterStorage.min;
 			out << " | ";
 			out << "max: " <<  mWinterStorage.max;
 			out << " | ";
