@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+#include <sstream>
 
 class cDateTime{
 public:
@@ -22,6 +24,22 @@ public:
 	unsigned getMonth(){ return this->mMonth; }
 	unsigned getDay() { return this->mDay; }
 	unsigned getHour(){ return this->mHour; }
+
+	unsigned renderDayKey(){ return mYear + mMonth + mDay; }
+
+	std::string render(bool h = false){
+		std::ostringstream ret;
+		ret << mYear;
+			ret << '.';
+		if (mMonth < 10) ret << '0';
+		ret << mMonth;
+			ret << '.';
+		if (mDay < 10) ret << '0';
+		ret << mDay;
+		if (h) ret << '.' << mHour;
+
+		return ret.str();
+	}
 
 	void addHour();
 

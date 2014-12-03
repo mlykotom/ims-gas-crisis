@@ -3,9 +3,11 @@
 #include <string>
 #include <vector>
 #include <iostream> // pro printInfo
+#include <fstream>
 #include <chrono>
 
 #include "consts.h"
+#include "date_time.h"
 #include "pipe.h"
 #include "logger.h"
 #include "stateStats.h"
@@ -31,6 +33,11 @@ private:
 
 	bool mSummer;
 
+	cDateTime mLastKnownTime;
+	consts::sDayStat mDayStat;
+
+	std::map<std::string, consts::sDayStat> dayConstumptStats;
+
 	std::default_random_engine mGenerator;
 	std::poisson_distribution<int> mDistributionProduction;
 	std::poisson_distribution<int> mDistributionConsumption;
@@ -49,7 +56,7 @@ public:
 	void addPipelineIn(cPipe* pipe);
 	void addPipelineOut(cPipe* pipe);
 
-	virtual void behaviour(void);
+	virtual void behaviour(cDateTime *);
 
 	std::string getName(void)			{ return mName; }
 	double getConsumSummer(void)		{ return mConsumSummer; }
@@ -83,7 +90,7 @@ public:
 	cFakeState(const std::string name, cLogger &logger, double cSumm, double cWint, double storDefVal, double storCap, double maxStorWith, double maxStorStore, double production);
 	~cFakeState();
 
-	void behaviour(void);
+	void behaviour(cDateTime *);
 
 	std::string getStats(bool total, bool summer, bool winter, bool consumption, bool production, bool storage, bool overflow, bool deficit, bool incomeFlows, bool outcomeFlows);
 };

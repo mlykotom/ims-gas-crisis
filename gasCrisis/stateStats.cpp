@@ -82,24 +82,18 @@ void cStateStats::addProduction(double value, bool summer)
 	// ak sa jedna o prvy hodnotu
 	if (mTotalEntries == 1)
 	{
-		mTotalProduction.total = value;
-		mTotalProduction.max = value;
-		mTotalProduction.min = value;
+		mTotalProduction.set(value, value, value);
 	}
 
 	// ak sa jedna o prvy letnu hodnotu
 	if (mSummerEntries == 1 && summer == true)
 	{
-		mSummerProduction.total = value;
-		mSummerProduction.max = value;
-		mSummerProduction.min = value;
+		mSummerProduction.set(value, value, value);
 	}
 	// ak sa jedna o prvu zimnu hodnotu
 	else if (mWinterEntries == 1 && summer == false)
 	{
-		mWinterProduction.total = value;
-		mWinterProduction.max = value;
-		mWinterProduction.min = value;
+		mWinterProduction.set(value, value, value);
 	}
 	else
 	{
@@ -448,11 +442,10 @@ void cStateStats::incEntrie(bool summer)
 std::string cStateStats::getStats(bool total, bool summer, bool winter, bool consumption, bool production, bool storage, bool overflow, bool deficit, bool incomeFlows, bool outcomeFlows)
 {
 	std::ostringstream out;
-	const unsigned maxOnLine = 60;
 	
-	out << std::string(maxOnLine, '-') << '\n';
+	out << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 	out << "state: " << mName << std::endl;
-	out << std::string(maxOnLine, '-') << '\n';
+	out << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 
 	if (total == true)
 	{
@@ -460,7 +453,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		if (consumption == true)
 		{
-			out << "\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\tconsumption:\n";
 			out << "\t\t\ttot: " <<  mTotalConsumption.total;
 			out << " | ";
@@ -473,7 +466,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		if (production == true)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\tproduction:\n";
 			out << "\t\t\ttot: " <<  mTotalProduction.total;
 			out << " | ";
@@ -486,7 +479,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		if (storage == true)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\tstorage:\n";
 			out << "\t\t\tmin: " <<  mTotalStorage.min;
 			out << " | ";
@@ -497,7 +490,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		if (overflow == true)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\toverflow:\n";
 			out << "\t\t\ttot: " <<  mTotalOverflow.total;
 			out << " | ";
@@ -510,7 +503,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		if (deficit == true)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\tdeficit:\n";
 			out << "\t\t\ttot: " <<  mTotalDeficit.total;
 			out << " | ";
@@ -523,7 +516,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		for (auto state : mTotalStatesIncome)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\twith: " << state.first << '\n';
 			if (incomeFlows == true)
 			{
@@ -553,12 +546,12 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 	if (summer == true)
 	{
-		out << "\t" << std::string(maxOnLine, '-') << '\n';
+		out << "\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 		out << "\tsummer:\n";
 
 		if (consumption == true)
 		{
-			out << "\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\tconsumption:\n";
 			out << "\t\t\ttot: " <<  mSummerConsumption.total;
 			out << " | ";
@@ -571,7 +564,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		if (production == true)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\tproduction:\n";
 			out << "\t\t\ttot: " <<  mSummerProduction.total;
 			out << " | ";
@@ -584,7 +577,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		if (storage == true)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\tstorage:\n";
 			out << "\t\t\tmin: " <<  mSummerStorage.min;
 			out << " | ";
@@ -595,7 +588,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		if (overflow == true)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\toverflow:\n";
 			out << "\t\t\ttot: " <<  mSummerOverflow.total;
 			out << " | ";
@@ -608,7 +601,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		if (deficit == true)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\tdeficit:\n";
 			out << "\t\t\ttot: " <<  mSummerDeficit.total;
 			out << " | ";
@@ -621,7 +614,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		for (auto state : mSummerStatesIncome)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\twith: " << state.first << '\n';
 			if (incomeFlows == true)
 			{
@@ -651,12 +644,12 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 	if (winter == true)
 	{
-		out << "\t" << std::string(maxOnLine, '-') << '\n';
+		out << "\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 		out << "\twinter:\n";
 
 		if (consumption == true)
 		{
-			out << "\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\tconsumption:\n";
 			out << "\t\t\ttot: " <<  mWinterConsumption.total;
 			out << " | ";
@@ -669,7 +662,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		if (production == true)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\tproduction:\n";
 			out << "\t\t\ttot: " <<  mWinterProduction.total;
 			out << " | ";
@@ -682,7 +675,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		if (storage == true)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\tstorage:\n";
 			out << "\t\t\tmin: " <<  mWinterStorage.min;
 			out << " | ";
@@ -693,7 +686,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		if (overflow == true)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\toverflow:\n";
 			out << "\t\t\ttot: " <<  mWinterOverflow.total;
 			out << " | ";
@@ -706,7 +699,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		if (deficit == true)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\tdeficit:\n";
 			out << "\t\t\ttot: " <<  mWinterDeficit.total;
 			out << " | ";
@@ -719,7 +712,7 @@ std::string cStateStats::getStats(bool total, bool summer, bool winter, bool con
 
 		for (auto state : mWinterStatesIncome)
 		{
-			out << "\t\t" << std::string(maxOnLine, '-') << '\n';
+			out << "\t\t" << std::string(consts::defaultSizeOfPrint, '-') << '\n';
 			out << "\t\twith: " << state.first << '\n';
 			if (incomeFlows == true)
 			{

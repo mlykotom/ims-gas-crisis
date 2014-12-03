@@ -7,13 +7,26 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include "consts.h"
 
-typedef struct
+struct sStatictic
 {
 	double total;
 	double max;
 	double min;
-} sStatictic;
+
+	sStatictic(double tot = 0, double ma = 0, double mi = 0) : total(tot), max(ma), min(mi){}
+	void set(double tot = 0, double ma = 0, double mi = 0){
+		total = tot;
+		max = ma;
+		min = mi;
+	}
+	void add(double tot = 0, double ma = 0, double mi = 0){
+		total += tot;
+		max += ma;
+		min += mi;
+	}
+};
 
 class cStateStats
 {

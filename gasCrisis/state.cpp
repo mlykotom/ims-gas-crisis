@@ -1,12 +1,19 @@
 //----------------------------------------------------------------------------------------
 #include "state.h"
-
+// jelikoz na windows nefunguje default_random_engine, tak je pouzit time(NULL) << definice v consts.h 
+#if TIME_RANDOM_GENERATOR
+	#define RANDOM_GENERATOR  std::default_random_engine tmpGen(time(NULL));
+#else
+	#define RANDOM_GENERATOR 	std::random_device rd; std::default_random_engine tmpGen(rd());
+#endif
 //----------------------------------------------------------------------------------------
 // class cState
 //----------------------------------------------------------------------------------------
 cState::cState(const std::string name, cLogger &logger, double consumSummer, double consumWinter, double storageDefaultValue, double storageCapacity, double maxStorWith, double maxStorStore, double production):
 mName(name),
 mLogger(logger),
+mLastKnownTime(),
+mDayStat(),
 mConsumSummer(consumSummer),
 mConsumWinter(consumWinter),
 mStorageCapacity(storageCapacity),
@@ -14,7 +21,7 @@ mStorageMaxWithdraw(maxStorWith),
 mStorageMaxStore(maxStorStore),
 mStorageStat(storageDefaultValue),
 mProduction(production)
-{
+{	
 	// vygenerovanie noveho distributoru pre produkciu
 	if (mProduction > 0)
 	{
@@ -23,8 +30,7 @@ mProduction(production)
 	}
 
 	// vygenerovanie noveho seedu pre generator
-	std::random_device rd; 
-	std::default_random_engine tmpGen(rd());
+	RANDOM_GENERATOR
 	mGenerator = tmpGen;
 
 	// trieda pre zachytavanie statistik
@@ -65,7 +71,7 @@ void cState::addPipelineOut(cPipe* pipe)
 	this->mPipesOut.push_back(pipe);
 }
 //----------------------------------------------------------------------------------------
-void cState::behaviour(void)
+void cState::behaviour(cDateTime * actDateTime)
 {
 	// pomocne premenne
 	double production = 0;
@@ -74,6 +80,7 @@ void cState::behaviour(void)
 	double income = 0;
 	double amount = 0;
 
+
 	// ziskanie vsetkych vstupov / vystupov
 	income = getGasFromPipes();
 	outcome = pushGasIntoPipes();
@@ -81,6 +88,8 @@ void cState::behaviour(void)
 	consumption = consum();
 
 	// ulozenie statistik
+	mDayStat.consumption += consumption;
+	mDayStat.production += production;
 	mStats->addConsumption(consumption, mSummer);
 	mStats->addProduction(production, mSummer);
 
@@ -115,6 +124,7 @@ void cState::behaviour(void)
 		overflow += amount;
 
 		// ulozenie statistik
+		mDayStat.overflow += overflow;
 		mStats->addOverflow(overflow, mSummer);
 	}
 	else if (amount < 0)
@@ -145,7 +155,14 @@ void cState::behaviour(void)
 		deficit += amount;
 
 		// ulozenie statistik
+		mDayStat.deficit += deficit;
 		mStats->addDeficit(deficit, mSummer);
+	}
+
+	if (actDateTime->getDay() != mLastKnownTime.getDay()){
+		mLastKnownTime = *actDateTime;
+		dayConstumptStats[mLastKnownTime.render()] = mDayStat;
+		mDayStat.reset();
 	}
 
 	// ulozenie statistik
@@ -272,6 +289,20 @@ std::string cState::getStats(bool total, bool summer, bool winter, bool consumpt
 {
 	std::cout << mStats->getStats(total, summer, winter, consumption, production, storage, overflow, deficit, incomeFlows, outcomeFlows);
 
+	std::ofstream out(consts::outputFolder + this->getName() + ".csv");
+	// TODO osetrit jestli je otevreny soubor
+	out << "Day;Production;Consumption;Overflow;Deficit;" << std::endl;
+
+	for (auto st : dayConstumptStats){
+		out << st.first << ";";
+		out << st.second.production << ";";
+		out << st.second.consumption << ";";
+		out << st.second.overflow << ";";
+		out << st.second.deficit << ";";
+		
+		out << std::endl;
+	}
+
 	return "";
 }
 //----------------------------------------------------------------------------------------
@@ -292,7 +323,7 @@ cFakeState::~cFakeState()
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
-void cFakeState::behaviour(void)
+void cFakeState::behaviour(cDateTime * actDateTime)
 {
 	getGasFromPipes();
 	pushGasIntoPipes();

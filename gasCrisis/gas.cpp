@@ -67,7 +67,7 @@ cTimer * ParseConfig(std::string fileName, cLogger &logger){
 		}
 
 		// overeni, aby vychozi hodnota nebyla vetsi nez max kapacita zasobniku
-		if (st["storageDefaultValue"].ToDouble() > st["storageCapacity"].ToDouble()) throw PrgException(consts::E_CFG_TIMER_MISMATCH);
+		if (st["storageDefaultValue"].ToDouble() > st["storageCapacity"].ToDouble()) throw PrgException(consts::E_CFG_STORAGE_MISMATCH);
 
 		// overeni, ze ukladani / tezeni je mensi nez kapacita
 		if (st["storageMaxWithdraw"].ToDouble() > st["storageCapacity"].ToDouble() || st["storageMaxStore"].ToDouble() > st["storageCapacity"].ToDouble()) throw PrgException(consts::E_CFG_STORAGE_MISMATCH);

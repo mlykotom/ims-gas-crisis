@@ -32,7 +32,7 @@ void cTimer::start(void)
 		// kazdy stat spracuje svoje stavy za jednu hodinu
 		for (auto state : mStates)
 		{
-			state.second->behaviour();
+			state.second->behaviour(&mActualTime);
 		}
 
 		// inkrementovanie casu

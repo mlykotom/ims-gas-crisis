@@ -10,11 +10,15 @@
 #define DEBUG false
 
 // zmena na casovy  generator misto std::random_device
-#define TIME_RANDOM_GENERATOR false
+#define TIME_RANDOM_GENERATOR 1
 
 namespace consts{
+	// slozka se scenari
+	const std::string configFolder = "./config/";
+	// slozka s vystupem
+	const std::string outputFolder = "./output/";
 	// vychozi delka ------- ve vypisech
-	const unsigned int defaultSizeOfPrint = 50;
+	const unsigned int defaultSizeOfPrint = 60;
 
 	// chybove kody
 	enum error_code{
@@ -37,6 +41,16 @@ namespace consts{
 		E_CFG_PIPE_SECTION_PARAM,
 		E_CFG_PIPE_MISSING_PARAM,
 		E_CFG_PIPE_MISSING_STATE,
+	};
+
+	// trida pro ukladani dennich statistik
+	struct sDayStat{
+		double production;
+		double consumption;
+		double overflow;
+		double deficit;
+		sDayStat() : production(0), consumption(0), overflow(0), deficit(0){}
+		void reset(){ production = 0; consumption = 0; overflow = 0; deficit = 0; }
 	};
 
 	// povinne parametry configu
@@ -65,7 +79,7 @@ namespace consts{
 
 		{ E_CFG_TIMER_MISSING_PARAM,	"[CONFIG][TIMER] Chybejici parametr" },
 		{ E_CFG_TIMER_MISMATCH,			"[CONFIG][TIMER] Datum konce musi byt pozdeji nez startu" },
-		{ E_CFG_STATE_MISSING_PARAM, "[CONFIG][COUNTRY] Chybejici parametr" },
+		{ E_CFG_STATE_MISSING_PARAM,	"[CONFIG][COUNTRY] Chybejici parametr" },
 
 		{ E_CFG_STATE_NONE,				"[CONFIG][COUNTRIES] Neni definovan zadny stat" },
 		{ E_CFG_DUPLICATE_STATES,		"[CONFIG][COUNTRIES] Vice statu se stejnym nazvem" },

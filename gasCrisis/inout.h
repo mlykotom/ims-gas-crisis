@@ -38,14 +38,14 @@ namespace inout{
 	* @return std::string
 	*/
 	std::string ReadWholeFile(std::string fileName){
-		std::ifstream file("./config/" + fileName);
+		std::ifstream file(consts::configFolder + fileName);
 
 		if (!file.is_open()) throw PrgException(consts::E_CFG_FILE_OPEN);
 
 		std::string fileStr;
 
 		file.seekg(0, std::ios::end);
-		fileStr.reserve(file.tellg());
+		fileStr.reserve((unsigned)file.tellg());
 		file.seekg(0, std::ios::beg);
 
 		fileStr.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
