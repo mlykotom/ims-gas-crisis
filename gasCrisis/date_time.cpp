@@ -107,6 +107,7 @@ bool cDateTime::equal(cDateTime& date)
 		return true;
 	}
 }
+//----------------------------------------------------------------------------------------
 bool cDateTime::isSummer(void)
 {
 	if ((mMonth <= 3) || (mMonth >= 10))
@@ -116,6 +117,26 @@ bool cDateTime::isSummer(void)
 	else
 	{
 		return true;
+	}
+}
+//----------------------------------------------------------------------------------------
+double cDateTime::getCoeficient()
+{
+	if (mMonth <= 3)
+	{
+		return (200 - (mMonth * 50)) / 100.0;
+	}
+	else if (mMonth <= 6)
+	{
+		return (200 - ((mMonth - 3) * 50)) / 100.0;
+	}
+	else if (mMonth <= 9)
+	{
+		return (0 + ((mMonth - 6) * 50)) / 100.0;
+	}
+	else
+	{
+		return (0 + ((mMonth - 9) * 50)) / 100.0;
 	}
 }
 //----------------------------------------------------------------------------------------

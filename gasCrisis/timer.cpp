@@ -6,9 +6,12 @@ void cTimer::start(void)
 	// ziskanie leta/zimy
 	mSummer = mActualTime.isSummer();
 
+	// ziskanie koeficientu
+	mCoeficient = mActualTime.getCoeficient();
+
 	// nastavenie vsetkym statom leto/zima
 	for (auto state : mStates)
-	{
+	{	
 		if (mSummer == true)
 		{
 			state.second->setSummer();
@@ -17,8 +20,12 @@ void cTimer::start(void)
 		{
 			state.second->setWinter();
 		}
+
+		state.second->changeCoeficient(mCoeficient);
 	}
 	
+	std::cout << "Simulation started..." << std::endl;
+
 	// spustenie simulacie
 	while (mActualTime.equal(mEndTime) != true)
 	{
@@ -50,12 +57,25 @@ void cTimer::start(void)
 				}
 			}
 		}
+
+		// zmenie koeficientov mesiacov
+		if (mCoeficient != mActualTime.getCoeficient())
+		{
+			mCoeficient = mActualTime.getCoeficient();
+			
+			for (auto state : mStates)
+			{
+				state.second->changeCoeficient(mCoeficient);
+			}
+		}
 	}
 
 	// vypisanie statistik
 	for (auto state : mStates)
 	{
-		state.second->getStats(true, true, true, true, true, true, true, true, true, true);
+		std::cout << state.second->getStats(true, true, true, true, true, true, true, true, true, true);
 	}
+
+	std::cout << "Simulation ended..." << std::endl;
 }
 //----------------------------------------------------------------------------------------

@@ -63,6 +63,7 @@ public:
 	void setLogger(const cLogger logger);
 	void setSummer(void);
 	void setWinter(void);
+	void changeCoeficient(double value);
 
 	std::vector<cPipe *> getAllPipesIn()	{ return this->mPipesIn; }
 	std::vector<cPipe *> getAllPipesOut()	{ return this->mPipesOut; }

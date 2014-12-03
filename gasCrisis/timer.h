@@ -33,6 +33,7 @@ private:
 	std::map<std::string, cState *> mStates;
 
 	bool mSummer;
+	double mCoeficient;
 
 	cDateTime mStartTime;
 	cDateTime mEndTime;

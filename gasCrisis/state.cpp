@@ -1,12 +1,6 @@
 //----------------------------------------------------------------------------------------
 #include "state.h"
 
-#if TIME_RANDOM_GENERATOR
-	#define RANDOM_GENERATOR  std::default_random_engine tmpGen(time(NULL));
-#else
-	#define RANDOM_GENERATOR 	std::random_device rd; std::default_random_engine tmpGen(rd());
-#endif
-
 //----------------------------------------------------------------------------------------
 // class cState
 //----------------------------------------------------------------------------------------
@@ -29,7 +23,8 @@ mProduction(production)
 	}
 
 	// vygenerovanie noveho seedu pre generator
-	RANDOM_GENERATOR
+	std::random_device rd; 
+	std::default_random_engine tmpGen(rd());
 	mGenerator = tmpGen;
 
 	// trieda pre zachytavanie statistik
@@ -253,6 +248,23 @@ void cState::setWinter(void)
 	for (unsigned i = 0; i < mPipesOut.size(); i++)
 	{
 		mPipesOut[i]->setWinter();
+	}
+}
+//----------------------------------------------------------------------------------------
+void cState::changeCoeficient(double value)
+{
+	if (mConsumWinter > 0)
+	{
+		if (mSummer == true)
+		{
+			std::poisson_distribution<int> tmpCons(mConsumSummer * value);
+			mDistributionConsumption = tmpCons;
+		}
+		else
+		{
+			std::poisson_distribution<int> tmpCons(mConsumWinter * value);
+			mDistributionConsumption = tmpCons;
+		}
 	}
 }
 //----------------------------------------------------------------------------------------

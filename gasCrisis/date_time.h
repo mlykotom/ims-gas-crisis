@@ -27,6 +27,7 @@ public:
 
 	bool equal(cDateTime& date);
 	bool isSummer(void);
+	double getCoeficient();
 
 private:
 	unsigned getMonthLenght(void);
