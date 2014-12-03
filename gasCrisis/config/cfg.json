@@ -1,85 +1,238 @@
 {
     "Timer": {
         "dateStart": {
-            "year": 2020,
-            "month": 12,
-            "day": 30
+            "year": 2013,
+            "month": 10,
+            "day": 01
         },
 
         "dateEnd": {
-            "year": 2020,
-            "month": 12,
-            "day": 31
+            "year": 2014,
+            "month": 10,
+            "day": 01
         }
     },
 
     "Countries": [        
         {
             "name": "CZ",
-            "production": 500.12,
-            "consumptSumm": 150.23,
-            "consumptWint": 200.15,
-            "storageDefaultValue": 999,
-            "storageCapacity": 400000000,
-            "storageMaxWithdraw": 100,
-            "storageMaxStore": 200
+            "production": 5,
+            "consumptSumm": 141.73,
+            "consumptWint": 328.44,
+            "storageDefaultValue": 20000,
+            "storageCapacity": 29546,
+            "storageMaxWithdraw": 581,
+            "storageMaxStore": 439
         },
         {
             "name": "SK",
-            "production": 750,
-            "consumptSumm": 2850,
-            "consumptWint": 2000,
-            "storageDefaultValue": 999,
-            "storageCapacity": 31500000,
-            "storageMaxWithdraw": 100,
-            "storageMaxStore": 200
+            "production": 3,
+            "consumptSumm": 98.84,
+            "consumptWint": 212.78,
+            "storageDefaultValue": 28000,
+            "storageCapacity": 31570,
+            "storageMaxWithdraw": 159,
+            "storageMaxStore": 219
         },
         {
             "name": "UA",
             "production": 120,
-            "consumptSumm": 28500,
-            "consumptWint": 20000,
-            "storageDefaultValue": 999,
-            "storageCapacity": 800000000,
-            "storageMaxWithdraw": 100,
-            "storageMaxStore": 200
+            "consumptSumm": 988.45,
+            "consumptWint": 2127.84,
+            "storageDefaultValue": 300000,
+            "storageCapacity": 315714,
+            "storageMaxWithdraw": 1594,
+            "storageMaxStore": 2194
         },
         {
-            "name": "TEST",
+            "name": "PL",
+            "production": 90,
+            "consumptSumm": 406.56,
+            "consumptWint": 552.82,
+            "storageDefaultValue": 19000,
+            "storageCapacity": 20041,
+            "storageMaxWithdraw": 401,
+            "storageMaxStore": 226
+        },
+        {
+            "name": "HU",
+            "production": 62,
+            "consumptSumm": 163.18,
+            "consumptWint": 382.29,
+            "storageDefaultValue": 60000,
+            "storageCapacity": 67870,
+            "storageMaxWithdraw": 551,
+            "storageMaxStore": 368
+        },
+        {
+            "name": "RU",
             "production": 0,
             "fake": true,
-            "consumptSumm": 28500,
-            "consumptWint": 20000,
-            "storageDefaultValue": 999,
-            "storageCapacity": 999999999,
-            "storageMaxWithdraw": 100,
-            "storageMaxStore": 200
+            "consumptSumm": 0,
+            "consumptWint": 0,
+            "storageDefaultValue": 0,
+            "storageCapacity": 0,
+            "storageMaxWithdraw": 0,
+            "storageMaxStore": 0
+        },
+        {
+            "name": "DE",
+            "production": 0,
+            "fake": true,
+            "consumptSumm": 0,
+            "consumptWint": 0,
+            "storageDefaultValue": 0,
+            "storageCapacity": 0,
+            "storageMaxWithdraw": 0,
+            "storageMaxStore": 0
+        },
+        {
+            "name": "AT",
+            "production": 0,
+            "fake": true,
+            "consumptSumm": 0,
+            "consumptWint": 0,
+            "storageDefaultValue": 0,
+            "storageCapacity": 0,
+            "storageMaxWithdraw": 0,
+            "storageMaxStore": 0
+        },
+        {
+            "name": "CR",
+            "production": 0,
+            "fake": true,
+            "consumptSumm": 0,
+            "consumptWint": 0,
+            "storageDefaultValue": 0,
+            "storageCapacity": 0,
+            "storageMaxWithdraw": 0,
+            "storageMaxStore": 0
+        },
+        {
+            "name": "SB",
+            "production": 0,
+            "fake": true,
+            "consumptSumm": 0,
+            "consumptWint": 0,
+            "storageDefaultValue": 0,
+            "storageCapacity": 0,
+            "storageMaxWithdraw": 0,
+            "storageMaxStore": 0
         }
     ],
 
     "Pipes": [
         {
+            "from": "DE",
+            "to": "CZ",
+            "length": 15,
+            "flowSummer": 929,
+            "flowWinter": 967
+        },
+        {
+            "from": "CZ",
+            "to": "DE",
+            "length": 15,
+            "flowSummer": 418,
+            "flowWinter": 777
+        },
+        {
+            "from": "CZ",
+            "to": "PL",
+            "length": 11,
+            "flowSummer": 0,
+            "flowWinter": 23
+        },
+        {
             "from": "CZ",
             "to": "SK",
-            "length": 5,
-            "flowSummer": 15.0,
-            "flowWinter": 20.3
+            "length": 9,
+            "flowSummer": 204,
+            "flowWinter": 90
         },
-
         {
             "from": "SK",
             "to": "CZ",
-            "length": 100,
-            "flowSummer": 11.3,
-            "flowWinter": 19.3
+            "length": 9,
+            "flowSummer": 55,
+            "flowWinter": 139
         },
-
         {
             "from": "SK",
-            "to": "CZ",
-            "length": 100,
-            "flowSummer": 11.3,
-            "flowWinter": 19.3
+            "to": "AT",
+            "length": 12,
+            "flowSummer": 984,
+            "flowWinter": 1236
+        },
+        {
+            "from": "UA",
+            "to": "SK",
+            "length": 20,
+            "flowSummer": 938,
+            "flowWinter": 1430
+        },
+        {
+            "from": "UA",
+            "to": "PL",
+            "length": 20,
+            "flowSummer": 175,
+            "flowWinter": 192
+        },
+        {
+            "from": "RU",
+            "to": "UA",
+            "length": 20,
+            "flowSummer": 5000,
+            "flowWinter": 5000
+        },
+        {
+            "from": "RU",
+            "to": "PL",
+            "length": 30,
+            "flowSummer": 1170,
+            "flowWinter": 1180
+        },
+        {
+            "from": "PL",
+            "to": "DE",
+            "length": 15,
+            "flowSummer": 826,
+            "flowWinter": 891
+        },
+        {
+            "from": "DE",
+            "to": "PL",
+            "length": 15,
+            "flowSummer": 26,
+            "flowWinter": 42
+        },
+        {
+            "from": "AT",
+            "to": "HU",
+            "length": 10,
+            "flowSummer": 136,
+            "flowWinter": 116
+        },
+        {
+            "from": "HU",
+            "to": "CR",
+            "length": 10,
+            "flowSummer": 2,
+            "flowWinter": 6
+        },
+        {
+            "from": "HU",
+            "to": "SB",
+            "length": 10,
+            "flowSummer": 40,
+            "flowWinter": 39
+        },
+        {
+            "from": "HU",
+            "to": "UA",
+            "length": 20,
+            "flowSummer": 33,
+            "flowWinter": 26
         }
 
     ]
