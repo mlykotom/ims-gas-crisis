@@ -6,6 +6,7 @@
 
 #include "pipe.h"
 #include "logger.h"
+#include "stateStats.h"
 
 class cFakeState;
 
@@ -23,6 +24,8 @@ private:
 	std::vector<cPipe *> mPipesOut;
 
 	cLogger mLogger;
+
+	cStateStats* mStats;
 
 	bool mSummer;
 
@@ -63,6 +66,8 @@ public:
 
 	std::vector<cPipe *> getAllPipesIn()	{ return this->mPipesIn; }
 	std::vector<cPipe *> getAllPipesOut()	{ return this->mPipesOut; }
+
+	std::string getStats(bool total, bool summer, bool winter, bool consumption, bool production, bool storage, bool overflow, bool deficit, bool incomeFlows, bool outcomeFlows);
 
 protected:
 	double getGasFromPipes(void);

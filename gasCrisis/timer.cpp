@@ -51,5 +51,11 @@ void cTimer::start(void)
 			}
 		}
 	}
+
+	// vypisanie statistik
+	for (auto state : mStates)
+	{
+		state.second->getStats(true, true, true, true, true, true, true, true, true, true);
+	}
 }
 //----------------------------------------------------------------------------------------

@@ -19,12 +19,15 @@ mProduction(production)
 		std::poisson_distribution<int> tmpPro(mProduction);
 		mDistributionProduction = tmpPro;
 	}
+
+	mStats = new cStateStats(mName);
 }
 //----------------------------------------------------------------------------------------
 cState::~cState(void)
 {
 	// EMPTY
 	// TODO odalokovat pipy
+	delete mStats;
 }
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
@@ -73,12 +76,14 @@ void cState::behaviour(void)
 	production = product();
 	consumption = consum();
 
-	std::cout << mName << " income: " << income << " outcome: " << outcome << " product: " << production << " consum: " << consumption << std::endl;
+	//std::cout << mName << " income: " << income << " outcome: " << outcome << " product: " << production << " consum: " << consumption << std::endl;
+	mStats->addConsumption(consumption, mSummer);
+	mStats->addProduction(production, mSummer);
 
 	// ziskanie dlhu / prebitku
 	amount = (income + production) - (outcome + consumption);
 
-	std::cout << mName << " amount: " << amount;
+	//std::cout << mName << " amount: " << amount;
 
 	if (amount > 0)
 	{
@@ -107,7 +112,8 @@ void cState::behaviour(void)
 		// celkovy zisk statu
 		overflow += amount;
 
-		std::cout << " overflow: " << overflow;
+		//std::cout << " overflow: " << overflow;
+		mStats->addOverflow(overflow, mSummer);
 	}
 	else if (amount < 0)
 	{
@@ -136,19 +142,26 @@ void cState::behaviour(void)
 		// celkovy deficit zo dna
 		deficit += amount;
 
-		std::cout << " deficit: " << deficit;
+		//std::cout << " deficit: " << deficit;
+		mStats->addDeficit(deficit, mSummer);
 	}
 
-	std::cout << " storage: " << mStorageStat << std::endl;
+	//std::cout << " storage: " << mStorageStat << std::endl;
+	mStats->addStorage(mStorageStat, mSummer);
+	mStats->incEntrie(mSummer);
 }
 //----------------------------------------------------------------------------------------
 double cState::getGasFromPipes(void)
 {
 	double amount = 0;
+	double actualAmount;
 
 	for (unsigned i = 0; i < mPipesIn.size(); i++)
 	{
-		amount += mPipesIn[i]->getGas();
+		actualAmount = mPipesIn[i]->getGas();
+		amount += actualAmount;
+
+		mStats->addIncomeFlow(mPipesIn[i]->getSource(), actualAmount, mSummer);
 	}
 
 	return amount;
@@ -157,10 +170,14 @@ double cState::getGasFromPipes(void)
 double cState::pushGasIntoPipes(void)
 {
 	double amount = 0;
+	double actualAmount;
 	
 	for (unsigned i = 0; i < mPipesOut.size(); i++)
 	{
-		amount += mPipesOut[i]->putGas();
+		actualAmount = mPipesOut[i]->putGas();
+		amount += actualAmount;
+
+		mStats->addOutcomeFlow(mPipesOut[i]->getDestination(), actualAmount, mSummer);
 	}
 
 	return amount;
@@ -230,6 +247,13 @@ void cState::setWinter(void)
 	{
 		mPipesOut[i]->setWinter();
 	}
+}
+//----------------------------------------------------------------------------------------
+std::string cState::getStats(bool total, bool summer, bool winter, bool consumption, bool production, bool storage, bool overflow, bool deficit, bool incomeFlows, bool outcomeFlows)
+{
+	std::cout << mStats->getStats(total, summer, winter, consumption, production, storage, overflow, deficit, incomeFlows, outcomeFlows);
+
+	return "";
 }
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------

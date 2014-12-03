@@ -17,6 +17,8 @@ gasCrisis/pipe.cpp -text
 gasCrisis/pipe.h -text
 gasCrisis/state.cpp -text
 gasCrisis/state.h -text
+gasCrisis/stateStats.cpp -text
+gasCrisis/stateStats.h -text
 gasCrisis/timer.cpp -text
 gasCrisis/timer.h -text
 materialy/classes.txt -text
