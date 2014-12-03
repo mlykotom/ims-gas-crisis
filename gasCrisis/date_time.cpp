@@ -124,19 +124,19 @@ double cDateTime::getCoeficient()
 {
 	if (mMonth <= 3)
 	{
-		return (200 - (mMonth * 50)) / 100.0;
+		return (120 - (mMonth * 10)) / 100.0;
 	}
 	else if (mMonth <= 6)
 	{
-		return (200 - ((mMonth - 3) * 50)) / 100.0;
+		return (120 - ((mMonth - 3) * 10)) / 100.0;
 	}
 	else if (mMonth <= 9)
 	{
-		return (0 + ((mMonth - 6) * 50)) / 100.0;
+		return (80 + ((mMonth - 6) * 10)) / 100.0;
 	}
 	else
 	{
-		return (0 + ((mMonth - 9) * 50)) / 100.0;
+		return (80 + ((mMonth - 9) * 10)) / 100.0;
 	}
 }
 //----------------------------------------------------------------------------------------
