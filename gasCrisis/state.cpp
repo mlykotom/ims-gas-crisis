@@ -295,14 +295,10 @@ void cState::changeCoeficient(double value)
 //----------------------------------------------------------------------------------------
 std::string cState::getStats(bool total, bool summer, bool winter, bool consumption, bool production, bool storage, bool overflow, bool deficit, bool incomeFlows, bool outcomeFlows)
 {
-	std::ofstream outSummary(consts::outputSummary);
-	if (!outSummary.is_open()){
-		std::cerr << inout::ShowError("Nelze otevrit soubor " + consts::outputSummary);
-	}
-	else{
-		outSummary << mStats->getStats(total, summer, winter, consumption, production, storage, overflow, deficit, incomeFlows, outcomeFlows);
-	}
-
+	std::string retStr;
+	retStr = mStats->getStats(total, summer, winter, consumption, production, storage, overflow, deficit, incomeFlows, outcomeFlows);
+	
+	// denni statistiky
 	std::ofstream out(consts::outputFolder + this->getName() + ".csv");
 	if (!out.is_open()){
 		std::cerr << inout::ShowError("Nelze otevrit soubor " + consts::outputFolder + this->getName() + ".csv");
@@ -325,7 +321,7 @@ std::string cState::getStats(bool total, bool summer, bool winter, bool consumpt
 		out << std::endl;
 	}
 
-	return "";
+	return retStr;
 }
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------

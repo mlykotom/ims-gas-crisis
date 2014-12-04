@@ -1,22 +1,32 @@
+# nastaveni promennych pro uspecny preklad na windows
 ifeq ($(OS),Windows_NT)
 	RMPR = del
 	PROGSUFF = .exe
+	CPP  = g++
 else
 	RMPR = rm -f
 	PROGSUFF =
+	CPP  = g++-4.8
 endif
 
+# nastaveni programovych promennych
 PROG = gas
 SUFF = cpp
-CPP  = g++
-
-# chybi 
+# nastaveni priznaku pro preklad
 CPPFLAGS = -Wall -pedantic --std=c++11
+
+###########################
+# Kompilace vseho
+###########################
 
 all: $(PROG)
 
+###########################
+
 $(PROG): main.o stateStats.o inout.o date_time.o timer.o pipe.o state.o json.o
 	$(CPP) $(CPPFLAGS) main.o stateStats.o inout.o date_time.o timer.o pipe.o state.o json.o -o $@
+
+###########################
 
 main.o: main.cpp
 	$(CPP) $(CPPFLAGS) -c main.cpp -o $@
@@ -42,10 +52,17 @@ date_time.o: date_time.cpp date_time.h
 stateStats.o: stateStats.cpp stateStats.h
 	$(CPP) $(CPPFLAGS) -c stateStats.cpp -o $@
 
+###########################
 
 rebuild: clean all
 
+###########################
+
 run: ./$(PROG)$(PROGSUFF)
+
+###########################
 
 clean:
 	$(RMPR) *.o *.out $(PROG)$(PROGSUFF)
+
+###########################

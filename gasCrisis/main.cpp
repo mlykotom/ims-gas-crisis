@@ -124,26 +124,30 @@ int main(int argc, char * argv[]) {
 		// ------------ osetreni parametru
 		switch (argc){
 			case 3:
+				// --------------- nastaveni oddelovace --------------- //
 				csvDelimiter = argv[2];
 			case 2:{	
 				std::string firstParam(argv[1]);
 				if (firstParam == "--help"){
+					// --------------- vypsani napovedy --------------- //
 					std::cout << std::string(consts::defaultSizeOfPrint, 'x') << std::endl;
 					std::cout << "x\t\t  Simulace plynove krize v Evrope  \tx" << std::endl;
 					std::cout << std::string(consts::defaultSizeOfPrint, '-') << std::endl;
 					std::cout << "Nepovinne parametry:" << std::endl;
-					std::cout << "\t <cfg.json> \t\t Nastaveni scenare ze slozky config" << std::endl;
-					std::cout << "\t <delimiter> \t\t Nastaveni oddelovace pro CSV soubor (typicky ; nebo ,)" << std::endl;
+					std::cout << "\t 1) <cfg.json> \t\t Nastaveni scenare ze slozky config" << std::endl;
+					std::cout << "\t 2) <delimiter> \t Nastaveni oddelovace pro CSV soubor (typicky ; nebo ,)" << std::endl;
 					std::cout << std::string(consts::defaultSizeOfPrint, 'x') << std::endl;
 					return 0;
 				}
 				else{
+					// --------------- jinak nastavit konfiguracni soubor --------------- //
 					fileName = std::string(argv[1]);
 				}
 			}
 			case 1:
 				break;
 
+			// --------------- pro jiny pocet parametru - chyba --------------- //
 			default:
 				throw PrgException(consts::E_PRG_PARAMS);
 		}

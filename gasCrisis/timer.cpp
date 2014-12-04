@@ -70,10 +70,17 @@ void cTimer::start(void)
 		}
 	}
 
+
+	std::ofstream outSummary(consts::outputSummary);
+	if (!outSummary.is_open()){
+		std::cerr << inout::ShowError("Nelze otevrit soubor " + consts::outputSummary);
+		return;
+	}
+
 	// vypisanie statistik
 	for (auto state : mStates)
 	{
-		std::cout << state.second->getStats(true, true, true, true, true, true, true, true, true, true);
+		outSummary << state.second->getStats(true, true, true, true, true, true, true, true, true, true);
 	}
 
 	std::cout << "Simulation ended..." << std::endl;
