@@ -15,17 +15,17 @@
 class cTimer
 {
 public:
-	cTimer(int startY, int startM, int startD, int endY, int endM, int endD):
+	cTimer(int startY = 0, int startM = 0, int startD = 0, int endY = 0, int endM = 0, int endD = 0):
 		mStartTime(startY, startM, startD), 
 		mEndTime(endY, endM, endD), 
 		mActualTime(startY, startM, startD)
 	{}
 
 	~cTimer(void)
-	{
+	{		
 		for (auto st : mStates){
 			delete st.second;
-		}
+		}		
 		mStates.clear();
 	}
 
@@ -46,6 +46,14 @@ public:
 		if (this->mStates.find(state->getName()) != this->mStates.end()) throw PrgException(consts::E_CFG_DUPLICATE_STATES);
 		this->mStates[state->getName()] = state;
 	}
+
+	void setStartTime(int startY, int startM, int startD){
+		mActualTime = *(mStartTime.setTime(startY, startM, startD));		
+	}
+
+	void setEndTime(int endY, int endM, int endD){
+		mEndTime.setTime(endY, endM, endD);
+	}	
 
 
 	std::map<std::string, cState *> getAllStates(){

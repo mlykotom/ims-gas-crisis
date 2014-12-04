@@ -38,21 +38,18 @@ mProduction(production)
 }
 //----------------------------------------------------------------------------------------
 cState::~cState(void)
-{
-	// zrusenie potrubi
-	for (unsigned i = 0; i < mPipesIn.size(); i++)
-	{
-		delete mPipesIn[i];
+{	
+	// zrusi se jenom vstupni potrubi, protoze objekty jsou sdilene mezi staty 
+	// nemuze byt stat, ktery by mel pouze vystupni potrubi
+	for(auto pipe: mPipesIn){
+		delete pipe;
 	}
 
-	// zrusenie potrubi
-	for (unsigned i = 0; i < mPipesOut.size(); i++)
-	{
-		delete mPipesOut[i];
-	}
+	this->mPipesIn.clear();
+	this->mPipesOut.clear();
 
 	// zrusenie statistik
-	delete mStats;
+	delete mStats;	
 }
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
@@ -336,7 +333,7 @@ cState(name, logger, cSumm, cWint, storDefVal, storCap, maxStorWith, maxStorStor
 //----------------------------------------------------------------------------------------
 cFakeState::~cFakeState()
 {
-	// EMPTY
+	// EMPTY	
 }
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------

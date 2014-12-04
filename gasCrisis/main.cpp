@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <streambuf>
+#include <memory>
 
 #include "json.h"
 #include "consts.h"
@@ -20,7 +21,7 @@
  * @param cLogger &logger
  * @return cTimer *
  */
-cTimer * ParseConfig(std::string fileName, cLogger &logger){
+void ParseConfig(std::string fileName, cLogger &logger, cTimer *timer){
 	// --------------------------- deserializace konfigurace
 	json::Value cfg_data = json::Deserialize(inout::ReadWholeFile(fileName));
 
@@ -47,7 +48,9 @@ cTimer * ParseConfig(std::string fileName, cLogger &logger){
 	if ((dateStart["year"].ToInt() + dateStart["month"].ToInt() + dateStart["day"].ToInt()) > (dateEnd["year"].ToInt() + dateEnd["month"].ToInt() + dateEnd["day"].ToInt())) throw PrgException(consts::E_CFG_TIMER_MISMATCH);
 
 	// vytvoreni + alokovani timeru
-	cTimer *timer = new cTimer(dateStart["year"].ToInt(), dateStart["month"].ToInt(), dateStart["day"].ToInt(), dateEnd["year"].ToInt(), dateEnd["month"].ToInt(), dateEnd["day"].ToInt());
+	//cTimer *timer = new cTimer(dateStart["year"].ToInt(), dateStart["month"].ToInt(), dateStart["day"].ToInt(), dateEnd["year"].ToInt(), dateEnd["month"].ToInt(), dateEnd["day"].ToInt());
+	timer->setStartTime(dateStart["year"].ToInt(), dateStart["month"].ToInt(), dateStart["day"].ToInt());
+	timer->setEndTime(dateEnd["year"].ToInt(), dateEnd["month"].ToInt(), dateEnd["day"].ToInt());
 
 	// -------------------------------------------------------
 	// --------------------------- nacteni statu
@@ -110,9 +113,7 @@ cTimer * ParseConfig(std::string fileName, cLogger &logger){
 		cPipe *pipe = new cPipe(5, stateFrom->getName(), stateTo->getName(), (unsigned)p["length"].ToInt(), p["flowSummer"].ToDouble(), p["flowWinter"].ToDouble());
 		stateFrom->addPipelineOut(pipe);
 		stateTo->addPipelineIn(pipe);
-	}
-
-	return timer;
+	}	
 }
 
 std::string csvDelimiter;
@@ -134,8 +135,8 @@ int main(int argc, char * argv[]) {
 					std::cout << "x\t\t  Simulace plynove krize v Evrope  \tx" << std::endl;
 					std::cout << std::string(consts::defaultSizeOfPrint, '-') << std::endl;
 					std::cout << "Nepovinne parametry:" << std::endl;
-					std::cout << "\t 1) <cfg.json> \t\t Nastaveni scenare ze slozky config" << std::endl;
-					std::cout << "\t 2) <delimiter> \t Nastaveni oddelovace pro CSV soubor (typicky ; nebo ,)" << std::endl;
+					std::cout << "  1) <cfg.json> \tNastaveni scenare ze slozky config" << std::endl;
+					std::cout << "  2) <delimiter> \tNastaveni oddelovace pro CSV soubor (typicky ; nebo ,)" << std::endl;
 					std::cout << std::string(consts::defaultSizeOfPrint, 'x') << std::endl;
 					return 0;
 				}
@@ -155,10 +156,11 @@ int main(int argc, char * argv[]) {
 		cLogger logger;
 
 		// ------------ overeni + parsovani configu
-		cTimer *timer = ParseConfig(fileName, logger);
+		cTimer timer;
+		ParseConfig(fileName, logger, &timer);
 
 		// zacatek simulace
-		timer->start();
+		timer.start();
 	}
 	catch (std::runtime_error &rExc){
 		// todo nejak lepe osefovat hlasky z json parseru?
@@ -169,9 +171,7 @@ int main(int argc, char * argv[]) {
 	}
 	catch (std::exception &exc){
 		std::cerr << exc.what() << std::endl;
-	}
-	
-	// TODO delete timer
+	}	
 
 	return 0;
 }

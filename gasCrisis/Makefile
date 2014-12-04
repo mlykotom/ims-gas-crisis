@@ -1,19 +1,23 @@
 # nastaveni promennych pro uspecny preklad na windows
 ifeq ($(OS),Windows_NT)
-	RMPR = del
 	PROGSUFF = .exe
 	CPP  = g++
+	# mazani a vytvoreni souboru v zavislosti na OS
+	RMPR = del
+	CRTDIR = mkdir
 else
-	RMPR = rm -f
 	PROGSUFF =
 	CPP  = g++-4.8
+	# mazani a vytvoreni souboru v zavislosti na OS	
+	RMPR = rm -f
+	CRTDIR = mkdir -p
 endif
 
 # nastaveni programovych promennych
 PROG = gas
 SUFF = cpp
 # nastaveni priznaku pro preklad
-CPPFLAGS = -Wall -pedantic --std=c++11
+CPPFLAGS = -std=c++11 -Wall -pedantic -static-libstdc++
 
 ###########################
 # Kompilace vseho
@@ -61,7 +65,7 @@ rebuild: clean all
 ###########################
 
 create_folders:
-	mkdir output
+	$(CRTDIR) output
 
 ###########################
 
