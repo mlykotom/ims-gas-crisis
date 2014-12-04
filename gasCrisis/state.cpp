@@ -31,7 +31,9 @@ mStorageCapacity(storageCapacity),
 mStorageMaxWithdraw(maxStorWith),
 mStorageMaxStore(maxStorStore),
 mStorageStat(storageDefaultValue),
-mProduction(production)
+mProduction(production),
+mAvgSummerIncome(0),
+mAvgWinterIncome(0)
 {	
 	// vygenerovanie noveho distributoru pre produkciu
 	if (mProduction > 0)
@@ -71,6 +73,9 @@ cState::~cState(void)
 void cState::addPipelineIn(cPipe* pipe)
 {
 	this->mPipesIn.push_back(pipe);
+
+	mAvgSummerIncome += pipe->getFlowSummer();
+	mAvgWinterIncome += pipe->getFlowWinter();
 }
 //----------------------------------------------------------------------------------------
 // metoda prida do statu potrubie ktore z neho smeruje
@@ -93,9 +98,14 @@ void cState::behaviour(cDateTime * actDateTime)
 
 	// ziskanie vsetkych hodnot ohladom plynu v danej hodine
 	income = getGasFromPipes();
-	outcome = pushGasIntoPipes();
 	production = product();
 	consumption = consum();
+
+	// na potrubia sa posle percentualny podiel prijatych hodnot
+	if (mSummer == true)
+		outcome = pushGasIntoPipes(income / mAvgSummerIncome);
+	else
+		outcome = pushGasIntoPipes(income / mAvgWinterIncome);
 
 	// ulozenie statistik
 	mStats->addConsumption(consumption, mSummer);
@@ -223,7 +233,7 @@ double cState::getGasFromPipes(void)
 //----------------------------------------------------------------------------------------
 // metoda naplni vsetky potrubia ktore vedu zo statu, potrubie si hodnoty generuje samo
 // @return celkove mnozstvo odoslaneho plynu
-double cState::pushGasIntoPipes(void)
+double cState::pushGasIntoPipes(double coeficient)
 {
 	double amount = 0;
 	double actualAmount;
@@ -232,7 +242,7 @@ double cState::pushGasIntoPipes(void)
 	for (unsigned i = 0; i < mPipesOut.size(); i++)
 	{
 		// ziskanie aktualnej hodnoty a pripocitanie ku celkovej hodnote
-		actualAmount = mPipesOut[i]->putGas();
+		actualAmount = mPipesOut[i]->putGas(coeficient);
 		amount += actualAmount;
 
 		// ulozenie statistiky
@@ -415,7 +425,7 @@ cFakeState::~cFakeState()
 void cFakeState::behaviour(cDateTime * actDateTime)
 {
 	getGasFromPipes();
-	pushGasIntoPipes();
+	pushGasIntoPipes(1);
 }
 //----------------------------------------------------------------------------------------
 // pretazenie metody na vypis statistik aby sa fakove staty neuvadzali do statistik

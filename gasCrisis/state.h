@@ -42,6 +42,9 @@ private:
 
 	cStateStats* mStats;
 
+	double mAvgSummerIncome;
+	double mAvgWinterIncome;
+
 	bool mSummer;
 
 	cDateTime mLastKnownTime;
@@ -90,7 +93,7 @@ public:
 
 protected:
 	double getGasFromPipes(void);
-	double pushGasIntoPipes(void);
+	double pushGasIntoPipes(double coeficient);
 	double product(void);
 	double consum(void);
 };

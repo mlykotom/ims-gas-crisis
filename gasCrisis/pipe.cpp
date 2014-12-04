@@ -51,14 +51,15 @@ double cPipe::getGas(void)
 }
 //----------------------------------------------------------------------------------------
 // metoda vygeneruje a vlozi hodnotu na potrubie
-double cPipe::putGas(void)
+// @coeficient koeficient pre pridavanie hodnoty na potrubie
+double cPipe::putGas(double coeficient)
 {
 	double value = 0;
 
 	// ak sa v danom rocnom obdobi nieco generuje tak sa to vygeneruje
 	if ((mSummer && (mFlowSummer > 0)) || (!mSummer && (mFlowWinter > 0)))
 	{
-		value = mDistribution(mGenerator);
+		value = mDistribution(mGenerator) * coeficient;
 	}
 	else
 	{
@@ -102,5 +103,19 @@ void cPipe::setWinter(void)
 unsigned cPipe::getId(void)
 {
 	return mId;
+}
+//----------------------------------------------------------------------------------------
+// ziskanie letneho priemerneho toku
+// @return letny priemerny tok
+double cPipe::getSummerFlow(void)
+{
+	return mFlowSummer;
+}
+//----------------------------------------------------------------------------------------
+// ziskanie zimenho priemerneho toku
+// @return zimny priemerny tok
+double cPipe::getWinterFlow(void)
+{
+	return mFlowWinter;
 }
 //----------------------------------------------------------------------------------------

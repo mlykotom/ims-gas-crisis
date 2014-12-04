@@ -40,9 +40,11 @@ private:
 
 public:
 	double getGas(void);
-	double putGas(void);
+	double putGas(double coeficient);
 
 	unsigned getId(void);
+	double getSummerFlow(void);
+	double getWinterFlow(void);
 
 	void setSummer(void);
 	void setWinter(void);
