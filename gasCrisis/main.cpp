@@ -115,14 +115,32 @@ cTimer * ParseConfig(std::string fileName, cLogger &logger){
 	return timer;
 }
 
+std::string csvDelimiter;
 
 int main(int argc, char * argv[]) {
 	try{
 		std::string fileName("cfg.json");
+		csvDelimiter = consts::defaultCsvDelimiter;
 		// ------------ osetreni parametru
 		switch (argc){
-			case 2:
-				fileName = std::string(argv[1]);
+			case 3:
+				csvDelimiter = argv[2];
+			case 2:{	
+				std::string firstParam(argv[1]);
+				if (firstParam == "--help"){
+					std::cout << std::string(consts::defaultSizeOfPrint, 'x') << std::endl;
+					std::cout << "x\t\t  Simulace plynove krize v Evrope  \tx" << std::endl;
+					std::cout << std::string(consts::defaultSizeOfPrint, '-') << std::endl;
+					std::cout << "Nepovinne parametry:" << std::endl;
+					std::cout << "\t <cfg.json> \t\t Nastaveni scenare ze slozky config" << std::endl;
+					std::cout << "\t <delimiter> \t\t Nastaveni oddelovace pro CSV soubor (typicky ; nebo ,)" << std::endl;
+					std::cout << std::string(consts::defaultSizeOfPrint, 'x') << std::endl;
+					return 0;
+				}
+				else{
+					fileName = std::string(argv[1]);
+				}
+			}
 			case 1:
 				break;
 

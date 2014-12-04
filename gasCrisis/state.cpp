@@ -2,7 +2,7 @@
 #include "state.h"
 // jelikoz na windows nefunguje default_random_engine, tak je pouzit time(NULL) << definice v consts.h 
 #if TIME_RANDOM_GENERATOR
-	#define RANDOM_GENERATOR  std::default_random_engine tmpGen(time(NULL));
+	#define RANDOM_GENERATOR  std::default_random_engine tmpGen((unsigned)time(NULL));
 #else
 	#define RANDOM_GENERATOR 	std::random_device rd; std::default_random_engine tmpGen(rd());
 #endif
@@ -161,11 +161,13 @@ void cState::behaviour(cDateTime * actDateTime)
 
 	// pripocteni denni statistiky
 	mDayStat.consumption += consumption;
-	mDayStat.production += production;
-	mDayStat.storageStat += mStorageStat;
+	mDayStat.production += production;	
 
 	if (actDateTime->getDay() != mLastKnownTime.getDay()){
 		mLastKnownTime = *actDateTime;
+		// na konci dne kvuli propoctum
+		mDayStat.storageStat = mStorageStat;
+		// ulozit celou strukturu pro dany den
 		dayConstumptStats[mLastKnownTime.render()] = mDayStat;
 		// resetovani pro dalsi den
 		mDayStat.reset();
@@ -293,23 +295,33 @@ void cState::changeCoeficient(double value)
 //----------------------------------------------------------------------------------------
 std::string cState::getStats(bool total, bool summer, bool winter, bool consumption, bool production, bool storage, bool overflow, bool deficit, bool incomeFlows, bool outcomeFlows)
 {
-	std::cout << mStats->getStats(total, summer, winter, consumption, production, storage, overflow, deficit, incomeFlows, outcomeFlows);
+	std::ofstream outSummary(consts::outputSummary);
+	if (!outSummary.is_open()){
+		std::cerr << inout::ShowError("Nelze otevrit soubor " + consts::outputSummary);
+	}
+	else{
+		outSummary << mStats->getStats(total, summer, winter, consumption, production, storage, overflow, deficit, incomeFlows, outcomeFlows);
+	}
 
 	std::ofstream out(consts::outputFolder + this->getName() + ".csv");
-	// TODO osetrit jestli je otevreny soubor
+	if (!out.is_open()){
+		std::cerr << inout::ShowError("Nelze otevrit soubor " + consts::outputFolder + this->getName() + ".csv");
+		return "";
+	}
 
+	// hlavicka souboru pro stat
 	std::vector<std::string> header = { "Day", "Production", "Consumption", "Overflow", "Deficit", "StorageStat" };
 
-	for (auto h : header) out << h << consts::csvDelimiter;
+	for (auto h : header) out << h << csvDelimiter;
 	out << std::endl;
 
 	for (auto st : dayConstumptStats){
-		out << st.first << consts::csvDelimiter;
-		out << st.second.production << consts::csvDelimiter;
-		out << st.second.consumption << consts::csvDelimiter;
-		out << st.second.overflow << consts::csvDelimiter;
-		out << st.second.deficit << consts::csvDelimiter;
-		out << st.second.storageStat << consts::csvDelimiter;
+		out << st.first << csvDelimiter;
+		out << st.second.production << csvDelimiter;
+		out << st.second.consumption << csvDelimiter;
+		out << st.second.overflow << csvDelimiter;
+		out << st.second.deficit << csvDelimiter;
+		out << st.second.storageStat << csvDelimiter;
 		out << std::endl;
 	}
 

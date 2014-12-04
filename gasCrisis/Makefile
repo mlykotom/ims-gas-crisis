@@ -13,15 +13,13 @@ CPP  = g++
 # chybi 
 CPPFLAGS = -Wall -pedantic --std=c++11
 
-all: $(CRTFOLDERS) $(PROG)
+all: $(PROG)
 
-$(CRTFOLDERS): mkdir output
+$(PROG): main.o stateStats.o inout.o date_time.o timer.o pipe.o state.o json.o
+	$(CPP) $(CPPFLAGS) main.o stateStats.o inout.o date_time.o timer.o pipe.o state.o json.o -o $@
 
-$(PROG): $(PROG).o stateStats.o date_time.o timer.o pipe.o state.o json.o
-	$(CPP) $(CPPFLAGS) $(PROG).o stateStats.o date_time.o timer.o pipe.o state.o json.o -o $@
-
-gas.o: gas.cpp
-	$(CPP) $(CPPFLAGS) -c gas.cpp -o $@
+main.o: main.cpp
+	$(CPP) $(CPPFLAGS) -c main.cpp -o $@
 
 state.o: state.cpp state.h
 	$(CPP) $(CPPFLAGS) -c state.cpp -o $@
@@ -34,6 +32,9 @@ json.o: json.cpp json.h
 
 timer.o: timer.cpp timer.h
 	$(CPP) $(CPPFLAGS) -c timer.cpp -o $@
+
+inout.o: inout.cpp inout.h
+	$(CPP) $(CPPFLAGS) -c inout.cpp -o $@
 	
 date_time.o: date_time.cpp date_time.h
 	$(CPP) $(CPPFLAGS) -c date_time.cpp -o $@

@@ -8,11 +8,12 @@ gasCrisis/consts.h -text
 gasCrisis/date_time.cpp -text
 gasCrisis/date_time.h -text
 gasCrisis/errors.h -text
-gasCrisis/gas.cpp -text
+gasCrisis/inout.cpp -text
 gasCrisis/inout.h -text
 gasCrisis/json.cpp -text
 gasCrisis/json.h -text
 gasCrisis/logger.h -text
+gasCrisis/main.cpp -text
 gasCrisis/pipe.cpp -text
 gasCrisis/pipe.h -text
 gasCrisis/state.cpp -text

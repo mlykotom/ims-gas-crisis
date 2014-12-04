@@ -1,5 +1,4 @@
-#ifndef _CONSTS_H_
-#define _CONSTS_H_
+#pragma once
 
 #include <string>
 #include <map>
@@ -9,6 +8,8 @@
 
 #define DEBUG false
 
+extern std::string csvDelimiter;
+
 // zmena na casovy  generator misto std::random_device
 #define TIME_RANDOM_GENERATOR 1
 
@@ -17,10 +18,12 @@ namespace consts{
 	const std::string configFolder = "./config/";
 	// slozka s vystupem
 	const std::string outputFolder = "./output/";
+	// summary soubor
+	const std::string outputSummary = outputFolder + "summary.txt";
 	// vychozi delka ------- ve vypisech
 	const unsigned int defaultSizeOfPrint = 60;
 	// oddelovac pro csv soubory
-	const char csvDelimiter = ',';
+	const std::string defaultCsvDelimiter = ";";
 
 	// chybove kody
 	enum error_code{
@@ -94,5 +97,3 @@ namespace consts{
 		
 	};
 }
-
-#endif

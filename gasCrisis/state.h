@@ -2,10 +2,11 @@
 
 #include <string>
 #include <vector>
-#include <iostream> // pro printInfo
+#include <iostream>
 #include <fstream>
 #include <chrono>
 
+#include "inout.h"
 #include "consts.h"
 #include "date_time.h"
 #include "pipe.h"
