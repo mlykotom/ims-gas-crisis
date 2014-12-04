@@ -19,13 +19,15 @@ CPPFLAGS = -Wall -pedantic --std=c++11
 # Kompilace vseho
 ###########################
 
-all: $(PROG)
+all: $(PROG) create_folders
 
 ###########################
 
 $(PROG): main.o stateStats.o inout.o date_time.o timer.o pipe.o state.o json.o
 	$(CPP) $(CPPFLAGS) main.o stateStats.o inout.o date_time.o timer.o pipe.o state.o json.o -o $@
 
+###########################
+# Kompilace jednotlivych casti
 ###########################
 
 main.o: main.cpp
@@ -58,11 +60,17 @@ rebuild: clean all
 
 ###########################
 
-run: ./$(PROG)$(PROGSUFF)
+create_folders:
+	mkdir output
+
+###########################
+
+run: 
+	./$(PROG)$(PROGSUFF)
 
 ###########################
 
 clean:
-	$(RMPR) *.o *.out $(PROG)$(PROGSUFF)
+	$(RMPR) *.o *.out $(PROG)$(PROGSUFF);
 
 ###########################

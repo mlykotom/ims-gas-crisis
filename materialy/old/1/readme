@@ -1,0 +1,23 @@
+Projekt do predmetu IMS
+Okruh 6: SHO Počítačový server
+
+xkobli00 - Ondrej Koblizek
+xmarec12 - Matej Marecek
+
+
+Adresarova struktura:
+  doc - dokumentace
+  out - vystupy simulacniho programu
+  obj - objektove soubory, adresar je vytvoreny behem prekladu
+  src - zdrojove soubory
+
+Pouziti:
+  make
+    prelozi program
+  make run
+    spusti program a do slozky out vygeneruje grafy
+  ./ims params
+    rucni spusteni programu
+  make plot
+    pregenerovani grafu (bez spusteni programu)
+  

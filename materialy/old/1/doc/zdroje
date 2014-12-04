@@ -1,0 +1,170 @@
+CPU
+  Execution time (T) = CPI*Instruction count*clock time = CPI*Instruction count/frequency = 1.55*100000/40000000 = 1.55/400 = 3.87 ms.
+
+DB
+  The default POSTGRESQL configuration allocates 1000 shared buffers. Each buffer is 8 kilobytes. Increasing the number of buffers makes it more likely backends will find the information they need in the cache, thus avoiding an expensive operating system request. The change can be made with a postmaster command-line flag or by changing the value of shared_buffers in postgresql.conf.
+  Pagein activity is shown by system analysis tools like vmstat and sar and indicates there is not enough memory available to function efficiently. Do not confuse swap pageins with ordinary pageins, which may include pages read from the filesystem as part of normal system operation. If you can't find swap pageins, many pageouts is a good indicator you are are also doing swap pageins.
+  As a start for tuning, use 15% of RAM for cache size, and 2-4% for sort size if you have just a few big sessions, and much smaller if you have lots of small sessions. You can try increasing it to see if performance improves and if no swapping occurs. If the shared buffers are oversized, you waste overhead maintaining too many buffers, and it takes RAM that could be used by other processes and as additional kernel disk buffer cache.
+  A valuable server parameter is effective_cache_size. This parameter is used by the optimizer to estimate the size of the kernel's disk buffer cache. In kernels with a unified buffer cache, this value should be set to the average amount of unused RAM in the kernel because such kernels use unused RAM to cache recently accessed disk pages. On kernels with a fixed-sized disk buffer cache, this should be set to the size of your kernel buffer cache, typically 10% of RAM.
+
+  http://www.postgresql.org/docs/devel/static/runtime-config-resource.html
+
+  max_connections: the number of concurrent sessions
+    max_connections = 100        # Note:  Increasing max_connections costs ~400 bytes of shared memory per connection slot
+  work_mem : the maximal amount of memory to be used for intermediate results such as hash tables.
+    #work_mem = 1MB              # min 64kB
+                                 # pamet pro mezivýsledky, může urychlit zpracování náročných dotazů
+  shared_buffers the amount of memory dedicated to 'pinned' buffer space.
+    shared_buffers = 24MB        # min 128kB
+                                 # If you have a dedicated database server with 1GB or more of RAM, a reasonable starting value for shared_buffers is 25% of the memory in your system.
+  effective_cache_size the amount of memory assumed to be used by the OS's LRU buffers.
+    #effective_cache_size = 128MB
+  random_page_cost : an estimate for the relative cost of disk seeks.
+    #random_page_cost = 4.0
+
+  20 MB RAM MySQL zakladni obsazena po startu
+
+Disky
+  přístupová doba = od nízkých jednotek ms
+  hdparm -t // měření přenosových rychlostí
+  hdparm -T // měří rychlost přenosu z vyrovnávací paměti OS (z RAM)
+  přístup na disk většinou pomocí přímého přístupu do paměti (DMA)
+  čtení z disku:
+    1) přidělení vyrovnávací paměti (VP) a načtení bloku z disku (DISK->RAM)
+    2) kopie požadovaných dat do adresového prostoru procesu (RAM->RAM)
+  zápis na disk:
+    1) přidělení VP a čtení bloku do VP (pokud se nezapisuje na konec souboru) (DISK->RAM)
+    2) zápis dat do VP, nastaví se příznak modifikace dirty bit (RAM->RAM)
+    3) zpožděný zápis na disk, nuluje příznak (RAM->DISK)
+
+Hitachi HTS541616J9SA00 160GB cache 7516KB 
+buffered disk reads 37.89 MB/sec
+cached reads        835.44 MB/sec
+
+?? nazev ?? Matejuv notebook
+seq disk reads 81.00 MB/sec
+seq disk write 30.00 MB/sec
+
+RAM
+  DDR2-400 a DDR2-800
+    pracovní frekvence: 400 – 800 MHz, propustnost: 3,2 – 6,4 GB/s, 1,8 V,
+    128 MB až 8 GB
+
+  DDR3-800 a DDR3-1600
+    pracovní frekvence 800 – 1600 MHz, propustnost 6,4 GB/s – 12,8 GB/s,
+    napájecí napětí 1,5 V
+    kapacita: 8 GB (Infineon)
+
+
+
+Správa procesů
+  přepínání kontextu (dispatcher)
+  plánovač - přiděluje CPU procesům (scheduler)
+  správa paměti - přiděluje paměť (memory management)
+  podporu meziprocesové komunikace (IPC) signály, RPC
+
+
+struktura Process Control Block (PCB) zjednodušený pro účel simulace
+  PID
+  stav plánování (new, ready, running, waiting, terminated)
+  plánovací informace (priorita, ukazatele na plánovací fronty, ...)
+  informace spojené se správou paměti (tabulky stránek, ...)
+  informace spojené s účtováním (spotřeba procesoru, ...)
+  využití I/O zdrojů (otevřené soubory, používaná zařízení, ...)
+
+tabulka procesů (process table)
+  PID
+  stav plánování
+  údálost, na kterou se čeká
+  plánovací informace (priorita, spotřeba času, ...)
+  čekajcí signály
+  odkaz na tabulku paměťových regionů procesu
+
+předek všech uživatelských procesů je 'init' s PID=1 (viz pstree)
+procesy jádra (kernel processes), init není jejich předkem
+
+Plánovač
+  rozhoduje, který proces poběží a případně, jak dlouho.
+  Preemptivní plánování - ke změně běžícího procesu může dojít, aniž by tento jakkoliv přepnutí kontextu napamohl, a to na základě přerušení (typicky od časovače, ale může se jednat i o jiné přerušení)
+  Nepreemptivní plánování - ke změně běžícího procesu může dojít pouze tehdy, pokud to běžící proces umožní předáním řízení jádru (žádá o službu - typicky I/O operaci nebo se sám vzdá procesoru - volání yield).
+  vlastní přepnutí kontextu řeší na základě rozhodnutí plánovače tzv. dispečer.
+
+Přepnutí procesu (kotextu)
+  Přepnutí trvá typicky stovky až tisíce instrukcí (interval mezi přepnutím musí být volen tak, aby režie přepnutí nepřevážila běžný běh procesů).
+
+Plánovací algoritmy
+  First Come, First Served (FCFS)
+    Precesy čekají na přidělení procesoru ve FIFO frontě
+    Při vzníku procesu, jeho uvolnění z čekání, nebo vzdá-li se proces procesoru, je tento proces zařazen na konec fronty.
+    Procesor se přiděluje procesu na začátku fronty.
+    Algoritmus je nepreemptivní a k přepnutí kontextu dojde pouze tehdy, pokud se běžící proces vzdá procesoru (volání služeb např. pro I/O, konec, dobrovolné vzdání se procesoru - volání yield).
+
+  Round-robin - preemptivní obdoba FCFS
+    Pracuje podobně jako FCFS, navíc má ale každý proces přiděleno časové kvantum, po jehož vypršení je mu odebrán procesor a proces je zařazen na konec fronty připravených procesů.
+  
+  Shortest Job First (SJF)
+    Přiděluje procesor procesu, který požaduje nejkratší dobu pro své další provádění na procesoru bez vstup/výstupních operací (tzv. CPU burst).
+    Nepreemptivní algoritmus, který nepřerušuje proces před dokončením jeho aktuální výpočetní fáze.
+    Minimalizuje průměrnou dobu čekání, zvyšuje propustnost systému.
+    Nutno znát dopředu dobu běhu procesů na procesoru nebo mít možnost tuto rozumně odhadnout na základě předchozího chování.
+    Používá se ve specializovaných (např. dávkových) systémech.
+    
+  Shortest Remaining Time (SRT) - obdoba SJF s preempcí při vzniku či uvonění procesu.
+
+Víceúrovňové plánování se zpětnou vazbou
+  Víceúroňové prioritní plánování se 100 statickými prioritními úrovněmi
+    priority 1-99 pro procesy reálného času plánované FCFS nebo round-robin.
+    priorita 0 pro běžné procesy plánované tzv. O(1) nebo CFS plánovačem.
+    V rámci úrovně 0 se dále používají dynamické priority v rozmezí -20 (nejvyšší) až 19 (nejnižší):
+      Vychází z uživatelem nastavené statické základny dynamické priority (tzv. nice) - viz příkazy nice a renice.
+      Snižuje se při vysoké spotřebě CPU a zvyšuje při čekání na I/O.
+
+  Completely Fair Scheduler (CFS) jádro 2.6
+    Snaží se explicitně každému procesu poskytnout odpovídající procento strojového času (dle jejich priorit).
+    Vede si u každého procesu údaj o tom, kolik (virtuálního) procesorového času strávil.
+    Navíc si vede údaj o minimálním stráveném procesorovém čase, který dává nově připraveným procesům.
+    Procesy udržuje ve vyhledávací stromové struktuře (red-black strom) podle využitého procesorového času.
+    Vybírá jednoduše proces s nejmenším stráveným časem.
+    Procesy nechává běžet po dobu časového kvanta spočteného na základě priorit a pak je zařadí zpět do plánovacího stromu.
+    
+Amdahl's law
+http://www.ibm.com/developerworks/library/l-linux-smp/
+http://publib.boulder.ibm.com/infocenter/pseries/v5r3/index.jsp?topic=/com.ibm.aix.prftungd/doc/prftungd/smp_concepts_arch.htm
+To understand how SMP is initialized for a given architecture, check out the smp.c or smpboot.c files within the kernel at ./linux/arch/<arch>/kernel/ (for most architectures and platforms).
+
+Linux Kernel Development 3rd edition
+  http://www.google.cz/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&sqi=2&ved=0CCkQFjAB&url=http%3A%2F%2Fwww.mediafire.com%2F%3Fgcvznazk4z0v4t2&ei=rsCkUK-SMc_itQbC1YDgDQ&usg=AFQjCNG9mpDSXPpT-7kzcMGkb_EfyZd7qw
+
+Důležité utility
+  ps
+  top
+  iostat
+  vmstat
+
+Monitoring postgresql databáze
+  http://www.postgresql.org/docs/9.1/static/monitoring.html
+
+Monitoring apache
+  apachetop
+
+Další utility
+  w
+  uptime
+  who
+  sysctl -A | grep "sched"
+  cat /proc/loadavg
+  free
+  procinfo
+
+Load - počet running a uninterruptible procesů
+System load averages is the average number of processes that are either
+       in a runnable or uninterruptable state.  A process in a runnable  state
+       is  either  using the CPU or waiting to use the CPU. A process in unin‐
+       terruptable state is waiting for some I/O access, eg waiting for  disk.
+       The  averages  are  taken over the three time intervals.  Load averages
+       are not normalized for the number of CPUs in a system, so a load  aver‐
+       age  of 1 means a single CPU system is loaded all the time while on a 4
+       CPU system it means it was idle 75% of the time.
+ 
+
+

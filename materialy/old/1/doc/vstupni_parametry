@@ -1,0 +1,38 @@
+// globalni parametry
+
+sim.start     // zacatek simulace, sekundy
+sim.stop      // konec simulace, sekundy
+cpu.cores
+cpu.freq
+ram.size
+ram.access_time
+hd.size
+hd.access_time
+hd.read_speed
+hd.write_speed
+process.quantum ---
+db_server.buffer ---
+web_server.max_servers --
+web_server.max_free_servers--
+web_server.min_free_servers--
+process.exp   // exp(cas) dalsiho procesu---
+db_server.exp
+web_server.exp
+
+// parametry pro uzivatelsky proces
+
+process.ram   // pocet Bajtu
+process.read  // pocet Bajtu, cteni z HD
+process.cpu   // pocet instrukci
+
+// parametry pro DB pozadavek
+
+db_query.size      // pocet Bajtu
+db_query.locality  // integer
+
+// parametry pro WEB pozadavek
+
+web_query.cycles
+web_query.page_size
+web_query.locality --sirka rozlozeni
+

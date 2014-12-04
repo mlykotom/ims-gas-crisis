@@ -1,0 +1,5 @@
+Okruh 6: SHO Počítačový server
+
+Uvažujme systém jednoho počítače s N procesory a jedním paměťovým diskem. Systém modelujte jako SHO. V počítači vznikají a zanikají uživatelské procesy. Proces příchodů (vznikání) uživatelských procesů sami navrhněte a dále navrhněte model doby jejich výpočtu a požadavky na zdroje systému (přístup do DB serveru, přístup k disku).
+Kromě uživatelských procesů v systému pracuje i webový server a databázový server modelované jako zařízení s kapacitou jedna zpracovávaných požadavků. Na oba servery přichází z vnějšího okolí systému požadavky (modelujte proces příchodu a proces zpracování vhodnými rozloženími). Webový i databázový server s každým požadavkem přistupují k zařízení paměťového disku.
+V experimentech ukažte vytížení počítače a jeho zařízení (procesory, disky, servery).
