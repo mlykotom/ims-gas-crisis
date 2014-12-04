@@ -17,51 +17,51 @@
         {
             "name": "CZ",
             "production": 0.208,
-            "consumptSumm": 5.905,
+            "consumptSumm": 7.905,
             "consumptWint": 13.685,
-            "storageDefaultValue": 20000,
+            "storageDefaultValue": 29000,
             "storageCapacity": 29546,
-            "storageMaxWithdraw": 24.208,
-            "storageMaxStore": 18.291
+            "storageMaxWithdraw": 28.208,
+            "storageMaxStore": 21.291
         },
         {
             "name": "SK",
             "production": 0.125,
-            "consumptSumm": 4.118,
-            "consumptWint": 8.865,
-            "storageDefaultValue": 28000,
+            "consumptSumm": 5.118,
+            "consumptWint": 9.865,
+            "storageDefaultValue": 20000,
             "storageCapacity": 31570,
-            "storageMaxWithdraw": 6.625,
-            "storageMaxStore": 9.125
+            "storageMaxWithdraw": 9.625,
+            "storageMaxStore": 12.125
         },
         {
             "name": "UA",
             "production": 5,
             "consumptSumm": 41.185,
             "consumptWint": 88.625,
-            "storageDefaultValue": 300000,
+            "storageDefaultValue": 200000,
             "storageCapacity": 315714,
-            "storageMaxWithdraw": 66.416,
-            "storageMaxStore": 91.41
+            "storageMaxWithdraw": 71.416,
+            "storageMaxStore": 95.41
         },
         {
             "name": "PL",
             "production": 3.75,
-            "consumptSumm": 16.941,
-            "consumptWint": 23.034,
-            "storageDefaultValue": 19000,
+            "consumptSumm": 19.941,
+            "consumptWint": 24.034,
+            "storageDefaultValue": 15000,
             "storageCapacity": 20041,
-            "storageMaxWithdraw": 16.708,
-            "storageMaxStore": 9.416
+            "storageMaxWithdraw": 20.708,
+            "storageMaxStore": 14.416
         },
         {
             "name": "HU",
             "production": 2.583,
-            "consumptSumm": 6.799,
-            "consumptWint": 15.916,
+            "consumptSumm": 5.799,
+            "consumptWint": 12.916,
             "storageDefaultValue": 60000,
             "storageCapacity": 67870,
-            "storageMaxWithdraw": 22.958,
+            "storageMaxWithdraw": 23.958,
             "storageMaxStore": 15.333
         },
         {
@@ -126,14 +126,14 @@
             "from": "DE",
             "to": "CZ",
             "length": 15,
-            "flowSummer": 38.708,
+            "flowSummer": 35.708,
             "flowWinter": 40.291
         },
         {
             "from": "CZ",
             "to": "DE",
             "length": 15,
-            "flowSummer": 17.416,
+            "flowSummer": 20.416,
             "flowWinter": 32.375
         },
         {
@@ -161,15 +161,15 @@
             "from": "SK",
             "to": "AT",
             "length": 12,
-            "flowSummer": 41,
-            "flowWinter": 51.5
+            "flowSummer": 40,
+            "flowWinter": 50.5
         },
         {
             "from": "UA",
             "to": "SK",
             "length": 20,
-            "flowSummer": 39.083,
-            "flowWinter": 59.583
+            "flowSummer": 41.083,
+            "flowWinter": 61.583
         },
         {
             "from": "UA",
@@ -182,15 +182,15 @@
             "from": "RU",
             "to": "UA",
             "length": 20,
-            "flowSummer": 208.333,
-            "flowWinter": 208.333
+            "flowSummer": 114.333,
+            "flowWinter": 125.333
         },
         {
             "from": "RU",
             "to": "PL",
             "length": 30,
-            "flowSummer": 48.75,
-            "flowWinter": 49.166
+            "flowSummer": 46.75,
+            "flowWinter": 44.166
         },
         {
             "from": "PL",
@@ -210,8 +210,8 @@
             "from": "AT",
             "to": "HU",
             "length": 10,
-            "flowSummer": 5.666,
-            "flowWinter": 4.833
+            "flowSummer": 8.666,
+            "flowWinter": 6.833
         },
         {
             "from": "HU",

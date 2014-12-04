@@ -1,10 +1,22 @@
+/**
+** IMS - Modelovani a simulace
+**
+** projekt: Plynova krize v Evrope
+** autori:	Jakub Tutko, xtutko00@stud.fit.vutbr.cz
+**			Tomas Mlynaric, xmlyna06@stud.fit.vutbr.cz
+** rok:		2014/2015
+**/
+
+
 //----------------------------------------------------------------------------------------
 #include "date_time.h"
 //----------------------------------------------------------------------------------------
+// inkrementovanie casu o hodinu v objekte
 void cDateTime::addHour(void)
 {
 	mHour++;
 	
+	// ak presiel jeden den ikrementuje sa den
 	if (mHour <= 23)
 	{
 		return;
@@ -15,6 +27,7 @@ void cDateTime::addHour(void)
 		mDay++;
 	}
 
+	// ak presiel cely mesiac inkrementuje sa mesiac
 	if (mDay <= getMonthLenght())
 	{ 
 		return;
@@ -25,6 +38,7 @@ void cDateTime::addHour(void)
 		mMonth++;
 	}
 
+	// ak presiel cely rok inkrementuje sa rok
 	if (mMonth <= 12)
 	{
 		return;
@@ -36,6 +50,8 @@ void cDateTime::addHour(void)
 	}
 }
 //----------------------------------------------------------------------------------------
+// metoda vrati dlzku mesiaca ktory je aktualny v objekte
+// @return dlzka aktualneho mesiaca
 unsigned cDateTime::getMonthLenght(void)
 {
 	switch (mMonth)
@@ -44,6 +60,7 @@ unsigned cDateTime::getMonthLenght(void)
 		return 31;
 
 	case 2:
+		// zistovanie ci sa jedna o prestupny rok
 		if (((mYear % 4) == 0) && ((mYear % 100) == 0) && ((mYear % 400) == 0))
 			return 29;
 		else
@@ -84,6 +101,9 @@ unsigned cDateTime::getMonthLenght(void)
 	}
 }
 //----------------------------------------------------------------------------------------
+// metoda porovna dva casy i su totozne
+// @date datum na porovnanie
+// @return true => su rovnake, false => nie su rovnake
 bool cDateTime::equal(cDateTime& date)
 {
 	if (mHour != date.getHour())
@@ -108,8 +128,11 @@ bool cDateTime::equal(cDateTime& date)
 	}
 }
 //----------------------------------------------------------------------------------------
+// metoda oznami ake rocne obdobie je aktualne
+// @eturn leto => true, zima => false
 bool cDateTime::isSummer(void)
 {
+	// leto sa berie od 1.4. do 31.9.
 	if ((mMonth <= 3) || (mMonth >= 10))
 	{
 		return false;
@@ -120,6 +143,20 @@ bool cDateTime::isSummer(void)
 	}
 }
 //----------------------------------------------------------------------------------------
+// metoda ziska aktualny koeficient daneho mesiaca
+// koeficienty:
+//		 1 => 110
+//		 2 => 100
+//		 3 => 90
+//		 4 => 110
+//		 5 => 100
+//		 6 => 90
+//		 7 => 90
+//		 8 => 100
+//		 9 => 110
+//		10 => 90
+//		11 => 100
+//		12 => 110
 double cDateTime::getCoeficient()
 {
 	if (mMonth <= 3)

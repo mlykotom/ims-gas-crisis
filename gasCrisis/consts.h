@@ -23,7 +23,7 @@ namespace consts{
 	// vychozi delka ------- ve vypisech
 	const unsigned int defaultSizeOfPrint = 60;
 	// oddelovac pro csv soubory
-	const std::string defaultCsvDelimiter = ";";
+	const std::string defaultCsvDelimiter = ",";
 
 	// chybove kody
 	enum error_code{

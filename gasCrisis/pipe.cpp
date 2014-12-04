@@ -1,6 +1,16 @@
+/**
+** IMS - Modelovani a simulace
+**
+** projekt: Plynova krize v Evrope
+** autori:	Jakub Tutko, xtutko00@stud.fit.vutbr.cz
+**			Tomas Mlynaric, xmlyna06@stud.fit.vutbr.cz
+** rok:		2014/2015
+**/
+
 //----------------------------------------------------------------------------------------
 #include "pipe.h"
 //----------------------------------------------------------------------------------------
+// konstruktor potrubia ktory nastavy vsetky pozadovane parametre potrubia
 cPipe::cPipe(unsigned id, const std::string& source, const std::string& destination, unsigned lenght, double flowSummer, double flowWinter):
 	mId(id),
 	mSource(source),
@@ -28,6 +38,8 @@ cPipe::~cPipe(void)
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
+// metoda ziska poslednu hodnotu na potruby a vymaze ju
+// @return vratenie poslednej hodnoty na potruby
 double cPipe::getGas(void)
 {
 	double value;
@@ -38,10 +50,12 @@ double cPipe::getGas(void)
 	return value;
 }
 //----------------------------------------------------------------------------------------
+// metoda vygeneruje a vlozi hodnotu na potrubie
 double cPipe::putGas(void)
 {
-	double value;
+	double value = 0;
 
+	// ak sa v danom rocnom obdobi nieco generuje tak sa to vygeneruje
 	if ((mSummer && (mFlowSummer > 0)) || (!mSummer && (mFlowWinter > 0)))
 	{
 		value = mDistribution(mGenerator);
@@ -51,15 +65,18 @@ double cPipe::putGas(void)
 		value = 0;
 	}
 
+	// vlozenie hodnoty do potrubia
 	mFlows.push_front(value);
 
 	return value;
 }
 //----------------------------------------------------------------------------------------
+// oznamenie potrubiu ze nastalo leto
 void cPipe::setSummer(void)
 {
 	mSummer = true;
 
+	// vygenerovanie noveho distributoru podla rocneho obdobia
 	if (mFlowSummer > 0)
 	{
 		std::poisson_distribution<int> tmp(mFlowSummer);
@@ -67,10 +84,12 @@ void cPipe::setSummer(void)
 	}
 }
 //----------------------------------------------------------------------------------------
+// oznamenie potrubiu ze nastala zima
 void cPipe::setWinter(void)
 {
 	mSummer = false;
-	
+
+	// vygenerovanie noveho distributoru podla rocneho obdobia
 	if (mFlowWinter > 0)
 	{
 		std::poisson_distribution<int> tmp(mFlowWinter);
@@ -78,6 +97,8 @@ void cPipe::setWinter(void)
 	}
 }
 //----------------------------------------------------------------------------------------
+// ziskanie id potrubia
+// @return id potrubia
 unsigned cPipe::getId(void)
 {
 	return mId;
