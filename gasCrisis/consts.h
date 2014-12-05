@@ -24,6 +24,7 @@ namespace consts{
 	const unsigned int defaultSizeOfPrint = 60;
 	// oddelovac pro csv soubory
 	const std::string defaultCsvDelimiter = ",";
+	//const std::string defaultWordBorder = "\"";
 
 	// chybove kody
 	enum error_code{
@@ -50,13 +51,15 @@ namespace consts{
 
 	// trida pro ukladani dennich statistik
 	struct sDayStat{
+		double income;
+		double outcome;
 		double production;
 		double consumption;
 		double overflow;
 		double deficit;
 		double storageStat;
-		sDayStat() : production(0), consumption(0), overflow(0), deficit(0), storageStat(0) {}
-		void reset(){ production = 0; consumption = 0; overflow = 0; deficit = 0; storageStat = 0; }
+		sDayStat() : income(0), outcome(0), production(0), consumption(0), overflow(0), deficit(0), storageStat(0) {}
+		void reset(){ income = 0; outcome = 0; production = 0; consumption = 0; overflow = 0; deficit = 0; storageStat = 0; }
 	};
 
 	// povinne parametry configu

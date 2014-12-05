@@ -23,6 +23,8 @@
 cState::cState(const std::string name, cLogger &logger, double consumSummer, double consumWinter, double storageDefaultValue, double storageCapacity, double maxStorWith, double maxStorStore, double production):
 mName(name),
 mLogger(logger),
+mAvgSummerIncome(0),
+mAvgWinterIncome(0),
 mLastKnownTime(),
 mDayStat(),
 mConsumSummer(consumSummer),
@@ -31,9 +33,7 @@ mStorageCapacity(storageCapacity),
 mStorageMaxWithdraw(maxStorWith),
 mStorageMaxStore(maxStorStore),
 mStorageStat(storageDefaultValue),
-mProduction(production),
-mAvgSummerIncome(0),
-mAvgWinterIncome(0)
+mProduction(production)
 {	
 	// vygenerovanie noveho distributoru pre produkciu
 	if (mProduction > 0)
@@ -191,9 +191,11 @@ void cState::behaviour(cDateTime * actDateTime)
 	}
 
 	// pripocteni denni statistiky
+	mDayStat.income += income;
+	mDayStat.outcome += outcome;
 	mDayStat.consumption += consumption;
 	mDayStat.production += production;	
-
+	// ulozi statistiku pouze pokud je novy den
 	if (actDateTime->getDay() != mLastKnownTime.getDay()){
 		mLastKnownTime = *actDateTime;
 		// na konci dne kvuli propoctum
@@ -384,18 +386,20 @@ std::string cState::getStats(bool total, bool summer, bool winter, bool consumpt
 	}
 
 	// hlavicka souboru pro stat
-	std::vector<std::string> header = { "Day", "Production", "Consumption", "Overflow", "Deficit", "StorageStat" };
+	std::vector<std::string> header = { "Day", "Income", "Outcome", "Production", "Consumption", "Overflow", "Deficit", "StorageStat" };
 
-	for (auto h : header) out << h << csvDelimiter;
+	for (auto h : header) out << '"' << h << '"' << csvDelimiter;
 	out << std::endl;
 
 	for (auto st : dayConstumptStats){
-		out << st.first << csvDelimiter;
-		out << st.second.production << csvDelimiter;
-		out << st.second.consumption << csvDelimiter;
-		out << st.second.overflow << csvDelimiter;
-		out << st.second.deficit << csvDelimiter;
-		out << st.second.storageStat << csvDelimiter;
+		out << '"' << st.first << '"' << csvDelimiter;
+		out << '"' << st.second.income << '"' << csvDelimiter;
+		out << '"' << st.second.outcome << '"' << csvDelimiter;
+		out << '"' << st.second.production << '"' << csvDelimiter;
+		out << '"' << st.second.consumption << '"' << csvDelimiter;
+		out << '"' << st.second.overflow << '"' << csvDelimiter;
+		out << '"' << st.second.deficit << '"' << csvDelimiter;
+		out << '"' << st.second.storageStat << '"' << csvDelimiter;
 		out << std::endl;
 	}
 

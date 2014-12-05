@@ -48,13 +48,13 @@ public:
 
 	std::string render(bool h = false){
 		std::ostringstream ret;
-		if (mDay < 10) ret << '0';
-		ret << mDay;
-			ret << '.';			
+		ret << mYear;
+			ret << '-';
 		if (mMonth < 10) ret << '0';
 		ret << mMonth;
-			ret << '.';
-		ret << mYear;
+			ret << '-';
+		if (mDay < 10) ret << '0';
+		ret << mDay;
 
 		if (h) ret << ' ' << mHour;
 
