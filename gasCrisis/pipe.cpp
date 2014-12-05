@@ -52,10 +52,11 @@ double cPipe::getGas(void)
 //----------------------------------------------------------------------------------------
 // metoda vygeneruje a vlozi hodnotu na potrubie
 // @coeficient koeficient pre pridavanie hodnoty na potrubie
-double cPipe::putGas(double coeficient)
+double cPipe::putGas(double coeficient, bool fake)
 {
 	double value = 0;
 
+	if (fake == true)
 	// ak sa v danom rocnom obdobi nieco generuje tak sa to vygeneruje
 	if ((mSummer && (mFlowSummer > 0)) || (!mSummer && (mFlowWinter > 0)))
 	{
@@ -65,7 +66,17 @@ double cPipe::putGas(double coeficient)
 	{
 		value = 0;
 	}
-
+	else
+	{
+		if (mSummer == true)
+		{
+			value = mFlowSummer * coeficient;
+		}
+		else
+		{
+			value = mFlowWinter * coeficient;
+		}
+	}
 	// vlozenie hodnoty do potrubia
 	mFlows.push_front(value);
 

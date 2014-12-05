@@ -93,7 +93,7 @@ public:
 
 protected:
 	double getGasFromPipes(void);
-	double pushGasIntoPipes(double coeficient);
+	double pushGasIntoPipes(double coeficient, bool fake);
 	double product(void);
 	double consum(void);
 };

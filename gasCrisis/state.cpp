@@ -103,9 +103,9 @@ void cState::behaviour(cDateTime * actDateTime)
 
 	// na potrubia sa posle percentualny podiel prijatych hodnot
 	if (mSummer == true)
-		outcome = pushGasIntoPipes(income / mAvgSummerIncome);
+		outcome = pushGasIntoPipes(income / mAvgSummerIncome, false);
 	else
-		outcome = pushGasIntoPipes(income / mAvgWinterIncome);
+		outcome = pushGasIntoPipes(income / mAvgWinterIncome, false);
 
 	// ulozenie statistik
 	mStats->addConsumption(consumption, mSummer);
@@ -235,7 +235,7 @@ double cState::getGasFromPipes(void)
 //----------------------------------------------------------------------------------------
 // metoda naplni vsetky potrubia ktore vedu zo statu, potrubie si hodnoty generuje samo
 // @return celkove mnozstvo odoslaneho plynu
-double cState::pushGasIntoPipes(double coeficient)
+double cState::pushGasIntoPipes(double coeficient, bool fake)
 {
 	double amount = 0;
 	double actualAmount;
@@ -244,7 +244,7 @@ double cState::pushGasIntoPipes(double coeficient)
 	for (unsigned i = 0; i < mPipesOut.size(); i++)
 	{
 		// ziskanie aktualnej hodnoty a pripocitanie ku celkovej hodnote
-		actualAmount = mPipesOut[i]->putGas(coeficient);
+		actualAmount = mPipesOut[i]->putGas(coeficient, fake);
 		amount += actualAmount;
 
 		// ulozenie statistiky
@@ -429,7 +429,7 @@ cFakeState::~cFakeState()
 void cFakeState::behaviour(cDateTime * actDateTime)
 {
 	getGasFromPipes();
-	pushGasIntoPipes(1);
+	pushGasIntoPipes(1, true);
 }
 //----------------------------------------------------------------------------------------
 // pretazenie metody na vypis statistik aby sa fakove staty neuvadzali do statistik

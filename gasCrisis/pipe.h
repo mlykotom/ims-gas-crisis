@@ -40,7 +40,7 @@ private:
 
 public:
 	double getGas(void);
-	double putGas(double coeficient);
+	double putGas(double coeficient, bool fake);
 
 	unsigned getId(void);
 	double getSummerFlow(void);
