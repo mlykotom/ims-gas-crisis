@@ -23,7 +23,7 @@
  */
 void ParseConfig(std::string fileName, cLogger &logger, cTimer *timer){
 	// --------------------------- deserializace konfigurace
-	json::Value cfg_data = json::Deserialize(inout::ReadWholeFile(fileName));
+	json::Value cfg_data = json::Deserialize(inout::ReadWholeFile(fileName, consts::scenarioFileExt));
 
 	// --------------------------- overeni zda je prvni objekt 
 	if (cfg_data.GetType() != json::ObjectVal) throw PrgException(consts::E_CFG_FILE_FORMAT);
@@ -116,11 +116,13 @@ void ParseConfig(std::string fileName, cLogger &logger, cTimer *timer){
 	}	
 }
 
+// definovano v consts.h jako externi promenne 
 std::string csvDelimiter;
+std::string scenarioFile;
 
 int main(int argc, char * argv[]) {
 	try{
-		std::string fileName("cfg.json");
+		std::string fileName("cfg");
 		csvDelimiter = consts::defaultCsvDelimiter;
 		// ------------ osetreni parametru
 		switch (argc){
@@ -135,7 +137,7 @@ int main(int argc, char * argv[]) {
 					std::cout << "x\t\t  Simulace plynove krize v Evrope  \tx" << std::endl;
 					std::cout << std::string(consts::defaultSizeOfPrint, '-') << std::endl;
 					std::cout << "Nepovinne parametry:" << std::endl;
-					std::cout << "  1) <cfg.json> \tNastaveni scenare ze slozky config" << std::endl;
+					std::cout << "  1) <cfg> \tNastaveni scenare ze slozky config (soubor s koncovkou .json)" << std::endl;
 					std::cout << "  2) <delimiter> \tNastaveni oddelovace pro CSV soubor (typicky ; nebo ,)" << std::endl;
 					std::cout << std::string(consts::defaultSizeOfPrint, 'x') << std::endl;
 					return 0;
@@ -158,6 +160,8 @@ int main(int argc, char * argv[]) {
 		// ------------ overeni + parsovani configu
 		cTimer timer;
 		ParseConfig(fileName, logger, &timer);
+		// nastaveni globalniho parametru nazvu pouziteho scenare
+		scenarioFile = fileName;
 
 		// zacatek simulace
 		timer.start();

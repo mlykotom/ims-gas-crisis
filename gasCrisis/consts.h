@@ -8,7 +8,9 @@
 
 #define DEBUG false
 
+// globalni promenne zajistujici nastaveni parametru
 extern std::string csvDelimiter;
+extern std::string scenarioFile;
 
 // zmena na casovy  generator misto std::random_device
 #define TIME_RANDOM_GENERATOR 1
@@ -18,8 +20,13 @@ namespace consts{
 	const std::string configFolder = "./config/";
 	// slozka s vystupem
 	const std::string outputFolder = "./output/";
+	// koncovka souboru se scenarem
+	const std::string scenarioFileExt = ".json";
 	// summary soubor
-	const std::string outputSummary = outputFolder + "summary.txt";
+	const std::string outputSummary = "summary";
+	const std::string outputSummaryExt = ".txt";
+	// koncovka souboru statu
+	const std::string outputStateExt = ".csv";
 	// vychozi delka ------- ve vypisech
 	const unsigned int defaultSizeOfPrint = 60;
 	// oddelovac pro csv soubory

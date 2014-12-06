@@ -379,9 +379,9 @@ std::string cState::getStats(bool total, bool summer, bool winter, bool consumpt
 	retStr = mStats->getStats(total, summer, winter, consumption, production, storage, overflow, deficit, incomeFlows, outcomeFlows);
 	
 	// denni statistiky
-	std::ofstream out(consts::outputFolder + this->getName() + ".csv");
+	std::ofstream out(consts::outputFolder + scenarioFile + '_' + this->getName() + consts::outputStateExt);
 	if (!out.is_open()){
-		std::cerr << inout::ShowError("Nelze otevrit soubor " + consts::outputFolder + this->getName() + ".csv");
+		std::cerr << inout::ShowError("Nelze otevrit soubor " + consts::outputFolder + scenarioFile + '_' + this->getName() + ".csv");
 		return "";
 	}
 

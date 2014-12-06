@@ -84,9 +84,9 @@ void cTimer::start(void)
 	}
 
 	// otvorenie suboru pre vypisanie statistik
-	std::ofstream outSummary(consts::outputSummary);
+	std::ofstream outSummary(consts::outputFolder + scenarioFile + '_' + consts::outputSummary + consts::outputSummaryExt);
 	if (!outSummary.is_open()){
-		std::cerr << inout::ShowError("Nelze otevrit soubor " + consts::outputSummary);
+		std::cerr << inout::ShowError("Nelze otevrit soubor " + consts::outputFolder + scenarioFile + '_' + consts::outputSummary + consts::outputSummaryExt);
 		return;
 	}
 

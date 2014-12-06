@@ -22,5 +22,5 @@ namespace inout{
 	* @param std::string fileName
 	* @return std::string
 	*/
-	std::string ReadWholeFile(std::string fileName);
+	std::string ReadWholeFile(std::string fileName, std::string fileExtension = "");
 }

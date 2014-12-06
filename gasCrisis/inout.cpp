@@ -21,8 +21,8 @@ namespace inout{
 	}
 
 	// ---------------- nacte cely soubor do stringu ---------------- //
-	std::string ReadWholeFile(std::string fileName){
-		std::ifstream file(consts::configFolder + fileName);
+	std::string ReadWholeFile(std::string fileName, std::string fileExtension){
+		std::ifstream file(consts::configFolder + fileName + fileExtension);
 
 		if (!file.is_open()) throw PrgException(consts::E_CFG_FILE_OPEN);
 
