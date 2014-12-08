@@ -74,8 +74,8 @@ void cState::addPipelineIn(cPipe* pipe)
 {
 	this->mPipesIn.push_back(pipe);
 
-	mAvgSummerIncome += pipe->getFlowSummer();
-	mAvgWinterIncome += pipe->getFlowWinter();
+	mAvgSummerIncome += pipe->getExpectedFlowSummer();
+	mAvgWinterIncome += pipe->getExpectedFlowWinter();
 }
 //----------------------------------------------------------------------------------------
 // metoda prida do statu potrubie ktore z neho smeruje

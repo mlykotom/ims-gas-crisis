@@ -102,7 +102,7 @@ void ParseConfig(std::string fileName, cLogger &logger, cTimer *timer){
 		if (p.HasKeys(consts::cfgPipeParams) != -1) throw PrgException(consts::E_CFG_PIPE_MISSING_PARAM);
 
 		// parametry musi byt >= 0
-		if (p["length"].ToInt() < 0 || p["flowSummer"].ToDouble() < 0 || p["flowWinter"].ToDouble() < 0) throw PrgException(consts::E_CFG_PARAM_LOW);
+		if (p["length"].ToInt() < 0 || p["flowSummer"].ToDouble() < 0 || p["flowWinter"].ToDouble() < 0 || p["expectedFlowSummer"].ToDouble() < 0 || p["expectedFlowWinter"].ToDouble() < 0) throw PrgException(consts::E_CFG_PARAM_LOW);
 
 		cState *stateFrom = timer->getState(p["from"].ToString());
 		cState *stateTo = timer->getState(p["to"].ToString());
@@ -110,7 +110,7 @@ void ParseConfig(std::string fileName, cLogger &logger, cTimer *timer){
 		// kontrola zda oba staty existuji
 		if (stateFrom == nullptr || stateTo == nullptr) throw PrgException(consts::E_CFG_PIPE_MISSING_STATE);
 
-		cPipe *pipe = new cPipe(5, stateFrom->getName(), stateTo->getName(), (unsigned)p["length"].ToInt(), p["flowSummer"].ToDouble(), p["flowWinter"].ToDouble());
+		cPipe *pipe = new cPipe(5, stateFrom->getName(), stateTo->getName(), (unsigned)p["length"].ToInt(), p["expectedFlowSummer"].ToDouble(), p["expectedFlowWinter"].ToDouble(), p["flowSummer"].ToDouble(), p["flowWinter"].ToDouble());
 		stateFrom->addPipelineOut(pipe);
 		stateTo->addPipelineIn(pipe);
 	}	

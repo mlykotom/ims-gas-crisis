@@ -17,7 +17,7 @@
 class cPipe
 {
 public:
-	cPipe(unsigned id, const std::string& source, const std::string& destination, unsigned lenght, double flowSummer, double flowWinter);
+	cPipe(unsigned id, const std::string& source, const std::string& destination, unsigned lenght, double expectedFlowSummer, double expectedFlowWinter, double flowSummer, double flowWinter);
 	~cPipe(void);
 
 private:
@@ -31,6 +31,8 @@ private:
 
 	unsigned mLenght;
 
+	double mExpectedFlowSummer;
+	double mExpectedFlowWinter;
 	double mFlowSummer;
 	double mFlowWinter;
 
@@ -53,6 +55,6 @@ public:
 	std::string getDestination(){ return mDestination; }
 
 	unsigned getLength()	{ return mLenght; }
-	double getFlowSummer()	{ return mFlowSummer; }
-	double getFlowWinter()	{ return mFlowWinter; }
+	double getExpectedFlowSummer()	{ return mExpectedFlowSummer; }
+	double getExpectedFlowWinter()	{ return mExpectedFlowWinter; }
 };

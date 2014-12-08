@@ -13,7 +13,7 @@ extern std::string csvDelimiter;
 extern std::string scenarioFile;
 
 // zmena na casovy  generator misto std::random_device
-#define TIME_RANDOM_GENERATOR 1
+#define TIME_RANDOM_GENERATOR 0
 
 namespace consts{
 	// slozka se scenari
@@ -76,7 +76,7 @@ namespace consts{
 	// povinne parametry statu
 	const std::vector<std::string> cfgStateParams = { "name", "production", "consumptSumm", "consumptWint", "storageDefaultValue", "storageCapacity", "storageMaxWithdraw", "storageMaxStore" };
 	// povinne parametry potrubi
-	const std::vector<std::string> cfgPipeParams = { "from", "to", "length", "flowSummer", "flowWinter" };
+	const std::vector<std::string> cfgPipeParams = { "from", "to", "length", "expectedFlowSummer", "expectedFlowWinter", "flowSummer", "flowWinter" };
 
 	// chybove hlasky programu
 	const std::map<error_code, std::string> exceptionCodes = {

@@ -11,11 +11,13 @@
 #include "pipe.h"
 //----------------------------------------------------------------------------------------
 // konstruktor potrubia ktory nastavy vsetky pozadovane parametre potrubia
-cPipe::cPipe(unsigned id, const std::string& source, const std::string& destination, unsigned lenght, double flowSummer, double flowWinter):
+cPipe::cPipe(unsigned id, const std::string& source, const std::string& destination, unsigned lenght,  double expectedFlowSummer, double expectedFlowWinter, double flowSummer, double flowWinter):
 	mId(id),
 	mSource(source),
 	mDestination(destination),
 	mLenght(lenght),
+	mExpectedFlowSummer(expectedFlowSummer),
+	mExpectedFlowWinter(expectedFlowWinter),
 	mFlowSummer(flowSummer),
 	mFlowWinter(flowWinter)
 {
