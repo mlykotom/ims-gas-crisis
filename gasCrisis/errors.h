@@ -1,3 +1,13 @@
+/**
+** IMS - Modelovani a simulace
+**
+** projekt: Plynova krize v Evrope
+** autori:	Jakub Tutko, xtutko00@stud.fit.vutbr.cz
+**			Tomas Mlynaric, xmlyna06@stud.fit.vutbr.cz
+** rok:		2014/2015
+**/
+
+
 #ifndef _ERRORS_H_
 #define _ERRORS_H_
 
