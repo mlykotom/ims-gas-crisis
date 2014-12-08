@@ -200,8 +200,8 @@
             "length": 20,
             "expectedFlowSummer": 114.333,
             "expectedFlowWinter": 140.443,
-            "flowSummer": 114.333,
-            "flowWinter": 140.443
+            "flowSummer": 0,
+            "flowWinter": 0
         },
         {
             "from": "RU",

@@ -1,6 +1,7 @@
 * text=auto !eol
 /gasCrisis.sln -text
 gasCrisis/Makefile -text
+gasCrisis/config/UAcrisis.json -text
 gasCrisis/config/cfg.json -text
 gasCrisis/consts.h -text
 gasCrisis/date_time.cpp -text
