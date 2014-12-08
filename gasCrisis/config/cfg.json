@@ -27,8 +27,8 @@
         {
             "name": "SK",
             "production": 0.125,
-            "consumptSumm": 5.118,
-            "consumptWint": 9.865,
+            "consumptSumm": 6.118,
+            "consumptWint": 10.865,
             "storageDefaultValue": 20000,
             "storageCapacity": 31570,
             "storageMaxWithdraw": 9.625,
@@ -48,21 +48,32 @@
             "name": "PL",
             "production": 3.75,
             "consumptSumm": 19.941,
-            "consumptWint": 24.034,
-            "storageDefaultValue": 15000,
+            "consumptWint": 24.024,
+            "storageDefaultValue": 17000,
             "storageCapacity": 20041,
-            "storageMaxWithdraw": 20.708,
-            "storageMaxStore": 14.416
+            "storageMaxWithdraw": 21.708,
+            "storageMaxStore": 15.416
         },
         {
             "name": "HU",
             "production": 2.583,
             "consumptSumm": 5.799,
-            "consumptWint": 12.916,
+            "consumptWint": 12.896,
             "storageDefaultValue": 60000,
             "storageCapacity": 67870,
             "storageMaxWithdraw": 23.958,
             "storageMaxStore": 15.333
+        },
+        {
+            "name": "LNG",
+            "production": 0,
+            "fake": true,
+            "consumptSumm": 0,
+            "consumptWint": 0,
+            "storageDefaultValue": 0,
+            "storageCapacity": 0,
+            "storageMaxWithdraw": 0,
+            "storageMaxStore": 0
         },
         {
             "name": "RU",
@@ -126,6 +137,8 @@
             "from": "DE",
             "to": "CZ",
             "length": 15,
+            "expectedFlowSummer": 35.708,
+            "expectedFlowWinter": 40.291,
             "flowSummer": 35.708,
             "flowWinter": 40.291
         },
@@ -133,6 +146,8 @@
             "from": "CZ",
             "to": "DE",
             "length": 15,
+            "expectedFlowSummer": 20.416,
+            "expectedFlowWinter": 32.375,
             "flowSummer": 20.416,
             "flowWinter": 32.375
         },
@@ -140,6 +155,8 @@
             "from": "CZ",
             "to": "PL",
             "length": 11,
+            "expectedFlowSummer": 0,
+            "expectedFlowWinter": 0.958,
             "flowSummer": 0,
             "flowWinter": 0.958
         },
@@ -147,6 +164,8 @@
             "from": "CZ",
             "to": "SK",
             "length": 9,
+            "expectedFlowSummer": 8.5,
+            "expectedFlowWinter": 3.75,
             "flowSummer": 8.5,
             "flowWinter": 3.75
         },
@@ -154,6 +173,8 @@
             "from": "SK",
             "to": "CZ",
             "length": 9,
+            "expectedFlowSummer": 2.291,
+            "expectedFlowWinter": 5.791,
             "flowSummer": 2.291,
             "flowWinter": 5.791
         },
@@ -161,6 +182,8 @@
             "from": "SK",
             "to": "AT",
             "length": 12,
+            "expectedFlowSummer": 40,
+            "expectedFlowWinter": 50.5,
             "flowSummer": 40,
             "flowWinter": 50.5
         },
@@ -168,13 +191,17 @@
             "from": "UA",
             "to": "SK",
             "length": 20,
+            "expectedFlowSummer": 41.083,
+            "expectedFlowWinter": 63.603,
             "flowSummer": 41.083,
-            "flowWinter": 61.583
+            "flowWinter": 63.603
         },
         {
             "from": "UA",
             "to": "PL",
             "length": 20,
+            "expectedFlowSummer": 7.291,
+            "expectedFlowWinter": 8,
             "flowSummer": 7.291,
             "flowWinter": 8
         },
@@ -182,20 +209,35 @@
             "from": "RU",
             "to": "UA",
             "length": 20,
+            "expectedFlowSummer": 114.333,
+            "expectedFlowWinter": 140.443,
             "flowSummer": 114.333,
-            "flowWinter": 125.333
+            "flowWinter": 140.443
+        },
+        {
+            "from": "LNG",
+            "to": "PL",
+            "length": 1,
+            "expectedFlowSummer": 44.75,
+            "expectedFlowWinter": 43.166,
+            "flowSummer": 44.75,
+            "flowWinter": 43.166
         },
         {
             "from": "RU",
             "to": "PL",
             "length": 30,
-            "flowSummer": 46.75,
-            "flowWinter": 44.166
+            "expectedFlowSummer": 44.75,
+            "expectedFlowWinter": 43.166,
+            "flowSummer": 44.75,
+            "flowWinter": 43.166
         },
         {
             "from": "PL",
             "to": "DE",
             "length": 15,
+            "expectedFlowSummer": 34.416,
+            "expectedFlowWinter": 37.125,
             "flowSummer": 34.416,
             "flowWinter": 37.125
         },
@@ -203,6 +245,8 @@
             "from": "DE",
             "to": "PL",
             "length": 15,
+            "expectedFlowSummer": 1.083,
+            "expectedFlowWinter": 1.75,
             "flowSummer": 1.083,
             "flowWinter": 1.75
         },
@@ -210,6 +254,8 @@
             "from": "AT",
             "to": "HU",
             "length": 10,
+            "expectedFlowSummer": 8.666,
+            "expectedFlowWinter": 6.833,
             "flowSummer": 8.666,
             "flowWinter": 6.833
         },
@@ -217,6 +263,8 @@
             "from": "HU",
             "to": "CR",
             "length": 10,
+            "expectedFlowSummer": 0.083,
+            "expectedFlowWinter": 0.25,
             "flowSummer": 0.083,
             "flowWinter": 0.25
         },
@@ -224,6 +272,8 @@
             "from": "HU",
             "to": "SB",
             "length": 10,
+            "expectedFlowSummer": 1.666,
+            "expectedFlowWinter": 1.625,
             "flowSummer": 1.666,
             "flowWinter": 1.625
         },
@@ -231,6 +281,8 @@
             "from": "HU",
             "to": "UA",
             "length": 20,
+            "expectedFlowSummer": 1.375,
+            "expectedFlowWinter": 1.083,
             "flowSummer": 1.375,
             "flowWinter": 1.083
         }
